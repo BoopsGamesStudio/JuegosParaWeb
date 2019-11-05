@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public enum cornerNames { North, East, South, West }
 
+    [SerializeField] List<Item> inventory;
     [SerializeField] GameObject center;
     [SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        inventory = new List<Item>();
     }
 
     // Update is called once per frame
@@ -26,28 +27,41 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(inventory.Count);
+        }
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        switch(col.gameObject.name)
+        if (col.gameObject.CompareTag("Item"))
         {
-            case "Trigger 1,1":
-                previousCorner = currentCorner;
-                currentCorner = cornerNames.West;
-                break;
-            case "Trigger -1,1":
-                previousCorner = currentCorner;
-                currentCorner = cornerNames.South;
-                break;
-            case "Trigger 1,-1":
-                previousCorner = currentCorner;
-                currentCorner = cornerNames.North;
-                break;
-            case "Trigger -1,-1":
-                previousCorner = currentCorner;
-                currentCorner = cornerNames.East;
-                break;
+            Item newItem = new Item(col.gameObject.name);
+            Destroy(col.gameObject);
+
+            inventory.Add(newItem);
+        } else {
+            switch (col.gameObject.name)
+            {
+                case "TriggerWest":
+                    previousCorner = currentCorner;
+                    currentCorner = cornerNames.West;
+                    break;
+                case "TriggerSouth":
+                    previousCorner = currentCorner;
+                    currentCorner = cornerNames.South;
+                    break;
+                case "TriggerNorth":
+                    previousCorner = currentCorner;
+                    currentCorner = cornerNames.North;
+                    break;
+                case "TriggerEast":
+                    previousCorner = currentCorner;
+                    currentCorner = cornerNames.East;
+                    break;
+            }
         }
     }
 }
