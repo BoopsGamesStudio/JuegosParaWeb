@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
+    float turningTime;
+    [SerializeField] float speed;
+    Vector3 currentAngle;
+    Vector3 targetRot;
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,9 +19,69 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        switch (player.GetComponent<PlayerController>().currentCorner)
         {
-            this.transform.Rotate(new Vector3(0, Input.GetAxisRaw("Horizontal") * 90, 0));
+            case PlayerController.cornerNames.West:
+                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.South) {
+                    rotateTo(90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.West;
+                } else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.North)
+                {
+                    rotateTo(-90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.West;
+                }
+                break;
+            case PlayerController.cornerNames.South:
+                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.East)
+                {
+                    rotateTo(90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.South;
+                }
+                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.West)
+                {
+                    rotateTo(-90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.South;
+                }
+                break;
+            case PlayerController.cornerNames.North:
+                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.West)
+                {
+                    rotateTo(90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.North;
+                }
+                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.East)
+                {
+                    rotateTo(-90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.North;
+                }
+                break;
+            case PlayerController.cornerNames.East:
+                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.North)
+                {
+                    rotateTo(90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.East;
+                }
+                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.South)
+                {
+                    rotateTo(-90);
+                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.East;
+                }
+                break;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            rotateTo(Input.GetAxisRaw("Horizontal") * 90);
+        }
+
+        currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
+        this.transform.eulerAngles = currentAngle;
+    }
+
+    void rotateTo(float angle)
+    {
+        currentAngle = this.transform.eulerAngles;
+        targetRot = targetRot + new Vector3(0, angle, 0);
+        turningTime = Time.deltaTime * speed;
     }
 }
