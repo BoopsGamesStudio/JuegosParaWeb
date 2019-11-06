@@ -32,7 +32,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(inventory.Count);
+            foreach (Item i in inventory) {
+                Debug.Log(i.getAttribs());
+            }
         }
     }
 
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Item"))
         {
-            Item newItem = new Item(col.gameObject.name);
+            Item newItem = new Weapon(col.gameObject.name);
             Destroy(col.gameObject);
 
             inventory.Add(newItem);
