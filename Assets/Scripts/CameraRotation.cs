@@ -9,6 +9,7 @@ public class CameraRotation : MonoBehaviour
     Vector3 currentAngle;
     Vector3 targetRot;
     public GameObject player;
+    PlayerController.cornerNames cameraCorner = PlayerController.cornerNames.South;
 
     // Start is called before the first frame update
     void Start()
@@ -19,64 +20,71 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (player.GetComponent<PlayerController>().currentCorner)
+        if (player.GetComponent<PlayerController>().x != 0 || player.GetComponent<PlayerController>().z != 0)
         {
-            case PlayerController.cornerNames.West:
-                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.South) {
-                    rotateTo(90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.West;
-                } else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.North)
-                {
-                    rotateTo(-90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.West;
-                }
-                break;
-            case PlayerController.cornerNames.South:
-                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.East)
-                {
-                    rotateTo(90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.South;
-                }
-                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.West)
-                {
-                    rotateTo(-90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.South;
-                }
-                break;
-            case PlayerController.cornerNames.North:
-                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.West)
-                {
-                    rotateTo(90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.North;
-                }
-                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.East)
-                {
-                    rotateTo(-90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.North;
-                }
-                break;
-            case PlayerController.cornerNames.East:
-                if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.North)
-                {
-                    rotateTo(90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.East;
-                }
-                else if (player.GetComponent<PlayerController>().previousCorner == PlayerController.cornerNames.South)
-                {
-                    rotateTo(-90);
-                    player.GetComponent<PlayerController>().previousCorner = PlayerController.cornerNames.East;
-                }
-                break;
+            switch (player.GetComponent<PlayerController>().currentCorner)
+            {
+                case PlayerController.cornerNames.North:
+                    if (cameraCorner != PlayerController.cornerNames.North)
+                    {
+                        Debug.Log("N");
+                        rotateTo((PlayerController.cornerNames.North - cameraCorner) * 90);
+                        cameraCorner = PlayerController.cornerNames.North;
+                    }
+                    break;
+                case PlayerController.cornerNames.East:
+                    if (cameraCorner != PlayerController.cornerNames.East)
+                    {
+                        Debug.Log("E");
+                        rotateTo((PlayerController.cornerNames.East - cameraCorner) * 90);
+                        cameraCorner = PlayerController.cornerNames.East;
+                    }
+                    break;
+                case PlayerController.cornerNames.South:
+                    if (cameraCorner != PlayerController.cornerNames.South)
+                    {
+                        Debug.Log("S");
+                        rotateTo((PlayerController.cornerNames.South - cameraCorner) * 90);
+                        cameraCorner = PlayerController.cornerNames.South;
+                    }
+                    break;
+                case PlayerController.cornerNames.West:
+                    if (cameraCorner != PlayerController.cornerNames.West)
+                    {
+                        Debug.Log("W");
+                        rotateTo((PlayerController.cornerNames.West - cameraCorner) * 90);
+                        cameraCorner = PlayerController.cornerNames.West;
+                    }
+                    break;
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<PlayerController>().x == 0 && player.GetComponent<PlayerController>().z == 0)
+        else
         {
-            rotateTo(90);
-        }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                rotateTo(90);
+                if (cameraCorner == PlayerController.cornerNames.West)
+                {
+                    cameraCorner = PlayerController.cornerNames.North;
+                }
+                else
+                {
+                    cameraCorner++;
+                }
+            }
 
-        if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<PlayerController>().x == 0 && player.GetComponent<PlayerController>().z == 0)
-        {
-            rotateTo(-90);
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                rotateTo(-90);
+                if (cameraCorner == PlayerController.cornerNames.North)
+                {
+                    cameraCorner = PlayerController.cornerNames.West;
+                }
+                else
+                {
+                    cameraCorner--;
+                }
+            }
         }
 
         currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
@@ -85,7 +93,7 @@ public class CameraRotation : MonoBehaviour
 
     void rotateTo(float angle)
     {
-        //currentAngle = this.transform.eulerAngles;
+        Debug.Log(angle);
         targetRot = targetRot + new Vector3(0, angle, 0);
         turningTime = Time.deltaTime * speed;
     }

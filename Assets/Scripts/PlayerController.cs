@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
     [HideInInspector] public float z;
-    [HideInInspector] public cornerNames previousCorner;
-    [HideInInspector] public cornerNames currentCorner;
+    //[HideInInspector] public cornerNames previousCorner;
+    [HideInInspector] public cornerNames currentCorner = cornerNames.South;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +24,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-         z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+        z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log(inventory.Count);
         }
@@ -44,23 +44,25 @@ public class PlayerController : MonoBehaviour
             Destroy(col.gameObject);
 
             inventory.Add(newItem);
-        } else {
+        }
+        if (col.gameObject.CompareTag("CornerTrigger"))
+        {
             switch (col.gameObject.name)
             {
                 case "TriggerWest":
-                    previousCorner = currentCorner;
+                    //previousCorner = currentCorner;
                     currentCorner = cornerNames.West;
                     break;
                 case "TriggerSouth":
-                    previousCorner = currentCorner;
+                    //previousCorner = currentCorner;
                     currentCorner = cornerNames.South;
                     break;
                 case "TriggerNorth":
-                    previousCorner = currentCorner;
+                    //previousCorner = currentCorner;
                     currentCorner = cornerNames.North;
                     break;
                 case "TriggerEast":
-                    previousCorner = currentCorner;
+                    //previousCorner = currentCorner;
                     currentCorner = cornerNames.East;
                     break;
             }
