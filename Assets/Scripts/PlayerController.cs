@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject center;
     [SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
+    [HideInInspector] public float x;
+    [HideInInspector] public float z;
     [HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner;
 
@@ -22,8 +24,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+         x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+         z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);

@@ -69,9 +69,14 @@ public class CameraRotation : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.O) && player.GetComponent<PlayerController>().x == 0 && player.GetComponent<PlayerController>().z == 0)
         {
-            rotateTo(Input.GetAxisRaw("Horizontal") * 90);
+            rotateTo(90);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P) && player.GetComponent<PlayerController>().x == 0 && player.GetComponent<PlayerController>().z == 0)
+        {
+            rotateTo(-90);
         }
 
         currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
@@ -80,7 +85,7 @@ public class CameraRotation : MonoBehaviour
 
     void rotateTo(float angle)
     {
-        currentAngle = this.transform.eulerAngles;
+        //currentAngle = this.transform.eulerAngles;
         targetRot = targetRot + new Vector3(0, angle, 0);
         turningTime = Time.deltaTime * speed;
     }
