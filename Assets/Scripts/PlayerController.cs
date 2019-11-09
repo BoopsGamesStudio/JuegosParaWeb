@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Item"))
         {
+            Debug.Log(col.gameObject.name);
             Item newItem = new Weapon(col.gameObject.name);
             Destroy(col.gameObject);
 
