@@ -8,4 +8,9 @@ public class ConsumableItem : Item
     {
 
     }
+
+    public override string getAttribs()
+    {
+        return "[" + getName() + "]";
+    }
 }

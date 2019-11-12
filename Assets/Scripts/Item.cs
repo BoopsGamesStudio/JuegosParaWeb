@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Item
+public class Item : Component
 {
-    [SerializeField] protected string name;
+    [SerializeField] protected string iName;
 
 
     public Item (string name)
     {
-        this.name = name;
+        this.iName = name;
     }
 
     public string getName()
     {
-        return name;
+        return iName;
     }
 
     public virtual string getAttribs()

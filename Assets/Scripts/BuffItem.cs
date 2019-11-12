@@ -4,32 +4,30 @@ using UnityEngine;
 
 public class BuffItem : Item
 {
-   public enum buffType {Impact, Endurance, Speed};
-    public enum buffSize {Small, Medium, Big};
-    [SerializeField] private buffType type;
-    [SerializeField] private buffSize size;
-    [SerializeField] private int buff;
+    [HideInInspector]
+    public string[] buffAttribs = {
+                                     "SbuffS", "Speed", "Small", "1",
+                                     "MbuffS", "Speed", "Medium", "3",
+                                     "LbuffS", "Speed", "Large", "5",
+                                     "SbuffI", "Impact", "Small", "1",
+                                     "MbuffI", "Impact", "Medium", "3",
+                                     "LbuffI", "Impact", "Large", "5",
+                                     "SbuffE", "Endurance", "Small", "1",
+                                     "MbuffE", "Endurance", "Medium", "3",
+                                     "LbuffE", "Endurance", "Large", "5"
+                                    };
+    public enum buffType {Impact, Endurance, Speed};
+    public enum buffSize {Small, Medium, Large};
+    private buffType type;
+    private buffSize size;
+    private int buff;
 
-    public BuffItem(string name, buffType type, buffSize size) : base(name)
+    public BuffItem(string name) : base(name)
     {
-        this.type = type;
-        switch (size)
-        {
-            case buffSize.Small:
-                this.buff = 1;
-                break;
-
-            case buffSize.Medium:
-                this.buff = 3;
-                break;
-
-            case buffSize.Big:
-                this.buff = 5;
-                break;
-
-             default:
-                break;
-        }
+        var index = System.Array.IndexOf(buffAttribs, name);
+        type = (buffType)System.Enum.Parse(typeof(buffType), buffAttribs[index + 1]);
+        size = (buffSize)System.Enum.Parse(typeof(buffSize), buffAttribs[index + 2]);
+        buff = int.Parse(buffAttribs[index + 3], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
     }
 
     public int getBuff()
@@ -37,5 +35,19 @@ public class BuffItem : Item
         return buff;
     }
 
+    public buffType getType()
+    {
+        return type;
+    }
 
+    public buffSize getSize()
+    {
+        return size;
+    }
+
+    public override string getAttribs()
+    {
+        return "[" + getName() + ", " + getType() + ", " + getSize() + ", " + getBuff() + "]";
+    }
+    
 }

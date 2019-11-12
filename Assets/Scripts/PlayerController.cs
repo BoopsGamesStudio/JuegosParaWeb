@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -40,13 +41,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Item"))
+        if (col.gameObject.CompareTag("buff"))
         {
             Debug.Log(col.gameObject.name);
-            Item newItem = new Weapon(col.gameObject.name);
             Destroy(col.gameObject);
+            inventory.Add(new BuffItem(col.gameObject.name));
+             
+        }
+        if (col.gameObject.CompareTag("weapon"))
+        {
+            Debug.Log(col.gameObject.name);
+            Destroy(col.gameObject);
+            inventory.Add(new Weapon(col.gameObject.name));
 
-            inventory.Add(newItem);
+        }
+        if (col.gameObject.CompareTag("consumable"))
+        {
+            Debug.Log(col.gameObject.name);
+            Destroy(col.gameObject);
+            inventory.Add(new ConsumableItem(col.gameObject.name));
+
         }
         if (col.gameObject.CompareTag("CornerTrigger"))
         {

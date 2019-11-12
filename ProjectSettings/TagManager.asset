@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Item
   - CornerTrigger
+  - buff
+  - weapon
+  - consumable
   layers:
   - Default
   - TransparentFX
