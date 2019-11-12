@@ -76,7 +76,7 @@ Por lo general, se espera un público joven.
 	
 **Exploración**: Se explora el escenario, si el jugador cae, perderá stats. La idea es explorar el escenario y coger mejoras y armas.
 
-**Batalla**: algo
+**Batalla**: Con lo recogido en la anterior fase, se lucha por ser el último robot en matenerse en una plataforma sin caerse, pudiendo tirar a tus rivales.
 
 	
 + ## <a name="visual_style"></a>2.6 Estilo visual	
