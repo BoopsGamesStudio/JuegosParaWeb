@@ -52,13 +52,13 @@ Este es el documento de diseño de **Nombre del Juego**, un videojuego de navega
 	
 + ## <a name="game_concept"></a> 2.1 Concepto del juego	
 
-Juego multijugador de robots que exploran un escenario en busca de mejoras y armas para luego luchar e intentar ser el último superviviente 
+Juego multijugador de robots que exploran un escenario en busca de mejoras,objetos y armas para luego luchar e intentar ser el último superviviente 
 
 + ## <a name="main_features"></a>2.2 Características principales		
 	
-**Fase de exploración**: Se investiga un mundo lleno de mejoras y armas. Hacerse con las más valiosas te ayudará a alcanzar la victoria.
+**Fase de exploración**: Se investiga un mundo lleno de mejoras, objetos y armas. Hacerse con las más valiosas te ayudará a alcanzar la victoria.
 
-**Gran variedad de armas y personajes**: 4 personajes a elegir y todo tipo de armas para luchar (¡Si las encuentras!)
+**Gran variedad de armas y personajes**: 4 personajes a elegir y 12 tipos de armas para luchar (¡Si las encuentras!)
 
 **Batalla**: Tras explorar, toca darse mamporros... Con todo lo recolectado, tira del escenario a tus rivales antes de que te tiren a ti y proclámate vencedor.
 	
@@ -74,29 +74,33 @@ Por lo general, se espera un público joven.
 
 + ## <a name="basic_gameplay"></a>2.5 Jugabilidad(idea básica)
 	
-**Exploración**: Se explora el escenario, si el jugador cae, perderá stats. La idea es explorar el escenario y coger mejoras y armas.
+**Exploración**: Se explora el escenario y se cogen mejoras, objetos y armas.
 
-**Batalla**: Con lo recogido en la anterior fase, se lucha por ser el último robot en matenerse en una plataforma sin caerse, pudiendo tirar a tus rivales.
+**Batalla**: Con lo recogido en la anterior fase, se lucha por ser el último robot en matenerse en una plataforma sin caerse, pudiendo tirar a tus rivales con tus armas.
 
 	
 + ## <a name="visual_style"></a>2.6 Estilo visual	
 	
-Se ha optado por usar voxel art en isométrico, dándole un estilo particular y fácil de moldear pese al estar en 3D.
+Se ha optado por usar voxel art en isométrico, dándole un estilo particular y fácil de moldear.
 
 + ## <a name="reach"></a>2.7 Alcance
 	
-—
+Con nuestro equipo, planeamos tener las mecánicas base del juego, 4 personajes, 1 escenario y 12 tipos de armas.
 
 # <a name="mechanics"></a>3.- Mecánicas de juego
 
 + ## <a name="gameplay"></a>3.1 Jugabilidad (en profundidad)	
 	
 Es un juego multijugador para hasta 4 personas. 
-Se explora un escenario isonométrico en busca de mejoras y armas, qie se encuentran escondidas en burbujas de distintos colores que indican su rareza.
-Los robots tendrán un ataque por defecto con el que podrán romper las burbujas y atacar en caso de que no hayan cogido arma. No podrán atacar ni chocar con otros robots durante la fase de exploración, pero si podrán verlos.
-Hqy un máximo de stats de un tipo que se pueden tener (máximo 10 unidades). Los stats vendrán en burbujas de tres tamaños: pequeñas (1 ud), medianas (2 uds) y grandes (4uds). Cuanto más grande sea su tamaño, más difícil será obtenerlas.
+Se explora un escenario isométrico en busca de mejoras y armas. Los jugadores podrán verse y chocarse entre ellos,pero no podrán atacar en el mapa de exploración. Los objetos que se cojan dejarán de estar disponibles para el resto de jugadores.
+En el escenario, habrá distintas *burbujas*. Dependiendo de su tamaño, las burbujas tendrán objetos comunes (pequeñas), objetos raros (medianas) y burbujas legendarias (grandes).
 
 **Stats**
+
+Los stats permitirán aumentar las habilidades del robot del jugador.
+Los stats vendrán en burbujas de tres tamaños: pequeñas (1 ud), medianas (2 uds) y grandes (4uds). Cuanto más grande sea su tamaño, más difícil será obtenerlas.
+
+Los tipos de stats son:
 
 + **Ataque**: Permite romper defensas y tirar más lejos a los jugadores.
 
@@ -104,21 +108,54 @@ Hqy un máximo de stats de un tipo que se pueden tener (máximo 10 unidades). Lo
 
 + **Velocidad**: Cómo de rápido se moverá el personaje y cómo de rápido serán los ataques.
 
-Sobre las armas, hay tres clases
+Un robot podrá recoger como máximo 10 unidades de cada tipo de stat.
+A su vez, dependiendo de la clase de personaje elegido, el robot tendrá unos stats base que aumentan el máximo base(pudiendo llegar a ser más de 10).
+Por último, a los stats del robot, se le suma los del arma que coja.
+
+**Cadencia**
+
+Se trata de un stat exclusivo de las armas, se refiere al tiempo que se tarda entre uso y uso. A mayor cadencia, menor es el tiempo entre ataques.
 
 **Clases de armas**
 
-+ **Cuerpo a cuerpo**: Eficaz contra escudos
++ **Cuerpo a cuerpo**: Eficaz contra escudos porque al golpearlos paralizan al portador. Suelen tener alto ataque.
 
-+ **Escudos**: Eficaz contra armas a distancia
++ **Escudos**: Eficaz contra armas a distancia porque repelen el daño al recibir disparos de frente. Suelen tener alta defensa.
 
-+ **Armas a distancia**: Eficaz contra armas cuerpo a cuerpo
++ **Armas a distancia**: Eficaz contra armas cuerpo a cuerpo por poder atacar a distancia. Suelen tener alta cadencia.
 
-Si un arma es eficaz contra otra, hará ligeramente más daño a los otros tipos de armas.
+Dentro de cada clase, habrá distintos tipos de arma según su rareza en las burbujas.
+
+**Cuerpo a cuerpo**
+
++ **Común: Daga** At:Muy baja Df:Muy baja Vl:alta Cd:alta
+
++ **Raro 1: Espada** At:Alta Df:Baja Vl:Media Cd:Media
++ **Raro 2: Hacha** At:Muy Alta Df:Alta Vl:Baja Cd:Muy Baja
+
++ **Legendario: Lanza**  At:Media Df:Alta Vl:Media Cd:Alta
+
+**Escudos**
+
++ **Común: Rodela** At:Baja Df:Baja Vl:Media Cd:Media
+
++ **Raro 1: Escudo de lágrima** At:Alta Df:Muy Alta Vl: Muy Baja Cd:Baja
++ **Raro 2: Mediano** At:Media Df:Media Vl:Media Cd:Media
+
++ **Legendario: Escudo punzante**  At:Muy Alta Df:Muy alta Vl:Baja Cd:Baja
+
+**Distancia**
+
++ **Común: Pistola plasma** At:Baja Df:Muy Baja Vl:Media Cd:Alta
+
++ **Raro 1: Metralleta plasma** At:Muy Baja Df:Baja Vl:Alta Cd: Muy Alta
++ **Raro 2: Escopeta plasma** At:Muy Alta Df:Media Vl:Media Cd:Muy Baja
+
++ **Legendario: Cañón plasma**  At:Muy Alta Df: Alta Vl:Baja Cd:Media
 
 Durante la fase de batalla, se tendrá en cuenta todo lo recogido en la fase de exploración.
 
-El objetivo será tirar a los demás rivales. Si tu defensa llega a 0, será más fácil tirarte.
+El objetivo será tirar a los demás rivales. 
 
 El robot que quede en pie al finalizar, gana la partida.
 
