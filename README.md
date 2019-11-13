@@ -93,7 +93,7 @@ Con nuestro equipo, planeamos tener las mecánicas base del juego, 4 personajes,
 	
 Es un juego multijugador para hasta 4 personas. 
 Se explora un escenario isométrico en busca de mejoras y armas. Los jugadores podrán verse y chocarse entre ellos,pero no podrán atacar en el mapa de exploración. Los objetos que se cojan dejarán de estar disponibles para el resto de jugadores.
-En el escenario, habrá distintas *burbujas*. Dependiendo de su tamaño, las burbujas tendrán objetos comunes (pequeñas), objetos raros (medianas) y burbujas legendarias (grandes).
+En el escenario, habrá distintas *burbujas*. Dependiendo de su tamaño, las burbujas tendrán objetos comunes (pequeñas), objetos raros (medianas) y objetos legendarios (grandes).
 
 **Stats**
 
@@ -128,38 +128,42 @@ Dentro de cada clase, habrá distintos tipos de arma según su rareza en las bur
 
 **Cuerpo a cuerpo**
 
-+ **Común: Daga** At:Muy baja Df:Muy baja Vl:alta Cd:alta
++ **Común: Daga** At:+1 Df:+1 Vl:+4 Cd:+4
 
-+ **Raro 1: Espada** At:Alta Df:Baja Vl:Media Cd:Media
-+ **Raro 2: Hacha** At:Muy Alta Df:Alta Vl:Baja Cd:Muy Baja
++ **Raro 1: Espada** At:+4 Df:+2 Vl:+3 Cd:+3
++ **Raro 2: Hacha** At:+5 Df:+4 Vl:+2 Cd:+1
 
-+ **Legendario: Lanza**  At:Media Df:Alta Vl:Media Cd:Alta
++ **Legendario: Lanza**  At:+3 Df:+4 Vl:+3 Cd:+4
 
 **Escudos**
 
-+ **Común: Rodela** At:Baja Df:Baja Vl:Media Cd:Media
++ **Común: Rodela** At:+2 Df:+2 Vl:+3 Cd:+3
 
-+ **Raro 1: Escudo de lágrima** At:Alta Df:Muy Alta Vl: Muy Baja Cd:Baja
-+ **Raro 2: Mediano** At:Media Df:Media Vl:Media Cd:Media
++ **Raro 1: Escudo de lágrima** At:+4 Df:+5 Vl: +1 Cd:+2
++ **Raro 2: Mediano** At:+3 Df:+3 Vl:+3 Cd:+3
 
-+ **Legendario: Escudo punzante**  At:Muy Alta Df:Muy alta Vl:Baja Cd:Baja
++ **Legendario: Escudo punzante**  At:+5 Df:+5 Vl:+2 Cd:+2
 
 **Distancia**
 
-+ **Común: Pistola plasma** At:Baja Df:Muy Baja Vl:Media Cd:Alta
++ **Común: Pistola plasma** At:+2 Df:+1 Vl:+3 Cd:+4
 
-+ **Raro 1: Metralleta plasma** At:Muy Baja Df:Baja Vl:Alta Cd: Muy Alta
-+ **Raro 2: Escopeta plasma** At:Muy Alta Df:Media Vl:Media Cd:Muy Baja
++ **Raro 1: Metralleta plasma** At:+1 Df:+2 Vl:+4 Cd: +5
++ **Raro 2: Escopeta plasma** At:+5 Df:+3 Vl:+3 Cd:+1
 
-+ **Legendario: Cañón plasma**  At:Muy Alta Df: Alta Vl:Baja Cd:Media
++ **Legendario: Cañón plasma**  At:+5 Df: +4 Vl:+2 Cd:+3
 
-Durante la fase de batalla, se tendrá en cuenta todo lo recogido en la fase de exploración.
+Tras la fase de exploración, que durará un tiempo a elegir, se accederá a la pantalla de resultados y se pedirá al jugador (Si juega en móvil) que gire su pantalla par ala fase de batalla.
 
-El objetivo será tirar a los demás rivales. 
+Los stats finales de cada robot son los siguientes
+Stats base del personaje + Stats recogidos (max 10 por categoria) + Stats armas
+
+En la fase de batalla el objetivo será tirar a los demás rivales del escenario. Se aplicarán las mejoras y se equipará el arma al jugador para este fin.
+Tras un tiempo, si no hay ganador, el escenario se hará más pequeño hasta que solo quede un robot en pie.
+
+Un golpe tiene en cuenta el ataque del que lo da y la defensa del que lo recibe. 
 
 El robot que quede en pie al finalizar, gana la partida.
-
-Si se tarda mucho, El escenario se hará más pequeño.
 
 + ## <a name="game_flow"></a>3.2 Flujo de juego	
 	
@@ -170,22 +174,21 @@ Se jugará la fase de exploración, y ttas pasar el tiempo especificado en los a
 
 Tras la batalla, se ven los resultados finales y se acaba la partida, volviendo al menú de selección de personaje.
 
-
 + ## <a name="characters"></a>3.3 Personajes	
 
 A parte de su aspecto, los distintos personajes tienen características base, pudiendo tener más del máximo de stats de un tipo	
 	
 **Robot estándar**: at: 2 df: 2 vl: 2
 
-**Robot ataque**: at: 4 df:1 vl:1
+**Robot ataque**: at: 3 df:1 vl:2
 
-**Robot defensa**: at:1 df: 4 vl:1
+**Robot defensa**: at:2 df: 3 vl:1
 
-**Robot velocidad**: at:1 df:1 vl:4
+**Robot velocidad**: at:1 df:2 vl:3
 
 + ## <a name="movement"></a>3.4 Movimiento
 	
-Em isométrico, los robots tienen control que recuerda a un vehículo, pero pudiendo girar sobre su eje.
+En isométrico, los robots se mueven de forma precisa, pudiendo girar sobre su eje.
 
 + ## <a name="controls"></a>3.5 Cómo Jugar
 
@@ -193,9 +196,9 @@ Hay dos modos de jugar, uno más pensado para dispositivos móviles y otro más 
 
 ***Controles:***
 
-* **Jugando en dispositivo móvil**: 
+* **Jugando en dispositivo móvil**: Joystick virtual y dos botones virtuales.
 
-* **Jugando en PC**: 
+* **Jugando en PC**: *WASD* para moverse,*O* para la acción 1 y *P* para la acción 2
 
 
 # <a name="interface"></a>4.- Interfaz
@@ -256,8 +259,11 @@ Hay dos modos de jugar, uno más pensado para dispositivos móviles y otro más 
 
 # <a name="money"></a>6.- Sistema de monetización
 
+Season Pass (Con Cebo y Anzuelo)
 
-
+La idea es ofrecer el juego base de forma gratuita, pero cobrar por nuevo contenido.
+De esta forma, el jugador puede jugar gratis, pero si quiere experimentar todo el contenido que le puede ofrecer el juego, debe pagar un extra.
+La idea del season pass es poder financiar el proyecto mientras se desarrolla, el jugador se beneficia porque el contenido adicional le sale más barato de esta forma. Se ofrecería un pack con mapas, personajes, armas, mecánicas, etc.
 
 # <a name="future"></a>7.- El futuro del proyecto
 
@@ -267,6 +273,7 @@ Hay dos modos de jugar, uno más pensado para dispositivos móviles y otro más 
 
 + (07/11/2019) Estructura básica del documento.
 + (12/11/2019) Añadida información inical del juego
++ (13/11/2019) Detallada información sobre la jugabilidad y la monetización
 
 # <a name="credits"></a>9.- Boops Games Studio
 
