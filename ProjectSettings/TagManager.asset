@@ -9,6 +9,8 @@ TagManager:
   - buff
   - weapon
   - consumable
+  - stage
+  - pivot
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,16 +10,24 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] List<Item> inventory;
     [SerializeField] GameObject center;
-    [SerializeField] float movementSpeed;
+ 
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
     [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;
 
+    #region Stats
+    private float impact = 2;
+    private float movementSpeed = 2;
+    private float endurance = 2;
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start");
+        if (SceneManager.GetActiveScene().name == "Scene1")
         inventory = new List<Item>();
     }
 
@@ -36,6 +45,7 @@ public class PlayerController : MonoBehaviour
             foreach (Item i in inventory) {
                 Debug.Log(i.getAttribs());
             }
+            Debug.Log(impact);
         }
     }
 
@@ -85,4 +95,36 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    #region Getters & Setters
+    public float getImpact()
+    {
+        return impact;
+    }
+
+    public float getMovementSpeed()
+    {
+        return movementSpeed;
+    }
+
+    public float getEndurance()
+    {
+        return endurance;
+    }
+
+    public void setImpact(float impact)
+    {
+        this.impact = impact;
+    }
+
+    public void setMovementSpeed(float movementSpeed)
+    {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void setEndurance(float endurance)
+    {
+        this.endurance = endurance;
+    }
+    #endregion
 }

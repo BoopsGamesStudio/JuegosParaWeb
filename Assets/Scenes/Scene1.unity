@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 696293364}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: pivot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -784,6 +784,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: feb964948ec64d04bbf73c369ad44d7e, type: 3}
       propertyPath: m_Name
       value: Roboto
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: feb964948ec64d04bbf73c369ad44d7e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: feb964948ec64d04bbf73c369ad44d7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -869,9 +873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef8463b062e7eb4692f9fcb6249ec1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: []
   center: {fileID: 696293362}
-  obj: {fileID: 1128685519}
-  movementSpeed: 2
   rotSpeed: 120
   x: 0
   z: 0
@@ -926,6 +929,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: b96d0bc4d6d31b548b28dae9494fd492, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b96d0bc4d6d31b548b28dae9494fd492, type: 3}
+      propertyPath: m_TagString
+      value: stage
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b96d0bc4d6d31b548b28dae9494fd492, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1096,6 +1103,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1096158874496174640, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_TagString
+      value: GameController
+      objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174654, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1209,7 +1221,7 @@ PrefabInstance:
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: timeLeft
-      value: 200
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}

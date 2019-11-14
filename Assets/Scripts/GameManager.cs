@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Only applies at MenuScene")]
     [SerializeField] Button jugar;
 
-    [SerializeField] public List<Item> sceneObjs;
+    List<Item> sceneObjs;
 
     #region Generate properties
     enum objType{buff, weapon, consumable};
@@ -29,6 +29,22 @@ public class GameManager : MonoBehaviour
     int objsInSceneM = 1;
     int objsInSceneL = 1;
     #endregion
+
+    private void Awake()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject stage = GameObject.FindGameObjectWithTag("stage");
+        GameObject center = GameObject.FindGameObjectWithTag("pivot");
+        GameObject manager = GameObject.FindGameObjectWithTag("GameController");
+
+        foreach (GameObject player in players)
+        {
+            DontDestroyOnLoad(player);
+        }
+        DontDestroyOnLoad(manager);
+        DontDestroyOnLoad(stage);
+        DontDestroyOnLoad(center);
+    }
     // Start is called before the first frame update
     void Start()
     {
