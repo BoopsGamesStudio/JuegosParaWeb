@@ -8,44 +8,50 @@ public class PlayerController : MonoBehaviour
 {
     public enum cornerNames { North, East, South, West }
 
-    [SerializeField] List<Item> inventory;
+    //[SerializeField] List<Item> inventory;
     [SerializeField] GameObject center;
- 
+    //[SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
     [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;
+    public GlobalControl GlobalControl;
 
     #region Stats
+    /*
     private float impact = 2;
     private float movementSpeed = 2;
     private float endurance = 2;
+    */
+    public PlayerStatistics localPlayerData; 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start");
+        localPlayerData = new PlayerStatistics();
+        //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
+        initPlayerStats();
         if (SceneManager.GetActiveScene().name == "Scene1")
-        inventory = new List<Item>();
+        localPlayerData.inventory = new List<Item>();
     }
 
     // Update is called once per frame
     void Update()
     {
         x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-        z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (Item i in inventory) {
+            foreach (Item i in localPlayerData.inventory) {
                 Debug.Log(i.getAttribs());
             }
-            Debug.Log(impact);
         }
     }
 
@@ -55,21 +61,21 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(col.gameObject.name);
             Destroy(col.gameObject);
-            inventory.Add(new BuffItem(col.gameObject.name));
+            localPlayerData.inventory.Add(new BuffItem(col.gameObject.name));
              
         }
         if (col.gameObject.CompareTag("weapon"))
         {
             Debug.Log(col.gameObject.name);
             Destroy(col.gameObject);
-            inventory.Add(new Weapon(col.gameObject.name));
+            localPlayerData.inventory.Add(new Weapon(col.gameObject.name));
 
         }
         if (col.gameObject.CompareTag("consumable"))
         {
             Debug.Log(col.gameObject.name);
             Destroy(col.gameObject);
-            inventory.Add(new ConsumableItem(col.gameObject.name));
+            localPlayerData.inventory.Add(new ConsumableItem(col.gameObject.name));
 
         }
         if (col.gameObject.CompareTag("CornerTrigger"))
@@ -95,7 +101,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    /*
     #region Getters & Setters
     public float getImpact()
     {
@@ -127,4 +133,32 @@ public class PlayerController : MonoBehaviour
         this.endurance = endurance;
     }
     #endregion
+    */
+
+    public void initPlayerStats()
+    {
+        localPlayerData.playerId = 1;
+        localPlayerData.impact = 2f;
+        localPlayerData.movementSpeed = 2f;
+        localPlayerData.endurance = 2f;   
+    }
+
+    public int getPlayerId()
+    {
+        return localPlayerData.playerId;
+    }
+
+    public void setPlayerName(int playerId)
+    {
+        localPlayerData.playerId = playerId;
+    }
+
+    public void savePlayer()
+    {
+        GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
+        foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
+        {
+            Debug.Log(ps.getStats());
+        }
+    }
 }

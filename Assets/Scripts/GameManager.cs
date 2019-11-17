@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     int objsInSceneL = 1;
     #endregion
 
+    /*
     private void Awake()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(stage);
         DontDestroyOnLoad(center);
     }
+    */
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +73,11 @@ public class GameManager : MonoBehaviour
 
             if (timeLeft < 0)
             {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject p in players)
+                {
+                    p.GetComponent<PlayerController>().savePlayer();
+                }
                 SceneManager.LoadScene("Scene2");
             }
         }
