@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MenuScene")
         {
             Button b = jugar.GetComponent<Button>();
-            b.onClick.AddListener(loadScene);
+            b.onClick.AddListener(() => SceneManager.LoadScene("Scene1"));
         }
         if (SceneManager.GetActiveScene().name == "Scene1")
         {
@@ -61,11 +61,27 @@ public class GameManager : MonoBehaviour
             initGenerateProperties();
             generateObjs();
         }
+
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
+
+        if (SceneManager.GetActiveScene().name == "Scene2")
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
+        else
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("Device: " + Input.deviceOrientation + "\nScreen: " + Screen.orientation);
+
         if (SceneManager.GetActiveScene().name == "Scene1") {
             timeLeft -= Time.deltaTime;
 
@@ -81,11 +97,6 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Scene2");
             }
         }
-    }
-
-    void loadScene()
-    {
-        SceneManager.LoadScene("Scene1");
     }
 
     void initGenerateProperties()

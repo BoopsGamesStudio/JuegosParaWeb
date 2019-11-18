@@ -9,14 +9,12 @@ public class PlayerController : MonoBehaviour
     public enum cornerNames { North, East, South, West }
 
     //[SerializeField] List<Item> inventory;
-    [SerializeField] GameObject center;
     //[SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
     [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;
-    public GlobalControl GlobalControl;
 
     #region Stats
     /*
@@ -34,8 +32,6 @@ public class PlayerController : MonoBehaviour
         localPlayerData = new PlayerStatistics();
         //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
         initPlayerStats();
-        if (SceneManager.GetActiveScene().name == "Scene1")
-        localPlayerData.inventory = new List<Item>();
     }
 
     // Update is called once per frame
@@ -46,6 +42,21 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
+
+        if (SceneManager.GetActiveScene().name == "Scene2")
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) { //Cambiar tag a player!!!!
+                    if (gameObject.GetComponent<BoxCollider>().bounds.Contains(o.transform.position))
+                    {
+                        Vector3 impactVector = this.transform.forward;
+                        impactVector.y = 0.5f;
+                        o.GetComponent<Rigidbody>().AddForce(impactVector.normalized * localPlayerData.impact * 0.02f, ForceMode.Impulse);
+                    }
+                }
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -137,10 +148,18 @@ public class PlayerController : MonoBehaviour
 
     public void initPlayerStats()
     {
-        localPlayerData.playerId = 1;
-        localPlayerData.impact = 2f;
-        localPlayerData.movementSpeed = 2f;
-        localPlayerData.endurance = 2f;   
+        if (SceneManager.GetActiveScene().name == "Scene1")
+        {
+            localPlayerData.playerId = 1;
+            localPlayerData.impact = 2f;
+            localPlayerData.movementSpeed = 2f;
+            localPlayerData.endurance = 2f;
+            localPlayerData.inventory = new List<Item>();
+        }
+        if (SceneManager.GetActiveScene().name == "Scene2")
+        {
+            localPlayerData = GlobalControl.Instance.savedPlayerData[0];
+        }
     }
 
     public int getPlayerId()

@@ -11,6 +11,7 @@ TagManager:
   - consumable
   - stage
   - pivot
+  - Dummy
   layers:
   - Default
   - TransparentFX

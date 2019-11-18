@@ -579,11 +579,6 @@ PrefabInstance:
       propertyPath: jugar
       value: 
       objectReference: {fileID: 237926188}
-    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: timeLeft
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1096158874199221338, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: m_SizeDelta.x
