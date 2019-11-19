@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;
 
+    private Joystick joystick;
+    private Vector3 lookAt = new Vector3(0, 0, 1);
+
     #region Stats
     /*
     private float impact = 2;
@@ -32,27 +35,34 @@ public class PlayerController : MonoBehaviour
         localPlayerData = new PlayerStatistics();
         //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
         initPlayerStats();
+
+        joystick = FindObjectOfType<Joystick>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-        z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+        if (gameObject.CompareTag("Player")) {
+            /*x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+            z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
 
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, z);
+            transform.Rotate(0, x, 0);
+            transform.Translate(0, 0, z);*/
+
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, joystick.Vertical * localPlayerData.movementSpeed);
+            transform.Rotate(0, joystick.Horizontal * Time.deltaTime * rotSpeed, 0);
+        }
 
         if (SceneManager.GetActiveScene().name == "Scene2")
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
-                foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) { //Cambiar tag a player!!!!
-                    if (gameObject.GetComponent<BoxCollider>().bounds.Contains(o.transform.position))
+                foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) {
+                    if (gameObject.GetComponent<BoxCollider>().bounds.Contains(o.transform.position + Vector3.up) && !o.Equals(gameObject))
                     {
                         Vector3 impactVector = this.transform.forward;
                         impactVector.y = 0.5f;
-                        o.GetComponent<Rigidbody>().AddForce(impactVector.normalized * localPlayerData.impact * 0.02f, ForceMode.Impulse);
+                        o.GetComponent<Rigidbody>().AddForce(0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
                     }
                 }
             }
@@ -152,7 +162,7 @@ public class PlayerController : MonoBehaviour
         {
             localPlayerData.playerId = 1;
             localPlayerData.impact = 2f;
-            localPlayerData.movementSpeed = 2f;
+            localPlayerData.movementSpeed = 3f;
             localPlayerData.endurance = 2f;
             localPlayerData.inventory = new List<Item>();
         }

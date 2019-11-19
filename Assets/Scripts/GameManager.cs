@@ -30,10 +30,10 @@ public class GameManager : MonoBehaviour
     int objsInSceneL = 1;
     #endregion
 
-    /*
+    
     private void Awake()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        /*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject stage = GameObject.FindGameObjectWithTag("stage");
         GameObject center = GameObject.FindGameObjectWithTag("pivot");
         GameObject manager = GameObject.FindGameObjectWithTag("GameController");
@@ -44,9 +44,18 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(manager);
         DontDestroyOnLoad(stage);
-        DontDestroyOnLoad(center);
+        DontDestroyOnLoad(center);*/
+
+        if (SceneManager.GetActiveScene().name == "Scene2")
+        {
+            Screen.SetResolution(1920, 1080, true);
+        }
+        else
+        {
+            Screen.SetResolution(1080, 1920, true);
+        }
     }
-    */
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -61,27 +70,11 @@ public class GameManager : MonoBehaviour
             initGenerateProperties();
             generateObjs();
         }
-
-        Screen.autorotateToPortrait = false;
-        Screen.autorotateToPortraitUpsideDown = false;
-        Screen.autorotateToLandscapeLeft = false;
-        Screen.autorotateToLandscapeRight = false;
-
-        if (SceneManager.GetActiveScene().name == "Scene2")
-        {
-            Screen.orientation = ScreenOrientation.LandscapeLeft;
-        }
-        else
-        {
-            Screen.orientation = ScreenOrientation.Portrait;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Device: " + Input.deviceOrientation + "\nScreen: " + Screen.orientation);
-
         if (SceneManager.GetActiveScene().name == "Scene1") {
             timeLeft -= Time.deltaTime;
 
@@ -95,6 +88,11 @@ public class GameManager : MonoBehaviour
                     p.GetComponent<PlayerController>().savePlayer();
                 }
                 SceneManager.LoadScene("Scene2");
+            }
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //GameObject.FindGameObjectWithTag("stage").GetComponent<Material>().SetColor("transparent", );
             }
         }
     }
