@@ -20,7 +20,7 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<PlayerController>().x != 0 || player.GetComponent<PlayerController>().z != 0)
+        if (player.GetComponent<Rigidbody>().velocity.magnitude >= 0.1f)
         {
             switch (player.GetComponent<PlayerController>().currentCorner)
             {

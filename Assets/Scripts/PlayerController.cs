@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;
+    private float cameraAnlgeOffset = -45;
 
     private Joystick joystick;
-    private Vector3 lookAt = new Vector3(0, 0, 1);
+    private Vector3 rot;
 
     #region Stats
     /*
@@ -49,8 +50,32 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(0, x, 0);
             transform.Translate(0, 0, z);*/
 
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, joystick.Vertical * localPlayerData.movementSpeed);
-            transform.Rotate(0, joystick.Horizontal * Time.deltaTime * rotSpeed, 0);
+            Vector3 vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+
+            switch (currentCorner)
+            {
+                case cornerNames.West:
+                    cameraAnlgeOffset = 45;
+                    break;
+                case cornerNames.South:
+                    cameraAnlgeOffset = -45;
+                    break;
+                case cornerNames.North:
+                    cameraAnlgeOffset = 135;
+                    break;
+                case cornerNames.East:
+                    cameraAnlgeOffset = -135;
+                    break;
+            }
+
+            vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
+
+            gameObject.GetComponent<Rigidbody>().velocity = vel;
+            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1f) {
+                Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
+                dir.y = 0;
+                this.transform.rotation = Quaternion.LookRotation(dir);
+            }
         }
 
         if (SceneManager.GetActiveScene().name == "Scene2")
