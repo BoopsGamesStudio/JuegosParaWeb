@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343544346}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2953143, y: 5.37, z: -3.09}
+  m_LocalPosition: {x: -2.25, y: 5.37, z: -2.7}
   m_LocalScale: {x: 2.5000002, y: 4.764872, z: 2.5000002}
   m_Children: []
   m_Father: {fileID: 1611770917}
@@ -396,7 +396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372120528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.611771, y: 5.37, z: -3.09}
+  m_LocalPosition: {x: -5.83, y: 5.37, z: -2.7}
   m_LocalScale: {x: 2.5000002, y: 4.764872, z: 2.5000002}
   m_Children: []
   m_Father: {fileID: 1611770917}
@@ -745,7 +745,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131332731}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.32, y: 5.37, z: -6.3790274}
+  m_LocalPosition: {x: -2.2746856, y: 5.37, z: -6.3790274}
   m_LocalScale: {x: 2.5000002, y: 4.764872, z: 2.5000002}
   m_Children: []
   m_Father: {fileID: 1611770917}
@@ -820,6 +820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fixed Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
         type: 3}
@@ -961,7 +966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413319280}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.62, y: 5.37, z: -6.3900003}
+  m_LocalPosition: {x: -5.838228, y: 5.37, z: -6.3900003}
   m_LocalScale: {x: 2.5000002, y: 4.764872, z: 2.5000002}
   m_Children: []
   m_Father: {fileID: 1611770917}
@@ -1332,7 +1337,7 @@ PrefabInstance:
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: timeLeft
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}

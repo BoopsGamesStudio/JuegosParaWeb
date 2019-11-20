@@ -44,14 +44,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (gameObject.CompareTag("Player")) {
-            /*x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-            z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
-
-            transform.Rotate(0, x, 0);
-            transform.Translate(0, 0, z);*/
-
-            Vector3 vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
-
             switch (currentCorner)
             {
                 case cornerNames.West:
@@ -68,13 +60,26 @@ public class PlayerController : MonoBehaviour
                     break;
             }
 
-            vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
+            if (joystick != null)
+            {
+                Vector3 vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
 
-            gameObject.GetComponent<Rigidbody>().velocity = vel;
-            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1f) {
-                Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                dir.y = 0;
-                this.transform.rotation = Quaternion.LookRotation(dir);
+                vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
+
+                gameObject.GetComponent<Rigidbody>().velocity = vel;
+                if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+                {
+                    Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
+                    dir.y = 0;
+                    this.transform.rotation = Quaternion.LookRotation(dir);
+                }
+            } else
+            {
+                x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+                z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                transform.Rotate(0, x, 0);
+                transform.Translate(0, 0, z);
             }
         }
 
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) {
-                    if (gameObject.GetComponent<BoxCollider>().bounds.Contains(o.transform.position + Vector3.up) && !o.Equals(gameObject))
+                    if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position + Vector3.up) && !o.Equals(gameObject))
                     {
                         Vector3 impactVector = this.transform.forward;
                         impactVector.y = 0.5f;
@@ -108,7 +113,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(col.gameObject.name);
             Destroy(col.gameObject);
             localPlayerData.inventory.Add(new BuffItem(col.gameObject.name));
-             
+
         }
         if (col.gameObject.CompareTag("weapon"))
         {
