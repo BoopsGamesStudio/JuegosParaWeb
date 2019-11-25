@@ -190,10 +190,10 @@ public class PlayerController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Scene1")
         {
-            localPlayerData.playerId = 1;
+            localPlayerData.playerId = 0;
             localPlayerData.impact = 2f;
-            localPlayerData.movementSpeed = 3f;
             localPlayerData.endurance = 2f;
+            localPlayerData.movementSpeed = 3f;
             localPlayerData.inventory = new List<Item>();
         }
         if (SceneManager.GetActiveScene().name == "Scene2")
@@ -214,10 +214,40 @@ public class PlayerController : MonoBehaviour
 
     public void savePlayer()
     {
-        GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
+        //Save Player Data
+        GlobalControl.Instance.savedPlayerData.Insert(localPlayerData.playerId, localPlayerData);
+
         foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
         {
             Debug.Log(ps.getStats());
         }
+
+        //Update Player Data with caught objects
+        foreach (Item i in GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].inventory)
+        {
+           if(i is BuffItem)
+            {
+                var buff = (BuffItem)i;
+                switch (buff.getType())
+                {
+                    case BuffItem.buffType.Impact:
+                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].impact += buff.getBuff(); 
+                        break;
+                    case BuffItem.buffType.Endurance:
+                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].endurance += buff.getBuff();
+                        break;
+                    case BuffItem.buffType.Speed:
+                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].movementSpeed += buff.getBuff();
+                        break;
+                }
+
+            }
+        }
+
+        foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
+        {
+            Debug.Log(ps.getStats());
+        }
+
     }
 }

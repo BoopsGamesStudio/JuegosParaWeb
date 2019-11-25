@@ -12,7 +12,7 @@ public class PlayerStatistics
 
     public string getStats()
     {
-        return "[" + playerId + ", " + impact + ", " + movementSpeed + ", " + endurance + ", " + "]";
+        return "[" + playerId + ", " + impact + ", " + endurance + ", " + movementSpeed + ", " + "]";
     }
 }
 
