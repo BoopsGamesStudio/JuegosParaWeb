@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
             sceneObjs = new List<Item>();
             initGenerateProperties();
             generateObjs();
+
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                player.GetComponentInChildren<BoxCollider>().enabled = false;
+            }
         }
     }
 

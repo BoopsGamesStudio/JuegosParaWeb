@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
         initPlayerStats();
 
         joystick = FindObjectOfType<Joystick>();
+
+        if (SystemInfo.deviceType != DeviceType.Handheld)
+        {
+            GameObject.Destroy(joystick.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -130,28 +135,6 @@ public class PlayerController : MonoBehaviour
             Destroy(col.gameObject);
             localPlayerData.inventory.Add(new ConsumableItem(col.gameObject.name));
 
-        }
-        if (col.gameObject.CompareTag("CornerTrigger"))
-        {
-            switch (col.gameObject.name)
-            {
-                case "TriggerWest":
-                    //previousCorner = currentCorner;
-                    currentCorner = cornerNames.West;
-                    break;
-                case "TriggerSouth":
-                    //previousCorner = currentCorner;
-                    currentCorner = cornerNames.South;
-                    break;
-                case "TriggerNorth":
-                    //previousCorner = currentCorner;
-                    currentCorner = cornerNames.North;
-                    break;
-                case "TriggerEast":
-                    //previousCorner = currentCorner;
-                    currentCorner = cornerNames.East;
-                    break;
-            }
         }
     }
     /*

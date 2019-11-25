@@ -20,70 +20,29 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<Rigidbody>().velocity.magnitude >= 0.1f)
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            switch (player.GetComponent<PlayerController>().currentCorner)
+            rotateTo(90);
+            if (cameraCorner == PlayerController.cornerNames.West)
             {
-                case PlayerController.cornerNames.North:
-                    if (cameraCorner != PlayerController.cornerNames.North)
-                    {
-                        Debug.Log("N");
-                        rotateTo((PlayerController.cornerNames.North - cameraCorner) * 90);
-                        cameraCorner = PlayerController.cornerNames.North;
-                    }
-                    break;
-                case PlayerController.cornerNames.East:
-                    if (cameraCorner != PlayerController.cornerNames.East)
-                    {
-                        Debug.Log("E");
-                        rotateTo((PlayerController.cornerNames.East - cameraCorner) * 90);
-                        cameraCorner = PlayerController.cornerNames.East;
-                    }
-                    break;
-                case PlayerController.cornerNames.South:
-                    if (cameraCorner != PlayerController.cornerNames.South)
-                    {
-                        Debug.Log("S");
-                        rotateTo((PlayerController.cornerNames.South - cameraCorner) * 90);
-                        cameraCorner = PlayerController.cornerNames.South;
-                    }
-                    break;
-                case PlayerController.cornerNames.West:
-                    if (cameraCorner != PlayerController.cornerNames.West)
-                    {
-                        Debug.Log("W");
-                        rotateTo((PlayerController.cornerNames.West - cameraCorner) * 90);
-                        cameraCorner = PlayerController.cornerNames.West;
-                    }
-                    break;
+                cameraCorner = PlayerController.cornerNames.North;
+            }
+            else
+            {
+                cameraCorner++;
             }
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                rotateTo(90);
-                if (cameraCorner == PlayerController.cornerNames.West)
-                {
-                    cameraCorner = PlayerController.cornerNames.North;
-                }
-                else
-                {
-                    cameraCorner++;
-                }
-            }
 
-            if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            rotateTo(-90);
+            if (cameraCorner == PlayerController.cornerNames.North)
             {
-                rotateTo(-90);
-                if (cameraCorner == PlayerController.cornerNames.North)
-                {
-                    cameraCorner = PlayerController.cornerNames.West;
-                }
-                else
-                {
-                    cameraCorner--;
-                }
+                cameraCorner = PlayerController.cornerNames.West;
+            }
+            else
+            {
+                cameraCorner--;
             }
         }
 
