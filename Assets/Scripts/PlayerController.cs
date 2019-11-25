@@ -67,7 +67,9 @@ public class PlayerController : MonoBehaviour
                 vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
 
                 gameObject.GetComponent<Rigidbody>().velocity = vel;
-                if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+
+                Vector2 velocity2D = new Vector2(vel.x, vel.z);
+                if (velocity2D.magnitude > 0.1f)
                 {
                     Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
                     dir.y = 0;
