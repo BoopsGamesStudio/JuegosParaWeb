@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MenuScene")
         {
             Button b = jugar.GetComponent<Button>();
-            b.onClick.AddListener(() => SceneManager.LoadScene("Scene1"));
+            b.onClick.AddListener(() => SceneManager.LoadScene("LobbyScene"));
         }
         if (SceneManager.GetActiveScene().name == "Scene1")
         {
