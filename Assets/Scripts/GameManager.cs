@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,30 +32,10 @@ public class GameManager : MonoBehaviour
     int objsInSceneL = 1;
     #endregion
 
-    
+
     private void Awake()
     {
-        /*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject stage = GameObject.FindGameObjectWithTag("stage");
-        GameObject center = GameObject.FindGameObjectWithTag("pivot");
-        GameObject manager = GameObject.FindGameObjectWithTag("GameController");
-
-        foreach (GameObject player in players)
-        {
-            DontDestroyOnLoad(player);
-        }
-        DontDestroyOnLoad(manager);
-        DontDestroyOnLoad(stage);
-        DontDestroyOnLoad(center);*/
-
-        if (SceneManager.GetActiveScene().name == "Scene2")
-        {
-            Screen.SetResolution(1920, 1080, true);
-        }
-        else
-        {
-            Screen.SetResolution(1080, 1920, true);
-        }
+     
     }
     
     // Start is called before the first frame update
@@ -75,6 +57,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoxCollider>().enabled = false;
             }
         }
+
     }
 
     // Update is called once per frame
@@ -105,9 +88,15 @@ public class GameManager : MonoBehaviour
     void initGenerateProperties()
     {
         SpawnPos = new List<float>{-5.31f,2.8f,1.53f,-1.15f,2.8f,1.53f,-0.97f,2.8f,6.1f};
-        ItemsS = new List<string>{"SbuffS", "buff", "SbuffI", "buff", "SbuffE", "buff", "sword", "weapon", "bomb", "consumable"};
-        ItemsM = new List<string> { "MbuffS", "buff", "MbuffI", "buff", "MbuffE", "buff", "shield", "weapon","trap", "consumable"};
-        ItemsL = new List<string> { "LbuffS", "buff", "LbuffI", "buff", "LbuffE", "buff", "cannon", "weapon", "star", "consumable"};
+
+        ItemsS = new List<string>{"SbuffS", "buff", "SbuffI", "buff", "SbuffE", "buff", "Dagger", "weapon", "SbuffS", "buff", "SbuffI", "buff",
+                                  "SbuffE", "buff", "Buckler", "weapon", "SbuffS", "buff", "SbuffI", "buff", "SbuffE", "buff", "Plasma Handgun","weapon" };
+
+        ItemsM = new List<string> { "MbuffS", "buff", "MbuffI", "buff", "MbuffE", "buff", "Sword", "weapon","Axe", "weapon", "MbuffS", "buff",
+                                    "MbuffI", "buff", "MbuffE", "buff", "Tear Shield", "weapon", "Medium Shield", "weapon", "MbuffS", "buff",
+                                    "MbuffI", "buff", "MbuffE", "buff", "Plasma Submachine", "weapon", "Plasma Shotgun", "weapon", };
+
+        ItemsL = new List<string> { "LbuffS", "buff", "LbuffI", "buff", "LbuffE", "buff", "Spear", "weapon", "Sharp Shield", "weapon", "Plasma Cannon", "weapon" };
 
     }
 

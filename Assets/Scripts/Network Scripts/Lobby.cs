@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Lobby : MonoBehaviourPunCallbacks
@@ -10,8 +11,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     public Button PlayButton;
     public Text Log;
 
-    public byte maxPlayersInRoom = 4;
-    public byte minPlayersInRoom = 2;
+    public byte PlayersInRoom = 4;
 
     public int playerCount;
     public Text playerCountTxt;
@@ -49,7 +49,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Log.text += "\nRoom to join not found, creating new one...";
 
-        if(PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = maxPlayersInRoom }))
+        if(PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = PlayersInRoom }))
         {
             Log.text += "\nRoom created succesfully";
         } else
@@ -70,6 +70,14 @@ public class Lobby : MonoBehaviourPunCallbacks
             playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         }
 
-        playerCountTxt.text = playerCount + "/" + maxPlayersInRoom;
+        playerCountTxt.text = playerCount + "/" + PlayersInRoom;
+
+        if (playerCount == PlayersInRoom)
+        {
+            SceneManager.LoadScene("Scene1");
+        }
     }
+
+    
+
 }

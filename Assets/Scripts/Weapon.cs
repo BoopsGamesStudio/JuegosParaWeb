@@ -9,9 +9,18 @@ public class Weapon : Item
 {
     [HideInInspector]
     public string[] weaponAttribs = {
-                                     "sword", "Melee", "5", "2", "6", "50",
-                                     "shield", "Shield", "4", "4", "8", "70",
-                                     "cannon", "Distance", "2", "1", "1", "30"
+                                     "Dagger", "Melee", "5", "2", "6", "50",
+                                     "Sword", "Melee", "4", "4", "8", "70",
+                                     "Axe", "Melee", "2", "1", "1", "30",
+                                     "Spear", "Melee", "5", "2", "6", "50",
+                                     "Buckler", "Shield", "4", "4", "8", "70",
+                                     "Tear Shield", "Shield", "2", "1", "1", "30",
+                                     "Medium Shield", "Shield", "5", "2", "6", "50",
+                                     "Sharp Shield", "Shield", "4", "4", "8", "70",
+                                     "Plasma Handgun", "Distance", "2", "1", "1", "30",
+                                     "Plasma Submachine", "Distance", "5", "2", "6", "50",
+                                     "Plasma Shotgun", "Distance", "4", "4", "8", "70",
+                                     "Plasma Cannon", "Distance", "2", "1", "1", "30"
                                     };
     public enum weaponType {Melee, Shield, Distance};
     private weaponType type;
