@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsS[itemId];
         model.tag = type;
-        model.AddComponent<SphereCollider>();
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneS--;
@@ -151,7 +150,6 @@ public class GameManager : MonoBehaviour
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsM[itemId];
         model.tag = type;
-        model.AddComponent<SphereCollider>();
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneM--;
@@ -169,7 +167,6 @@ public class GameManager : MonoBehaviour
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsL[itemId];
         model.tag = type;
-        model.AddComponent<SphereCollider>();
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneL--;

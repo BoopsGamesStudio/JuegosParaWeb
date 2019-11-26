@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +21,10 @@ public class PlayerController : MonoBehaviour
 
     private Joystick joystick;
     private Vector3 rot;
+
+    public GameObject weaponInTrigger;
+
+    [SerializeField] private GameObject buttonPrefab;
 
     #region Stats
     /*
@@ -124,9 +130,17 @@ public class PlayerController : MonoBehaviour
         }
         if (col.gameObject.CompareTag("weapon"))
         {
-            Debug.Log(col.gameObject.name);
-            Destroy(col.gameObject);
-            localPlayerData.inventory.Add(new Weapon(col.gameObject.name));
+            weaponInTrigger = col.gameObject;
+
+            if (!localPlayerData.inventory.Exists((x) => x is Weapon)) {
+                Debug.Log(weaponInTrigger.name);
+                createText(weaponInTrigger.name, new Vector2(300, 600));
+                localPlayerData.inventory.Add(new Weapon(weaponInTrigger.name));
+                Destroy(weaponInTrigger);
+            } else
+            {
+                createButton("¿Cambiar por " + col.gameObject.name + "?");
+            }
 
         }
         if (col.gameObject.CompareTag("consumable"))
@@ -137,6 +151,15 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
+        {
+            Destroy(swapButton);
+        }
+    }
+
     /*
     #region Getters & Setters
     public float getImpact()
@@ -234,5 +257,57 @@ public class PlayerController : MonoBehaviour
             Debug.Log(ps.getStats());
         }
 
+    }
+
+    void createButton(string txt)
+    {
+        GameObject button = Instantiate(buttonPrefab, FindObjectOfType<Canvas>().transform);
+
+        button.GetComponentInChildren<Text>().text = txt;
+    }
+
+    void createText(string txt, Vector2 pos)
+    {
+        clearText();
+
+        GameObject text = new GameObject();
+        text.tag = "item";
+        Text textComp = text.AddComponent<Text>();
+        textComp.text = txt;
+        textComp.font = Resources.Load<Font>("ARIAL");
+        textComp.fontSize = 50;
+        textComp.alignment = TextAnchor.MiddleCenter;
+
+        text.transform.SetParent(FindObjectOfType<Canvas>().transform);
+        text.GetComponent<RectTransform>().localScale = Vector3.one;
+        text.GetComponent<RectTransform>().anchoredPosition = pos;
+        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 300);
+        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 200);
+    }
+
+    void clearText()
+    {
+        foreach (Text t in FindObjectOfType<Canvas>().GetComponentsInChildren<Text>())
+        {
+            if (t.gameObject.CompareTag("item")) {
+                Destroy(t.gameObject);
+            }
+        }
+    }
+
+    public void replaceWeapon()
+    {
+        PlayerController player = FindObjectOfType<PlayerController>();
+
+        Debug.Log(player.weaponInTrigger.name);
+        createText(player.weaponInTrigger.name, new Vector2(300, 600));
+        player.localPlayerData.inventory.RemoveAll((x) => x is Weapon);
+        player.localPlayerData.inventory.Add(new Weapon(player.weaponInTrigger.name));
+        Destroy(player.weaponInTrigger);
+
+        foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
+        {
+            Destroy(swapButton);
+        }
     }
 }

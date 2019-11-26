@@ -158,6 +158,8 @@ MonoBehaviour:
   x: 0
   z: 0
   currentCorner: 2
+  buttonPrefab: {fileID: 513659001603598805, guid: dd6633636c07d54498d001811e11114c,
+    type: 3}
 --- !u!1 &8183476270787957858
 GameObject:
   m_ObjectHideFlags: 0

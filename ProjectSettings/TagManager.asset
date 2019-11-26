@@ -12,6 +12,9 @@ TagManager:
   - stage
   - pivot
   - Dummy
+  - swapButton
+  - timer
+  - item
   layers:
   - Default
   - TransparentFX
