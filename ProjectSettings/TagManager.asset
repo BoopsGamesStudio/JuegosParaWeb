@@ -15,6 +15,7 @@ TagManager:
   - swapButton
   - timer
   - item
+  - RotateWarn
   layers:
   - Default
   - TransparentFX
