@@ -706,6 +706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EscenarioWeb_Version_002
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3f81737b1e9222041a10a098964d8e6b, type: 3}
+      propertyPath: m_TagString
+      value: stage
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3f81737b1e9222041a10a098964d8e6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.38
@@ -774,6 +778,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f21aa855d1c2c8d42bb104aef2366959, type: 2}
+    - target: {fileID: 2300000, guid: 3f81737b1e9222041a10a098964d8e6b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f81737b1e9222041a10a098964d8e6b, type: 3}
 --- !u!1001 &618232909284256098
@@ -796,7 +804,7 @@ PrefabInstance:
     - target: {fileID: 618232910337043502, guid: 814c79e906148d84d91611a384db34ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.03
+      value: 3.25
       objectReference: {fileID: 0}
     - target: {fileID: 618232910337043502, guid: 814c79e906148d84d91611a384db34ce,
         type: 3}
@@ -985,7 +993,7 @@ PrefabInstance:
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: timeLeft
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}

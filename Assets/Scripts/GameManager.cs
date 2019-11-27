@@ -77,11 +77,6 @@ public class GameManager : MonoBehaviour
                 }
                 SceneManager.LoadScene("Scene2");
             }
-
-            if(Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                //GameObject.FindGameObjectWithTag("stage").GetComponent<Material>().SetColor("transparent", );
-            }
         }
     }
 

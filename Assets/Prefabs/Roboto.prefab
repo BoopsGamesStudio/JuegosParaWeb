@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618232910337536012}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.454, y: 0, z: 0.48}
+  m_LocalPosition: {x: 1.454, y: -3.59, z: 0.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 618232910337043502}
@@ -141,7 +141,7 @@ CapsuleCollider:
   m_Radius: 0.9
   m_Height: 3.04
   m_Direction: 1
-  m_Center: {x: 0, y: 3.3, z: 0}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!114 &618232910337439410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   x: 0
   z: 0
   currentCorner: 2
+  weaponInTrigger: {fileID: 0}
   buttonPrefab: {fileID: 513659001603598805, guid: dd6633636c07d54498d001811e11114c,
     type: 3}
 --- !u!1 &8183476270787957858
@@ -203,4 +204,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.4000177, y: 1.5590467, z: 2.2266333}
-  m_Center: {x: 0, y: 3.6893923, z: 2.0141141}
+  m_Center: {x: 0, y: 0, z: 1.8}

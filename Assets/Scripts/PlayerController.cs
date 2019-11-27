@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 rot;
 
     public GameObject weaponInTrigger;
+    private GameObject[] stageElems;
+    private Camera cam;
 
     [SerializeField] private GameObject buttonPrefab;
 
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
         initPlayerStats();
 
         joystick = FindObjectOfType<Joystick>();
+        stageElems = GameObject.FindGameObjectsWithTag("stage");
+        cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
         if (SystemInfo.deviceType != DeviceType.Handheld)
         {
@@ -101,7 +105,7 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) {
-                    if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position + Vector3.up) && !o.Equals(gameObject))
+                    if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
                     {
                         Vector3 impactVector = this.transform.forward;
                         impactVector.y = 0.5f;
@@ -116,6 +120,11 @@ public class PlayerController : MonoBehaviour
             foreach (Item i in localPlayerData.inventory) {
                 Debug.Log(i.getAttribs());
             }
+        }
+
+        if(SceneManager.GetActiveScene().name == "Scene1")
+        {
+            raycastTest();
         }
     }
 
@@ -308,6 +317,38 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
             Destroy(swapButton);
+        }
+    }
+
+    private void raycastTest()
+    {
+        RaycastHit hitInfo = new RaycastHit();
+        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(cam.WorldToScreenPoint(this.gameObject.transform.position)), out hitInfo);
+        if (hit)
+        {
+            if (!hitInfo.transform.gameObject.Equals(this.gameObject) && hitInfo.transform.gameObject.CompareTag("stage"))
+            {
+                var color = hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.color;
+                color.a = 0.3f;
+                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_ZWrite", 0);
+                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.renderQueue = 3000;
+                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.color = color;
+            }
+            else
+            {
+                foreach (GameObject elem in stageElems)
+                {
+                    var color = elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.color;
+                    color.a = 1;
+                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_ZWrite", 1);
+                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.renderQueue = -1;
+                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.color = color;
+                }
+            }
         }
     }
 }
