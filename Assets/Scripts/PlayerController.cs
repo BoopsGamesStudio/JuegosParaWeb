@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
-        if (SystemInfo.deviceType != DeviceType.Handheld)
+        if (!Application.isMobilePlatform)
         {
             GameObject.Destroy(joystick.gameObject);
         }
