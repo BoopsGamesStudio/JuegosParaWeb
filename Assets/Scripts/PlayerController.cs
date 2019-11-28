@@ -77,7 +77,15 @@ public class PlayerController : MonoBehaviour
 
             if (joystick != null)
             {
-                Vector3 vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+                Vector3 vel;
+
+                if(SceneManager.GetActiveScene().name == "Scene1")
+                {
+                    vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+                } else
+                {
+                    vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
+                }
 
                 vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
 

@@ -15,8 +15,6 @@ public class CameraScript : MonoBehaviour
     {
         camera = this.GetComponent<Camera>();
 
-        createText(Application.isMobilePlatform.ToString());
-
         if (SceneManager.GetActiveScene().name == "Scene2")
         {
             if (Application.isMobilePlatform)
@@ -61,21 +59,5 @@ public class CameraScript : MonoBehaviour
 
             camera.rect = rect;
         }
-    }
-
-    void createText(string txt)
-    {
-        GameObject text = new GameObject();
-        Text textComp = text.AddComponent<Text>();
-        textComp.text = txt;
-        textComp.font = Resources.Load<Font>("ARIAL");
-        textComp.fontSize = 100;
-        textComp.alignment = TextAnchor.MiddleCenter;
-
-        text.transform.SetParent(FindObjectOfType<Canvas>().transform);
-        text.GetComponent<RectTransform>().localScale = Vector3.one;
-        text.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 800);
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 200);
     }
 }
