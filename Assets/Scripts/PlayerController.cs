@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private PhotonView PV;
+
     public enum cornerNames { North, East, South, West }
 
     //[SerializeField] List<Item> inventory;
@@ -28,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject buttonPrefab;
 
+
+
     #region Stats
     /*
     private float impact = 2;
@@ -40,6 +45,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PV = GetComponent<PhotonView>();
+
         Debug.Log("Start");
         localPlayerData = new PlayerStatistics();
         //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
@@ -58,82 +65,91 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.CompareTag("Player")) {
-            switch (currentCorner)
-            {
-                case cornerNames.West:
-                    cameraAnlgeOffset = 45;
-                    break;
-                case cornerNames.South:
-                    cameraAnlgeOffset = -45;
-                    break;
-                case cornerNames.North:
-                    cameraAnlgeOffset = 135;
-                    break;
-                case cornerNames.East:
-                    cameraAnlgeOffset = -135;
-                    break;
-            }
-
-            if (joystick != null)
-            {
-                Vector3 vel;
-
-                if(SceneManager.GetActiveScene().name == "Scene1")
-                {
-                    vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
-                } else
-                {
-                    vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
-                }
-
-                vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
-
-                gameObject.GetComponent<Rigidbody>().velocity = vel;
-
-                Vector2 velocity2D = new Vector2(vel.x, vel.z);
-                if (velocity2D.magnitude > 0.1f)
-                {
-                    Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                    dir.y = 0;
-                    this.transform.rotation = Quaternion.LookRotation(dir);
-                }
-            } else
-            {
-                x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-                z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
-
-                transform.Rotate(0, x, 0);
-                transform.Translate(0, 0, z);
-            }
-        }
-
-        if (SceneManager.GetActiveScene().name == "Scene2")
+        if (PV.IsMine)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if (gameObject.CompareTag("Player"))
             {
-                foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy")) {
-                    if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
+                switch (currentCorner)
+                {
+                    case cornerNames.West:
+                        cameraAnlgeOffset = 45;
+                        break;
+                    case cornerNames.South:
+                        cameraAnlgeOffset = -45;
+                        break;
+                    case cornerNames.North:
+                        cameraAnlgeOffset = 135;
+                        break;
+                    case cornerNames.East:
+                        cameraAnlgeOffset = -135;
+                        break;
+                }
+
+                if (joystick != null)
+                {
+                    Vector3 vel;
+
+                    if (SceneManager.GetActiveScene().name == "Scene1")
                     {
-                        Vector3 impactVector = this.transform.forward;
-                        impactVector.y = 0.5f;
-                        o.GetComponent<Rigidbody>().AddForce(0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
+                        vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+                    }
+                    else
+                    {
+                        vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
+                    }
+
+                    vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
+
+                    gameObject.GetComponent<Rigidbody>().velocity = vel;
+
+                    Vector2 velocity2D = new Vector2(vel.x, vel.z);
+                    if (velocity2D.magnitude > 0.1f)
+                    {
+                        Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
+                        dir.y = 0;
+                        this.transform.rotation = Quaternion.LookRotation(dir);
+                    }
+                }
+                else
+                {
+                    x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+                    z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                    transform.Rotate(0, x, 0);
+                    transform.Translate(0, 0, z);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Scene2")
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy"))
+                    {
+                        if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
+                        {
+                            Vector3 impactVector = this.transform.forward;
+                            impactVector.y = 0.5f;
+                            o.GetComponent<Rigidbody>().AddForce(0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
+                        }
                     }
                 }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            foreach (Item i in localPlayerData.inventory) {
-                Debug.Log(i.getAttribs());
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                foreach (Item i in localPlayerData.inventory)
+                {
+                    Debug.Log(i.getAttribs());
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Scene1")
+            {
+                raycastTest();
             }
         }
-
-        if(SceneManager.GetActiveScene().name == "Scene1")
-        {
-            raycastTest();
-        }
+        
     }
 
     private void OnTriggerEnter(Collider col)
