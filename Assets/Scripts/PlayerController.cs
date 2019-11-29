@@ -9,17 +9,20 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private PhotonView PV;
+    public PhotonView PV;
 
     public enum cornerNames { North, East, South, West }
+
+    public enum sides { Left, Center, Right }
 
     //[SerializeField] List<Item> inventory;
     //[SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
-    [HideInInspector] public float z;
+    [HideInInspector] public float z; 
     //[HideInInspector] public cornerNames previousCorner;
-    [HideInInspector] public cornerNames currentCorner = cornerNames.South;
+    [HideInInspector] public cornerNames currentCorner = cornerNames.South;//Modificar para cada jugador
+    [HideInInspector] public sides currentSide = sides.Center;
     private float cameraAnlgeOffset = -45;
 
     private Joystick joystick;
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (!Application.isMobilePlatform)
         {
+            if (joystick !=null)
             GameObject.Destroy(joystick.gameObject);
         }
     }
@@ -154,6 +158,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
+
+        if (col.gameObject.CompareTag("SideTrigger"))
+        {
+            if(col.gameObject.name == "TriggerLeft")
+                currentSide = sides.Left;
+
+            if (col.gameObject.name == "TriggerRight")
+                currentSide = sides.Left;
+        }
+
         if (col.gameObject.CompareTag("buff"))
         {
             Debug.Log(col.gameObject.name);
@@ -229,7 +243,7 @@ public class PlayerController : MonoBehaviour
 
     public void initPlayerStats()
     {
-        if (SceneManager.GetActiveScene().name == "Scene1")
+        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
         {
             localPlayerData.playerId = 0;
             localPlayerData.impact = 2f;

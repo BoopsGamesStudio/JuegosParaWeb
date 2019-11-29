@@ -79,10 +79,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef8463b062e7eb4692f9fcb6249ec1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
   rotSpeed: 120
   x: 0
   z: 0
   currentCorner: 2
+  currentSide: 1
   weaponInTrigger: {fileID: 0}
   buttonPrefab: {fileID: 513659001603598805, guid: dd6633636c07d54498d001811e11114c,
     type: 3}

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] GameObject player;
     Camera camera;
     bool alreadyTilted = false;
 
@@ -27,7 +26,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player != null) this.transform.localPosition = new Vector3(this.transform.localPosition.x, player.transform.position.y + 15, this.transform.localPosition.z);
+        
     }
 
     void Rescale(float targetaspect)
