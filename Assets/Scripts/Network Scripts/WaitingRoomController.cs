@@ -56,7 +56,7 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
         PlayerCountUpdate();
 
         if (PhotonNetwork.IsMasterClient)
-            PV.RPC("RPC_SenTimer", RpcTarget.Others, timerToStartGame);
+            PV.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
     }
 
     [PunRPC]
