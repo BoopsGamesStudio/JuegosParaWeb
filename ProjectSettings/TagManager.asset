@@ -17,6 +17,8 @@ TagManager:
   - item
   - RotateWarn
   - SideTrigger
+  - SelectButton
+  - RotButton
   layers:
   - Default
   - TransparentFX

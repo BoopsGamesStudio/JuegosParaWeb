@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectCharacterController : MonoBehaviour
 {
@@ -20,6 +21,13 @@ public class SelectCharacterController : MonoBehaviour
     List<string> robots;
     string robot;
     [SerializeField] private int multiplayerSceneIndex;
+    private float timerToStartGame;
+    [SerializeField]
+    private float maxWaitTime;
+    PhotonView PV;
+    [SerializeField]
+    private Text timerToStartDisplay;
+    private bool startingGame;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +35,41 @@ public class SelectCharacterController : MonoBehaviour
         robots = new List<string> { "cabeza_equilibrio", "cabeza_ataque", "cabeza_defensa", "cabeza_velocidad"};
         robot = "cabeza_equilibrio";
         DisplayCharacters();
+        timerToStartGame = maxWaitTime;
+
+        PV = GetComponent<PhotonView>();
+
+        if (PhotonNetwork.IsMasterClient)
+            PV.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
     }
 
     private void Update()
     {
         currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
         this.transform.eulerAngles = currentAngle;
-        Debug.Log(robot);
+
+        CountdownToStart();
+    }
+
+    [PunRPC]
+    private void RPC_SendTimer(float timeIn)
+    {
+        timerToStartGame = timeIn;
+    }
+
+    private void CountdownToStart()
+    {
+        timerToStartGame -= Time.deltaTime;
+
+        string tempTimer = string.Format("{0:00}", timerToStartGame);
+        timerToStartDisplay.text = tempTimer;
+
+        if (timerToStartGame <= 0f)
+        {
+            if (startingGame)
+                return;
+            StartGame();
+        }
     }
 
     void rotateTo(float angle)
@@ -52,7 +88,7 @@ public class SelectCharacterController : MonoBehaviour
 
             Vector3 offset = localDir - displayPoint.position;
 
-            Vector3 displayPos = displayPoint.position + localDir.normalized * robots.Count * 1.0f;
+            Vector3 displayPos = displayPoint.position + localDir.normalized * robots.Count * 0.75f;
             GameObject bot = Resources.Load<GameObject>("PhotonPrefabs/"+robot);
             GameObject model = Instantiate(bot, displayPos, Quaternion.LookRotation(localDir));
             model.transform.SetParent(this.transform);
@@ -89,9 +125,24 @@ public class SelectCharacterController : MonoBehaviour
         }
     }
 
-    public void StartBtn()
+    public void SelectBtn()
     {
+        Button selectBtn = GameObject.FindGameObjectWithTag("SelectButton").GetComponent<Button>();
 
+        if(selectBtn.GetComponentInChildren<Text>().text == "Select")
+            selectBtn.GetComponentInChildren<Text>().text = "Cancel";
+        else
+            selectBtn.GetComponentInChildren<Text>().text = "Select";
+
+        foreach (GameObject button in GameObject.FindGameObjectsWithTag("RotButton"))
+        {
+            button.GetComponent<Button>().interactable = !button.GetComponent<Button>().interactable;
+        }
+    }
+
+    public void StartGame()
+    {
+        startingGame = true;
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
