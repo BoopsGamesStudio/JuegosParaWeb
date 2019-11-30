@@ -1,23 +1,14 @@
 fileFormatVersion: 2
-guid: 2d7a8889f8ba4bc4282f9276033af0a6
+guid: fe88a07e5279f8a40a40b8e0e0cf812e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: cabeza_ataque
-    100004: cabeza_ataque.001
     400000: //RootNode
-    400002: cabeza_ataque
-    400004: cabeza_ataque.001
     2100000: palette
     2300000: //RootNode
-    2300002: cabeza_ataque
-    2300004: cabeza_ataque.001
     3300000: //RootNode
-    3300002: cabeza_ataque
-    3300004: cabeza_ataque.001
-    4300000: cabeza_ataque.001
-    4300002: cabeza_ataque
+    4300000: cogiendo_Lagrima.001
   externalObjects: {}
   materials:
     importMaterials: 1

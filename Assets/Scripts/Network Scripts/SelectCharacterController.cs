@@ -19,6 +19,7 @@ public class SelectCharacterController : MonoBehaviour
     Vector3 targetRot;
     List<string> robots;
     string robot;
+    [SerializeField] private int multiplayerSceneIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,8 @@ public class SelectCharacterController : MonoBehaviour
             Vector3 offset = localDir - displayPoint.position;
 
             Vector3 displayPos = displayPoint.position + localDir.normalized * robots.Count * 1.0f;
-            GameObject model = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", robot), displayPos, Quaternion.LookRotation(localDir),0);
+            GameObject bot = Resources.Load<GameObject>("PhotonPrefabs/"+robot);
+            GameObject model = Instantiate(bot, displayPos, Quaternion.LookRotation(localDir));
             model.transform.SetParent(this.transform);
             i++;
         }
@@ -90,5 +92,9 @@ public class SelectCharacterController : MonoBehaviour
     public void StartBtn()
     {
 
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
     }
 }

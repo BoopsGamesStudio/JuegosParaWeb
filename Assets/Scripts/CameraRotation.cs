@@ -9,6 +9,7 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float speed;
     Vector3 currentAngle;
     Vector3 targetRot;
+    Vector3 targetPos;
     public GameObject player;
     PlayerController.cornerNames cameraCorner = PlayerController.cornerNames.South;
     PlayerController.sides cameraSide = PlayerController.sides.Center;
@@ -16,14 +17,18 @@ public class CameraRotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<PlayerController>().gameObject;
+        /*
         foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
         {
+            Debug.Log(FindObjectsOfType<PlayerController>().Length);
             if (pc.PV.IsMine)
             {
                 player = pc.gameObject;
                 break;
             }
         }
+        */
     }
 
     // Update is called once per frame
@@ -60,11 +65,11 @@ public class CameraRotation : MonoBehaviour
 
         if (player != null)
         {
-            Debug.Log("Player not null");
+            //Debug.Log("Player not null");
             //if(player.transform.position.y + 2 != this.transform.localPosition.y)
             //this.transform.position = Vector3.Lerp(this.transform.position,new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z), Time.deltaTime * speed);
             this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z);
-            if (cameraSide != player.GetComponent<PlayerController>().currentSide)
+            //if (cameraSide != player.GetComponent<PlayerController>().currentSide)
                 HorizontalPan();
         }
     }
@@ -81,14 +86,19 @@ public class CameraRotation : MonoBehaviour
         switch (player.GetComponent<PlayerController>().currentSide)
         {
             case PlayerController.sides.Left:
-                this.transform.position = Vector3.Lerp(this.transform.position, new Vector3(8, 0, 4), Time.deltaTime * speed);
+                targetPos = new Vector3(8, this.transform.position.y, 4);
+                cameraSide = PlayerController.sides.Left;
                 break;
             case PlayerController.sides.Center:
-                this.transform.position = Vector3.Lerp(this.transform.position, new Vector3(-3, 0, 4), Time.deltaTime * speed);
+                targetPos = new Vector3(-3, this.transform.position.y, 4);   
+                cameraSide = PlayerController.sides.Center;
                 break;
             case PlayerController.sides.Right:
-                this.transform.position = Vector3.Lerp(this.transform.position, new Vector3(-14, 0, 4), Time.deltaTime * speed);
+                targetPos = new Vector3(-14, this.transform.position.y, 4);
+                cameraSide = PlayerController.sides.Right;
                 break;
         }
+
+        this.transform.position = Vector3.Lerp(this.transform.position, targetPos, Time.deltaTime * speed);
     }
 }

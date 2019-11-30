@@ -310,7 +310,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8761967257233757661}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8761967257233757662}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdda7fcc052446e43919e3834f0c73c1, type: 3}
@@ -805,7 +805,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1498716439}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 746356628}
+        m_MethodName: StartBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1498716439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,6 +1170,85 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectCharacterController
       objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: robotPrefab.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: displayPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1227466586}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: displayPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: displayPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: displayPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: rotLButton
+      value: 
+      objectReference: {fileID: 185924574}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: rotRButton
+      value: 
+      objectReference: {fileID: 1396685206}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: StartButton
+      value: 
+      objectReference: {fileID: 1498716436}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: displayPoint
+      value: 
+      objectReference: {fileID: 1227466586}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: multiplayerSceneIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: robotPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 2004622621440714426, guid: 412d9920b5a9ae241b10063e519fa630,
+        type: 3}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: robotPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 7662520247742948327, guid: be5828e24d74d954a955a1374caaee89,
+        type: 3}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: robotPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 1916894186699050781, guid: 3acbd6aa65f8e1c4ea57127e4bf0d152,
+        type: 3}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: robotPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 7729471020663622018, guid: 7b2e230c50b5e854a9a98bea43de8656,
+        type: 3}
     - target: {fileID: 8761967256503183944, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1214,51 +1304,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: displayPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1227466586}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: displayPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: displayPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: displayPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: rotLButton
-      value: 
-      objectReference: {fileID: 185924574}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: rotRButton
-      value: 
-      objectReference: {fileID: 1396685206}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: StartButton
-      value: 
-      objectReference: {fileID: 1498716436}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: displayPoint
-      value: 
-      objectReference: {fileID: 1227466586}
-    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
-        type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8761967258221011039, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -1291,3 +1336,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20f23173a9f7f9c40bd6f25382c3e81f, type: 3}
+--- !u!1 &8761967257233757662 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8761967256503183950, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8761967257233757661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8761967257233757663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761967257233757662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

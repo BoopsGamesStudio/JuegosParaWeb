@@ -152,7 +152,9 @@ public class PlayerController : MonoBehaviour
             {
                 raycastTest();
             }
+            Debug.Log(currentSide);
         }
+        
         
     }
 
@@ -165,7 +167,7 @@ public class PlayerController : MonoBehaviour
                 currentSide = sides.Left;
 
             if (col.gameObject.name == "TriggerRight")
-                currentSide = sides.Left;
+                currentSide = sides.Right;
         }
 
         if (col.gameObject.CompareTag("buff"))
@@ -204,6 +206,11 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
             Destroy(swapButton);
+        }
+
+        if (other.gameObject.CompareTag("SideTrigger"))
+        {
+            currentSide = sides.Center;
         }
     }
 
