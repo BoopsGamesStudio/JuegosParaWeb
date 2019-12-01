@@ -93,13 +93,13 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 vel;
 
-                    if (SceneManager.GetActiveScene().name == "Scene1")
+                    if (SceneManager.GetActiveScene().name == "Scene2")
                     {
-                        vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+                        vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
                     }
                     else
                     {
-                        vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
+                        vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
                     }
 
                     vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
