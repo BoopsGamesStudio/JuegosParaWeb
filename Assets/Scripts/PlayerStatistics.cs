@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStatistics
 {
+    public string model;
     public int playerId;
     public float impact;
     public float movementSpeed;
