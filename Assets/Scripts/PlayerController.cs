@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public PhotonView PV;
+    private PhotonView PV;
 
     public enum cornerNames { North, East, South, West }
 

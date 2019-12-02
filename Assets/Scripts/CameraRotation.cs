@@ -10,30 +10,30 @@ public class CameraRotation : MonoBehaviour
     Vector3 currentAngle;
     Vector3 targetRot;
     Vector3 targetPos;
-    public GameObject player;
+    GameObject player;
     PlayerController.cornerNames cameraCorner = PlayerController.cornerNames.South;
     PlayerController.sides cameraSide = PlayerController.sides.Center;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<PlayerController>().gameObject;
-        /*
+        //player = FindObjectOfType<PlayerController>().gameObject;
+        
         foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
         {
             Debug.Log(FindObjectsOfType<PlayerController>().Length);
-            if (pc.PV.IsMine)
+            if (pc.GetComponent<PhotonView>().IsMine)
             {
                 player = pc.gameObject;
                 break;
             }
         }
-        */
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(FindObjectsOfType<PlayerController>().Length);
         if (Input.GetKeyDown(KeyCode.O))
         {
             rotateTo(90);
@@ -63,15 +63,8 @@ public class CameraRotation : MonoBehaviour
         currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
         this.transform.eulerAngles = currentAngle;
 
-        if (player != null)
-        {
-            //Debug.Log("Player not null");
-            //if(player.transform.position.y + 2 != this.transform.localPosition.y)
-            //this.transform.position = Vector3.Lerp(this.transform.position,new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z), Time.deltaTime * speed);
-            this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z);
-            //if (cameraSide != player.GetComponent<PlayerController>().currentSide)
-                HorizontalPan();
-        }
+        this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z);
+        HorizontalPan();
     }
 
     void rotateTo(float angle)
