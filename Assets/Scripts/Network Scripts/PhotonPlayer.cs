@@ -6,20 +6,17 @@ using UnityEngine;
 
 public class PhotonPlayer : MonoBehaviour
 {
-    [SerializeField] GameObject prefabCenter;
-    string robot;
 
+    // Start is called before the first frame update
     void Start()
     {
-        robot = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == GetComponent<PhotonView>().ViewID).model;
         CreatePlayer();
-        Instantiate(prefabCenter);
     }
 
     private void CreatePlayer()
     {
         int spawnPick = Random.Range(0, GameSetup.GS.spawPoints.Length);
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", robot), GameSetup.GS.spawPoints[spawnPick].position,
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonRoboto"), GameSetup.GS.spawPoints[spawnPick].position,
           GameSetup.GS.spawPoints[spawnPick].rotation, 0);
     }
 

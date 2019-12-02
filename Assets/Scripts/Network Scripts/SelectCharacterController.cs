@@ -27,15 +27,13 @@ public class SelectCharacterController : MonoBehaviour
     PhotonView PV;
     [SerializeField]
     private Text timerToStartDisplay;
-    public PlayerStatistics localPlayerData;
     private bool startingGame;
 
     // Start is called before the first frame update
     void Start()
     {
-        localPlayerData = new PlayerStatistics();
-        robots = new List<string> { "Balance_Robot", "Attack_Robot", "Defense_Robot", "Speed_Robot"};
-        robot = "Balance_Robot";
+        robots = new List<string> { "cabeza_equilibrio", "cabeza_ataque", "cabeza_defensa", "cabeza_velocidad"};
+        robot = "cabeza_equilibrio";
         DisplayCharacters();
         timerToStartGame = maxWaitTime;
 
@@ -91,7 +89,7 @@ public class SelectCharacterController : MonoBehaviour
             Vector3 offset = localDir - displayPoint.position;
 
             Vector3 displayPos = displayPoint.position + localDir.normalized * robots.Count * 0.75f;
-            GameObject bot = Resources.Load<GameObject>("PhotonPrefabs/"+robot+"_Head");
+            GameObject bot = Resources.Load<GameObject>("PhotonPrefabs/"+robot);
             GameObject model = Instantiate(bot, displayPos, Quaternion.LookRotation(localDir));
             model.transform.SetParent(this.transform);
             i++;
@@ -145,44 +143,9 @@ public class SelectCharacterController : MonoBehaviour
     public void StartGame()
     {
         startingGame = true;
-        FillPlayerData();
-        //GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel(multiplayerSceneIndex);
-    }
-
-    private void FillPlayerData()
-    {
-        switch (robot)
-        {
-            case "Balance_Robot":
-                localPlayerData.model = robots[0];
-                localPlayerData.impact = 2.0f;
-                localPlayerData.endurance = 2.0f;
-                localPlayerData.movementSpeed = 2.0f;
-                break;
-            case "Attack_Robot":
-                localPlayerData.model = robots[1];
-                localPlayerData.impact = 3.0f;
-                localPlayerData.endurance = 1.0f;
-                localPlayerData.movementSpeed = 2.0f;
-                break;
-            case "Defense_Robot":
-                localPlayerData.model = robots[2];
-                localPlayerData.impact = 2.0f;
-                localPlayerData.endurance = 3.0f;
-                localPlayerData.movementSpeed = 1.0f;
-                break;
-            case "Speed_Robot":
-                localPlayerData.model = robots[3];
-                localPlayerData.impact = 1.0f;
-                localPlayerData.endurance = 2.0f;
-                localPlayerData.movementSpeed = 3.0f;
-                break;
-        }
-        localPlayerData.playerId = PV.ViewID;
-        GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
     }
 }
