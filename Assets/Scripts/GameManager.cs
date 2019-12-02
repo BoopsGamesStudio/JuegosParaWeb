@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     enum objType{buff, weapon, consumable};
      enum objLvl { S, M, L };
 
-    List<float> SpawnPos;
     List<string> ItemsS;
     List<string> ItemsM;
     List<string> ItemsL;
@@ -32,6 +31,7 @@ public class GameManager : MonoBehaviour
     int objsInSceneL = 1;
     #endregion
 
+    public List<Transform> spawnPoints;
 
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             Button b = jugar.GetComponent<Button>();
             b.onClick.AddListener(() => SceneManager.LoadScene("LobbyScene"));
         }
-        if (SceneManager.GetActiveScene().name == "Scene1")
+        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
         {
             sceneObjs = new List<Item>();
             initGenerateProperties();
@@ -82,8 +82,6 @@ public class GameManager : MonoBehaviour
 
     void initGenerateProperties()
     {
-        SpawnPos = new List<float>{-5.31f,2.8f,1.53f,-1.15f,2.8f,1.53f,-0.97f,2.8f,6.1f};
-
         ItemsS = new List<string>{"SbuffS", "buff", "SbuffI", "buff", "SbuffE", "buff", "Dagger", "weapon", "SbuffS", "buff", "SbuffI", "buff",
                                   "SbuffE", "buff", "Buckler", "weapon", "SbuffS", "buff", "SbuffI", "buff", "SbuffE", "buff", "Plasma Handgun","weapon" };
 
@@ -100,21 +98,21 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < objsInSceneS; i++)
         {
             var itemId = Random.Range(0, ItemsS.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, SpawnPos.Count / 3 - 1) * 3;
+            var posId = Random.Range(0, spawnPoints.Count - 1);
             createObjS(itemId, posId);
         }
 
         for (int i = 0; i < objsInSceneM; i++)
         {
             var itemId = Random.Range(0, ItemsM.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, SpawnPos.Count / 3 - 1) * 3;
+            var posId = Random.Range(0, spawnPoints.Count - 1);
             createObjM(itemId, posId);
         }
 
         for (int i = 0; i < objsInSceneL; i++)
         {
             var itemId = Random.Range(0, ItemsL.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, SpawnPos.Count / 3 - 1) * 3;
+            var posId = Random.Range(0, spawnPoints.Count - 1);
             createObjL(itemId, posId);
         }
     } 
@@ -123,32 +121,34 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("He entrado S");
         GameObject model;
+        var name = ItemsS[itemId];
         var type = ItemsS[itemId + 1];
         model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = new Vector3(SpawnPos[posId], SpawnPos[posId + 1], SpawnPos[posId + 2]);
+        model.transform.position = spawnPoints[posId].position;
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsS[itemId];
         model.tag = type;
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneS--;
-        SpawnPos.RemoveRange(posId, 3);
+        spawnPoints.RemoveAt(posId);
     }
 
     void createObjM(int itemId, int posId)
     {
         Debug.Log("He entrado M");
         GameObject model;
+        var name = ItemsM[itemId];
         var type = ItemsM[itemId + 1];
         model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = new Vector3(SpawnPos[posId], SpawnPos[posId + 1], SpawnPos[posId + 2]);
+        model.transform.position = spawnPoints[posId].position;
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsM[itemId];
         model.tag = type;
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneM--;
-        SpawnPos.RemoveRange(posId, 3);
+        spawnPoints.RemoveAt(posId);
 
     }
 
@@ -156,16 +156,17 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("He entrado L");
         GameObject model;
+        var name = ItemsL[itemId];
         var type = ItemsL[itemId + 1];
         model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = new Vector3(SpawnPos[posId], SpawnPos[posId + 1], SpawnPos[posId + 2]);
+        model.transform.position = spawnPoints[posId].position;
         model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         model.name = ItemsL[itemId];
         model.tag = type;
         model.GetComponent<SphereCollider>().radius = 0.5f;
         model.GetComponent<SphereCollider>().isTrigger = true;
         objsInSceneL--;
-        SpawnPos.RemoveRange(posId, 3);
+        spawnPoints.RemoveAt(posId);
 
     }
 }
