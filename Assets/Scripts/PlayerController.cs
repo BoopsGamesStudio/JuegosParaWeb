@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject buttonPrefab;
 
-
-
     #region Stats
     /*
     private float impact = 2;
@@ -152,7 +150,6 @@ public class PlayerController : MonoBehaviour
             {
                 raycastTest();
             }
-            Debug.Log(currentSide);
         }
         
         
@@ -160,10 +157,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-
         if (col.gameObject.CompareTag("SideTrigger"))
         {
-            if(col.gameObject.name == "TriggerLeft")
+            if (col.gameObject.name == "TriggerLeft")
                 currentSide = sides.Left;
 
             if (col.gameObject.name == "TriggerRight")
@@ -172,37 +168,43 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("buff"))
         {
-            Debug.Log(col.gameObject.name);
-            Destroy(col.gameObject);
-            localPlayerData.inventory.Add(new BuffItem(col.gameObject.name));
+            //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
+            string goodName = col.gameObject.name.Replace("(Clone)", "");
+            localPlayerData.inventory.Add(new BuffItem(goodName));
+            PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
 
         }
         if (col.gameObject.CompareTag("weapon"))
         {
             weaponInTrigger = col.gameObject;
+            string goodName = weaponInTrigger.name.Replace("(Clone)", "");
 
-            if (!localPlayerData.inventory.Exists((x) => x is Weapon)) {
-                Debug.Log(weaponInTrigger.name);
-                createText(weaponInTrigger.name, new Vector2(300, 600));
-                localPlayerData.inventory.Add(new Weapon(weaponInTrigger.name));
-                Destroy(weaponInTrigger);
-            } else
+            if (!localPlayerData.inventory.Exists((x) => x is Weapon))
             {
-                createButton("¿Cambiar por " + col.gameObject.name + "?");
+                //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
+                createText(goodName, new Vector2(300, 600));
+                localPlayerData.inventory.Add(new Weapon(goodName));
+                PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
+            }
+            else
+            {
+                createButton("¿Cambiar por " + goodName + "?");
             }
 
         }
         if (col.gameObject.CompareTag("consumable"))
         {
-            Debug.Log(col.gameObject.name);
-            Destroy(col.gameObject);
-            localPlayerData.inventory.Add(new ConsumableItem(col.gameObject.name));
+            string goodName = col.gameObject.name.Replace("(Clone)", "");
+            //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
+            localPlayerData.inventory.Add(new ConsumableItem(goodName));
+            PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
             Destroy(swapButton);
@@ -213,40 +215,6 @@ public class PlayerController : MonoBehaviour
             currentSide = sides.Center;
         }
     }
-
-    /*
-    #region Getters & Setters
-    public float getImpact()
-    {
-        return impact;
-    }
-
-    public float getMovementSpeed()
-    {
-        return movementSpeed;
-    }
-
-    public float getEndurance()
-    {
-        return endurance;
-    }
-
-    public void setImpact(float impact)
-    {
-        this.impact = impact;
-    }
-
-    public void setMovementSpeed(float movementSpeed)
-    {
-        this.movementSpeed = movementSpeed;
-    }
-
-    public void setEndurance(float endurance)
-    {
-        this.endurance = endurance;
-    }
-    #endregion
-    */
 
     public void initPlayerStats()
     {
@@ -395,5 +363,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    private void RPC_DestroyObject(GameObject g)
+    {
+        Destroy(g);
     }
 }

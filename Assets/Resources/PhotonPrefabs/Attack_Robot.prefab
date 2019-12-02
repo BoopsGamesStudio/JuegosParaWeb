@@ -245,6 +245,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2286342721385562047}
     m_Modifications:
+    - target: {fileID: 100000, guid: 2d7a8889f8ba4bc4282f9276033af0a6, type: 3}
+      propertyPath: m_Name
+      value: cabeza_ataque
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2d7a8889f8ba4bc4282f9276033af0a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.04
@@ -288,10 +292,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 2d7a8889f8ba4bc4282f9276033af0a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 2d7a8889f8ba4bc4282f9276033af0a6, type: 3}
-      propertyPath: m_Name
-      value: cabeza_ataque
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 2d7a8889f8ba4bc4282f9276033af0a6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -379,6 +379,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2286342721385562047}
     m_Modifications:
+    - target: {fileID: 100000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
+      propertyPath: m_Name
+      value: wheel
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.04
@@ -422,10 +426,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
-      propertyPath: m_Name
-      value: wheel
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_Materials.Array.data[0]

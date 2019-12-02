@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour
     List<string> ItemsM;
     List<string> ItemsL;
 
-    int objsInSceneS = 1;
-    int objsInSceneM = 1;
-    int objsInSceneL = 1;
+    int objsInSceneS = 7;
+    int objsInSceneM = 4;
+    int objsInSceneL = 2;
     #endregion
 
     public List<Transform> spawnPoints;
@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviour
         {
             sceneObjs = new List<Item>();
             initGenerateProperties();
-            generateObjs();
+            if (PhotonNetwork.IsMasterClient) {
+                generateObjs();
+            }
 
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -119,34 +121,18 @@ public class GameManager : MonoBehaviour
     
     void createObjS(int itemId, int posId)
     {
-        Debug.Log("He entrado S");
-        GameObject model;
         var name = ItemsS[itemId];
         var type = ItemsS[itemId + 1];
-        model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = spawnPoints[posId].position;
-        model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        model.name = ItemsS[itemId];
-        model.tag = type;
-        model.GetComponent<SphereCollider>().radius = 0.5f;
-        model.GetComponent<SphereCollider>().isTrigger = true;
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneS--;
         spawnPoints.RemoveAt(posId);
     }
 
     void createObjM(int itemId, int posId)
     {
-        Debug.Log("He entrado M");
-        GameObject model;
         var name = ItemsM[itemId];
         var type = ItemsM[itemId + 1];
-        model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = spawnPoints[posId].position;
-        model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        model.name = ItemsM[itemId];
-        model.tag = type;
-        model.GetComponent<SphereCollider>().radius = 0.5f;
-        model.GetComponent<SphereCollider>().isTrigger = true;
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneM--;
         spawnPoints.RemoveAt(posId);
 
@@ -154,17 +140,9 @@ public class GameManager : MonoBehaviour
 
     void createObjL(int itemId, int posId)
     {
-        Debug.Log("He entrado L");
-        GameObject model;
         var name = ItemsL[itemId];
         var type = ItemsL[itemId + 1];
-        model = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        model.transform.position = spawnPoints[posId].position;
-        model.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        model.name = ItemsL[itemId];
-        model.tag = type;
-        model.GetComponent<SphereCollider>().radius = 0.5f;
-        model.GetComponent<SphereCollider>().isTrigger = true;
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneL--;
         spawnPoints.RemoveAt(posId);
 

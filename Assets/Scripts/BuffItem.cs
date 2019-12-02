@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BuffItem : Item
 {
-    [HideInInspector]
-    public string[] buffAttribs = {
+    private string[] buffAttribs = {
                                      "SbuffS", "Speed", "Small", "1",
                                      "MbuffS", "Speed", "Medium", "3",
                                      "LbuffS", "Speed", "Large", "5",

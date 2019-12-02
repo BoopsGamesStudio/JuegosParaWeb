@@ -35,5 +35,7 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_SendTimer
+  - RPC_DestroyObject
+  - RPC_SpawnObject
   DisableAutoOpenWizard: 1
   ShowSettings: 1

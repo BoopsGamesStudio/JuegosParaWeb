@@ -124,7 +124,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint9
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -140,7 +140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &181220058
 PrefabInstance:
@@ -267,7 +267,7 @@ PrefabInstance:
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.size
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
@@ -328,62 +328,62 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnPoints.Array.data[8]
       value: 
-      objectReference: {fileID: 1440700635}
+      objectReference: {fileID: 129247906}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[9]
       value: 
-      objectReference: {fileID: 129247906}
+      objectReference: {fileID: 639701524}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[10]
       value: 
-      objectReference: {fileID: 639701524}
+      objectReference: {fileID: 1821898301}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[11]
       value: 
-      objectReference: {fileID: 1821898301}
+      objectReference: {fileID: 978195580}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[12]
       value: 
-      objectReference: {fileID: 978195580}
+      objectReference: {fileID: 2143443479}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[13]
       value: 
-      objectReference: {fileID: 2143443479}
+      objectReference: {fileID: 666110283}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[14]
       value: 
-      objectReference: {fileID: 666110283}
+      objectReference: {fileID: 1351499335}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[15]
       value: 
-      objectReference: {fileID: 1351499335}
+      objectReference: {fileID: 547774900}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[16]
       value: 
-      objectReference: {fileID: 547774900}
+      objectReference: {fileID: 1444643768}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[17]
       value: 
-      objectReference: {fileID: 1444643768}
+      objectReference: {fileID: 484299573}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[18]
       value: 
-      objectReference: {fileID: 484299573}
+      objectReference: {fileID: 676778684}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[19]
       value: 
-      objectReference: {fileID: 676778684}
+      objectReference: {fileID: 1478692020}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: spawnPoints.Array.data[20]
@@ -587,7 +587,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -617,7 +617,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint18
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -633,7 +633,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &547774899
 GameObject:
@@ -647,7 +647,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint16
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -663,7 +663,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639701523
 GameObject:
@@ -677,7 +677,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint10
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -693,7 +693,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &666110282
 GameObject:
@@ -707,7 +707,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint14
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -723,7 +723,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676778683
 GameObject:
@@ -737,7 +737,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint19
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -753,7 +753,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &751785734
 PrefabInstance:
@@ -912,7 +912,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint2
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -942,7 +942,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint12
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -958,7 +958,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1006753920
 PrefabInstance:
@@ -1065,7 +1065,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint5
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1169,7 +1169,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint15
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1185,7 +1185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1385638232
 GameObject:
@@ -1293,36 +1293,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1440700634
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1440700635}
-  m_Layer: 0
-  m_Name: ItemSpawnPoint8
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1440700635
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440700634}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7999997, y: 0, z: 7.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1961919062}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444643767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1305,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint17
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1351,7 +1321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478692019
 GameObject:
@@ -1365,7 +1335,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint20
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1381,7 +1351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1482516880
 GameObject:
@@ -1395,7 +1365,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint7
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1425,7 +1395,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint0
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1455,7 +1425,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint6
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1485,7 +1455,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint4
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1594,7 +1564,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1624,7 +1594,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint0
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1790,7 +1760,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint11
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1806,7 +1776,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832325161
 GameObject:
@@ -1941,7 +1911,6 @@ Transform:
   - {fileID: 1098198334}
   - {fileID: 1506333123}
   - {fileID: 1482516881}
-  - {fileID: 1440700635}
   - {fileID: 129247906}
   - {fileID: 639701524}
   - {fileID: 1821898301}
@@ -1969,7 +1938,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint3
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1999,7 +1968,7 @@ GameObject:
   m_Layer: 0
   m_Name: ItemSpawnPoint13
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2015,5 +1984,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961919062}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
