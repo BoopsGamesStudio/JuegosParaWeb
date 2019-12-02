@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 9ff12c3c6b156cf4ea5cbdf7d9d731ee
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: agarrando_Daga
+    100002: agarrando_Espada
+    100004: agarrando_Hacha
+    100006: agarrando_Lanza
+    100008: Armature
+    100010: Cabeza
+    100012: cabeza_ataque.001
+    100014: cabeza_defensa.001
+    100016: Cabeza_end
+    100018: cabeza_equilibrado.001
+    100020: cabeza_velocidad.001
+    100022: cannon.001
+    100024: cogiendo_Lagrima.001
+    100026: cogiendo_mediano.001
+    100028: cogiendo_Rodela.001
+    100030: cogiendo_Tortuga
+    100032: disparando_Escopeta.001
+    100034: disparando_Metralleta.001
+    100036: disparando_Pistola.001
+    100038: Mano_der
+    100040: mano_der
+    100042: Mano_der_end
+    100044: Mano_izq
+    100046: mano_izq
+    100048: Mano_izq_end
+    100050: //RootNode
+    100052: Rueda
+    100054: rueda
+    100056: Rueda_end
+    400000: agarrando_Daga
+    400002: agarrando_Espada
+    400004: agarrando_Hacha
+    400006: agarrando_Lanza
+    400008: Armature
+    400010: Cabeza
+    400012: cabeza_ataque.001
+    400014: cabeza_defensa.001
+    400016: Cabeza_end
+    400018: cabeza_equilibrado.001
+    400020: cabeza_velocidad.001
+    400022: cannon.001
+    400024: cogiendo_Lagrima.001
+    400026: cogiendo_mediano.001
+    400028: cogiendo_Rodela.001
+    400030: cogiendo_Tortuga
+    400032: disparando_Escopeta.001
+    400034: disparando_Metralleta.001
+    400036: disparando_Pistola.001
+    400038: Mano_der
+    400040: mano_der
+    400042: Mano_der_end
+    400044: Mano_izq
+    400046: mano_izq
+    400048: Mano_izq_end
+    400050: //RootNode
+    400052: Rueda
+    400054: rueda
+    400056: Rueda_end
+    2100000: palette.019
+    2100002: palette.018
+    2100004: palette.017
+    2100006: palette.016
+    2100008: palette.015
+    2100010: palette.013
+    2100012: palette.012
+    2100014: palette.011
+    2100016: palette.010
+    2100018: palette.009
+    2100020: palette.008
+    2100022: palette.007
+    2100024: palette.006
+    2100026: palette.005
+    2100028: palette.004
+    2100030: palette.003
+    2100032: palette.002
+    2100034: palette
+    4300000: cogiendo_Tortuga
+    4300002: cannon.001
+    4300004: disparando_Metralleta.001
+    4300006: disparando_Escopeta.001
+    4300008: disparando_Pistola.001
+    4300010: cogiendo_Rodela.001
+    4300012: cogiendo_mediano.001
+    4300014: cogiendo_Lagrima.001
+    4300016: agarrando_Lanza
+    4300018: agarrando_Hacha
+    4300020: agarrando_Espada
+    4300022: agarrando_Daga
+    4300024: cabeza_velocidad.001
+    4300026: cabeza_equilibrado.001
+    4300028: cabeza_defensa.001
+    4300030: cabeza_ataque.001
+    4300032: rueda
+    4300034: mano_der
+    4300036: mano_izq
+    9500000: //RootNode
+    13700000: agarrando_Daga
+    13700002: agarrando_Espada
+    13700004: agarrando_Hacha
+    13700006: agarrando_Lanza
+    13700008: cabeza_ataque.001
+    13700010: cabeza_defensa.001
+    13700012: cabeza_equilibrado.001
+    13700014: cabeza_velocidad.001
+    13700016: cannon.001
+    13700018: cogiendo_Lagrima.001
+    13700020: cogiendo_mediano.001
+    13700022: cogiendo_Rodela.001
+    13700024: cogiendo_Tortuga
+    13700026: disparando_Escopeta.001
+    13700028: disparando_Metralleta.001
+    13700030: disparando_Pistola.001
+    13700032: mano_der
+    13700034: mano_izq
+    13700036: rueda
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
