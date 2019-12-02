@@ -126,8 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872a1176da04c1342b82ef39bf29bc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 300
+  timeLeft: 40
   jugar: {fileID: 0}
+  battleSceneIndex: 7
+  spawnPoints: []
 --- !u!1 &1096158874903831864
 GameObject:
   m_ObjectHideFlags: 0

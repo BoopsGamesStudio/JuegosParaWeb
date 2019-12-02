@@ -18,7 +18,7 @@ public class CameraRotation : MonoBehaviour
     void Start()
     {
         //player = FindObjectOfType<PlayerController>().gameObject;
-        
+
         foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
         {
             Debug.Log(FindObjectsOfType<PlayerController>().Length);
@@ -83,7 +83,7 @@ public class CameraRotation : MonoBehaviour
                 cameraSide = PlayerController.sides.Left;
                 break;
             case PlayerController.sides.Center:
-                targetPos = new Vector3(-3, this.transform.position.y, 4);   
+                targetPos = new Vector3(-3, this.transform.position.y, 4);
                 cameraSide = PlayerController.sides.Center;
                 break;
             case PlayerController.sides.Right:

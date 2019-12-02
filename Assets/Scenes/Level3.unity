@@ -276,11 +276,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
-      propertyPath: timeLeft
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -474,6 +469,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1096158874199221337, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096158874199221337, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 0c13ef0ca64020f48b5c451ab5d7c79f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd702e12ace744c936eafebc9e5f5f, type: 3}
 --- !u!224 &181220059 stripped

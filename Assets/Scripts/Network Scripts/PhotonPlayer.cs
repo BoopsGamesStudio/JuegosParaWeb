@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PhotonPlayer : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class PhotonPlayer : MonoBehaviour
     {
         robot = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == GetComponent<PhotonView>().ViewID).model;
         CreatePlayer();
-        Instantiate(prefabCenter);
+        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        {
+            Instantiate(prefabCenter);
+        }
     }
 
     private void CreatePlayer()

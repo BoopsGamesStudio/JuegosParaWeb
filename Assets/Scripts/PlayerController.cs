@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
-    [HideInInspector] public float z; 
+    [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;//Modificar para cada jugador
     [HideInInspector] public sides currentSide = sides.Center;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private float movementSpeed = 2;
     private float endurance = 2;
     */
-    public PlayerStatistics localPlayerData; 
+    public PlayerStatistics localPlayerData;
     #endregion
 
     // Start is called before the first frame update
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
 
         if (!Application.isMobilePlatform)
         {
-            if (joystick !=null)
-            GameObject.Destroy(joystick.gameObject);
+            if (joystick != null)
+                GameObject.Destroy(joystick.gameObject);
         }
     }
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    foreach (GameObject o in GameObject.FindGameObjectsWithTag("Dummy"))
+                    foreach (GameObject o in GameObject.FindGameObjectsWithTag("Player"))
                     {
                         if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
                         {
@@ -151,8 +151,8 @@ public class PlayerController : MonoBehaviour
                 raycastTest();
             }
         }
-        
-        
+
+
     }
 
     private void OnTriggerEnter(Collider col)
@@ -255,13 +255,13 @@ public class PlayerController : MonoBehaviour
         //Update Player Data with caught objects
         foreach (Item i in GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].inventory)
         {
-           if(i is BuffItem)
+            if (i is BuffItem)
             {
                 var buff = (BuffItem)i;
                 switch (buff.getType())
                 {
                     case BuffItem.buffType.Impact:
-                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].impact += buff.getBuff(); 
+                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].impact += buff.getBuff();
                         break;
                     case BuffItem.buffType.Endurance:
                         GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].endurance += buff.getBuff();
@@ -311,7 +311,8 @@ public class PlayerController : MonoBehaviour
     {
         foreach (Text t in FindObjectOfType<Canvas>().GetComponentsInChildren<Text>())
         {
-            if (t.gameObject.CompareTag("item")) {
+            if (t.gameObject.CompareTag("item"))
+            {
                 Destroy(t.gameObject);
             }
         }

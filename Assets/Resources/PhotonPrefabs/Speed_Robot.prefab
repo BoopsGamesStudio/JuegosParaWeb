@@ -245,10 +245,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 761772598271678858}
     m_Modifications:
-    - target: {fileID: 100000, guid: 8d562d9ae9e0aa149a24126ec6c8be8c, type: 3}
-      propertyPath: m_Name
-      value: cabeza_velocidad
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8d562d9ae9e0aa149a24126ec6c8be8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.05
@@ -292,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 8d562d9ae9e0aa149a24126ec6c8be8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8d562d9ae9e0aa149a24126ec6c8be8c, type: 3}
+      propertyPath: m_Name
+      value: cabeza_velocidad
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 8d562d9ae9e0aa149a24126ec6c8be8c, type: 3}
       propertyPath: m_Materials.Array.data[0]

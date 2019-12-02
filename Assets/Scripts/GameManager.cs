@@ -18,9 +18,12 @@ public class GameManager : MonoBehaviour
 
     List<Item> sceneObjs;
 
+    [SerializeField]
+    int battleSceneIndex;
+
     #region Generate properties
-    enum objType{buff, weapon, consumable};
-     enum objLvl { S, M, L };
+    enum objType { buff, weapon, consumable };
+    enum objLvl { S, M, L };
 
     List<string> ItemsS;
     List<string> ItemsM;
@@ -35,9 +38,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +53,8 @@ public class GameManager : MonoBehaviour
         {
             sceneObjs = new List<Item>();
             initGenerateProperties();
-            if (PhotonNetwork.IsMasterClient) {
+            if (PhotonNetwork.IsMasterClient)
+            {
                 generateObjs();
             }
 
@@ -65,10 +69,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Scene1") {
+        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        {
             timeLeft -= Time.deltaTime;
 
-            GetComponentInChildren<Text>().text = "Time left: " + timeLeft.ToString("F1");
+            GetComponentInChildren<Text>().text = timeLeft.ToString("F1");
 
             if (timeLeft < 0)
             {
@@ -77,7 +82,8 @@ public class GameManager : MonoBehaviour
                 {
                     p.GetComponent<PlayerController>().savePlayer();
                 }
-                SceneManager.LoadScene("Scene2");
+                if (PhotonNetwork.IsMasterClient)
+                    PhotonNetwork.LoadLevel(battleSceneIndex);
             }
         }
     }
@@ -117,8 +123,8 @@ public class GameManager : MonoBehaviour
             var posId = Random.Range(0, spawnPoints.Count - 1);
             createObjL(itemId, posId);
         }
-    } 
-    
+    }
+
     void createObjS(int itemId, int posId)
     {
         var name = ItemsS[itemId];
