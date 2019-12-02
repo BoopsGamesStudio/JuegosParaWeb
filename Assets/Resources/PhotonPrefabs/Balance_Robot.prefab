@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5488900368719807653}
   - component: {fileID: 3269311729940981249}
   m_Layer: 0
-  m_Name: PhotonRoboto_B
+  m_Name: Balance_Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,6 +226,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 2b542f472614fdd479ca98adac5379ee, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e545f2ccea0ec3d41b4345270127744f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b542f472614fdd479ca98adac5379ee, type: 3}
 --- !u!4 &151605675277171251 stripped
@@ -241,10 +245,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5171883471891649545}
     m_Modifications:
-    - target: {fileID: 100000, guid: 29bf36385bc9a6c44b17f7e623a5a67d, type: 3}
-      propertyPath: m_Name
-      value: cabeza_equilibrado
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 29bf36385bc9a6c44b17f7e623a5a67d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.063
@@ -288,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 29bf36385bc9a6c44b17f7e623a5a67d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 29bf36385bc9a6c44b17f7e623a5a67d, type: 3}
+      propertyPath: m_Name
+      value: cabeza_equilibrado
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 29bf36385bc9a6c44b17f7e623a5a67d, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -356,6 +360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 83127e9a190237348a9d760c05649098, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f12d3e98a0228447959a437c76c7904, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83127e9a190237348a9d760c05649098, type: 3}
 --- !u!4 &5626297542984408429 stripped
@@ -371,10 +379,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5171883471891649545}
     m_Modifications:
-    - target: {fileID: 100000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
-      propertyPath: m_Name
-      value: wheel
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.07
@@ -418,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
+      propertyPath: m_Name
+      value: wheel
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 87c81392e6aeb364d869bcddf680cd37, type: 3}
       propertyPath: m_Materials.Array.data[0]
