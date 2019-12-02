@@ -8,9 +8,16 @@ public class CameraRotation : MonoBehaviour
     float turningTime;
     [SerializeField] float speed;
     Vector3 currentAngle;
+    Vector3 currentCamAngle;
     Vector3 targetRot;
-    Vector3 targetPos;
+    bool tiltingDown = false;
+
+    float camTurningTime;
+    Vector3 targetCamRot = new Vector3(25, 135, 0);
+    float targetPos = 15;
+
     GameObject player;
+    GameObject cam;
     PlayerController.cornerNames cameraCorner = PlayerController.cornerNames.South;
     PlayerController.sides cameraSide = PlayerController.sides.Center;
 
@@ -18,6 +25,9 @@ public class CameraRotation : MonoBehaviour
     void Start()
     {
         //player = FindObjectOfType<PlayerController>().gameObject;
+        cam = FindObjectOfType<Camera>().gameObject;
+
+        currentCamAngle = cam.transform.eulerAngles;
 
         foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
         {
@@ -60,11 +70,36 @@ public class CameraRotation : MonoBehaviour
             }
         }
 
-        currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), 0);
+        if (player.GetComponent<PlayerController>().cameraHorizontal)
+        {
+            if (!tiltingDown)
+            {
+                tiltingDown = true;
+                rotateCamTo(-25);
+                targetPos = 0;
+            }
+
+        } else
+        {
+            if (tiltingDown)
+            {
+                tiltingDown = false;
+                rotateCamTo(25);
+                targetPos = 15;
+            }
+
+        }
+
+        //girar y bajar camara
+        currentCamAngle = new Vector3(Mathf.LerpAngle(currentCamAngle.x, targetCamRot.x, camTurningTime), cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+        cam.transform.eulerAngles = currentCamAngle;
+        cam.transform.position = new Vector3(cam.transform.position.x, Mathf.Lerp(cam.transform.position.y, targetPos, camTurningTime), cam.transform.position.z);
+
+        //girar center
+        currentAngle = new Vector3(this.transform.eulerAngles.x, Mathf.LerpAngle(currentAngle.y, targetRot.y, turningTime), this.transform.eulerAngles.z);
         this.transform.eulerAngles = currentAngle;
 
-        this.transform.position = new Vector3(this.transform.position.x, player.transform.position.y + 2, this.transform.position.z);
-        HorizontalPan();
+        this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
 
     void rotateTo(float angle)
@@ -74,24 +109,10 @@ public class CameraRotation : MonoBehaviour
         turningTime = Time.deltaTime * speed;
     }
 
-    void HorizontalPan()
+    void rotateCamTo(float angle)
     {
-        switch (player.GetComponent<PlayerController>().currentSide)
-        {
-            case PlayerController.sides.Left:
-                targetPos = new Vector3(8, this.transform.position.y, 4);
-                cameraSide = PlayerController.sides.Left;
-                break;
-            case PlayerController.sides.Center:
-                targetPos = new Vector3(-3, this.transform.position.y, 4);
-                cameraSide = PlayerController.sides.Center;
-                break;
-            case PlayerController.sides.Right:
-                targetPos = new Vector3(-14, this.transform.position.y, 4);
-                cameraSide = PlayerController.sides.Right;
-                break;
-        }
-
-        this.transform.position = Vector3.Lerp(this.transform.position, targetPos, Time.deltaTime * speed);
+        Debug.Log(angle);
+        targetCamRot = targetCamRot + new Vector3(angle, 0, 0);
+        camTurningTime = Time.deltaTime * speed;
     }
 }

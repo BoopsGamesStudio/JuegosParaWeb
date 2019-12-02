@@ -24,11 +24,12 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public cornerNames currentCorner = cornerNames.South;//Modificar para cada jugador
     [HideInInspector] public sides currentSide = sides.Center;
     private float cameraAnlgeOffset = -45;
+    public bool cameraHorizontal = false;
 
     private Joystick joystick;
     private Vector3 rot;
 
-    public GameObject weaponInTrigger;
+    private GameObject weaponInTrigger;
     private GameObject[] stageElems;
     private Camera cam;
 
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (SceneManager.GetActiveScene().name == "Scene1")
+            if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
             {
                 raycastTest();
             }
@@ -157,21 +158,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("SideTrigger"))
-        {
-            if (col.gameObject.name == "TriggerLeft")
-                currentSide = sides.Left;
-
-            if (col.gameObject.name == "TriggerRight")
-                currentSide = sides.Right;
-        }
-
         if (col.gameObject.CompareTag("buff"))
         {
-            //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
             string goodName = col.gameObject.name.Replace("(Clone)", "");
             localPlayerData.inventory.Add(new BuffItem(goodName));
-            PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
+            PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
 
         }
         if (col.gameObject.CompareTag("weapon"))
@@ -181,10 +172,9 @@ public class PlayerController : MonoBehaviour
 
             if (!localPlayerData.inventory.Exists((x) => x is Weapon))
             {
-                //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
                 createText(goodName, new Vector2(300, 600));
                 localPlayerData.inventory.Add(new Weapon(goodName));
-                PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
+                PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
             }
             else
             {
@@ -195,9 +185,8 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.CompareTag("consumable"))
         {
             string goodName = col.gameObject.name.Replace("(Clone)", "");
-            //PV.RPC("RPC_DestroyObject", RpcTarget.All, col.gameObject);
             localPlayerData.inventory.Add(new ConsumableItem(goodName));
-            PhotonNetwork.Destroy(col.gameObject.GetPhotonView());
+            PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
 
         }
     }
@@ -208,11 +197,6 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
             Destroy(swapButton);
-        }
-
-        if (other.gameObject.CompareTag("SideTrigger"))
-        {
-            currentSide = sides.Center;
         }
     }
 
@@ -284,7 +268,7 @@ public class PlayerController : MonoBehaviour
     void createButton(string txt)
     {
         GameObject button = Instantiate(buttonPrefab, FindObjectOfType<Canvas>().transform);
-
+        button.GetComponent<Button>().onClick.AddListener(replaceWeapon);
         button.GetComponentInChildren<Text>().text = txt;
     }
 
@@ -320,13 +304,11 @@ public class PlayerController : MonoBehaviour
 
     public void replaceWeapon()
     {
-        PlayerController player = FindObjectOfType<PlayerController>();
-
-        Debug.Log(player.weaponInTrigger.name);
-        createText(player.weaponInTrigger.name, new Vector2(300, 600));
-        player.localPlayerData.inventory.RemoveAll((x) => x is Weapon);
-        player.localPlayerData.inventory.Add(new Weapon(player.weaponInTrigger.name));
-        Destroy(player.weaponInTrigger);
+        string goodName = weaponInTrigger.name.Replace("(Clone)", "");
+        createText(goodName, new Vector2(300, 600));
+        localPlayerData.inventory.RemoveAll((x) => x is Weapon);
+        localPlayerData.inventory.Add(new Weapon(goodName));
+        PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, weaponInTrigger);
 
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
@@ -334,6 +316,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //cambiar a checkear un trigger
     private void raycastTest()
     {
         RaycastHit hitInfo = new RaycastHit();
@@ -342,26 +325,11 @@ public class PlayerController : MonoBehaviour
         {
             if (!hitInfo.transform.gameObject.Equals(this.gameObject) && hitInfo.transform.gameObject.CompareTag("stage"))
             {
-                var color = hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.color;
-                color.a = 0.3f;
-                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_ZWrite", 0);
-                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.renderQueue = 3000;
-                hitInfo.transform.gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.color = color;
+                cameraHorizontal = true;
             }
             else
             {
-                foreach (GameObject elem in stageElems)
-                {
-                    var color = elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.color;
-                    color.a = 1;
-                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.SetInt("_ZWrite", 1);
-                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.renderQueue = -1;
-                    elem.GetComponentInChildren<MeshRenderer>().sharedMaterial.color = color;
-                }
+                cameraHorizontal = false;
             }
         }
     }
@@ -369,6 +337,6 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     private void RPC_DestroyObject(GameObject g)
     {
-        Destroy(g);
+        PhotonNetwork.Destroy(g.GetPhotonView());
     }
 }
