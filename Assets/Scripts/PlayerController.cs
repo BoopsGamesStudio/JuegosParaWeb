@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour
 
         if (!Application.isMobilePlatform)
         {
-            if (joystick != null)
-                GameObject.Destroy(joystick.gameObject);
+            //if (joystick != null)
+                //GameObject.Destroy(joystick.gameObject);
         }
     }
 
@@ -94,23 +94,23 @@ public class PlayerController : MonoBehaviour
 
                     if (SceneManager.GetActiveScene().name == "Scene2")
                     {
-                        vel = new Vector3(joystick.Vertical * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal * localPlayerData.movementSpeed);
+                        vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
                     }
                     else
                     {
-                        vel = new Vector3(-joystick.Horizontal * localPlayerData.movementSpeed, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical * localPlayerData.movementSpeed);
+                        vel = new Vector3(-joystick.Horizontal , gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical);
                     }
 
                     vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
 
-                    gameObject.GetComponent<Rigidbody>().velocity = vel;
+                    //gameObject.GetComponent<Rigidbody>().velocity = vel;
 
-                    Vector2 velocity2D = new Vector2(vel.x, vel.z);
+                    Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
                     if (velocity2D.magnitude > 0.1f)
                     {
-                        Vector3 dir = gameObject.GetComponent<Rigidbody>().velocity.normalized;
-                        dir.y = 0;
-                        this.transform.rotation = Quaternion.LookRotation(dir);
+                        this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
+                        //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
+                        transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
                     }
                 }
                 else
