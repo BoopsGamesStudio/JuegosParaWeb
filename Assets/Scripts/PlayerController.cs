@@ -155,14 +155,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log(i.getAttribs());
                 }*/
             }
-
-            if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
-            {
-                //raycastTest();
-            }
         }
-
-
     }
     
     [PunRPC]
@@ -233,6 +226,9 @@ public class PlayerController : MonoBehaviour
                 }
                 
                 break;
+            case "CamTrigger":
+                cameraHorizontal = true;
+                break;
         }
     }
 
@@ -245,6 +241,9 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Teleporter"))
             alreadyTeleported = !alreadyTeleported;
+
+        if (other.gameObject.CompareTag("CamTrigger"))
+            cameraHorizontal = false;
     }
 
     public void initPlayerStats()
@@ -362,7 +361,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //cambiar a checkear un trigger
+    /*
     private void raycastTest()
     {
         RaycastHit hitInfo = new RaycastHit();
@@ -378,7 +377,7 @@ public class PlayerController : MonoBehaviour
                 cameraHorizontal = false;
             }
         }
-    }
+    }*/
 
     [PunRPC]
     private void RPC_DestroyObject(GameObject g)

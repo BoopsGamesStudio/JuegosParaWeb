@@ -20,6 +20,7 @@ TagManager:
   - SelectButton
   - RotButton
   - Teleporter
+  - CamTrigger
   layers:
   - Default
   - TransparentFX

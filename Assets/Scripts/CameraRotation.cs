@@ -15,6 +15,7 @@ public class CameraRotation : MonoBehaviour
     float camTurningTime;
     Vector3 targetCamRot = new Vector3(25, 135, 0);
     float targetPos = 15;
+    float tiltRotation = 20;
 
     GameObject player;
     GameObject cam;
@@ -75,8 +76,8 @@ public class CameraRotation : MonoBehaviour
             if (!tiltingDown)
             {
                 tiltingDown = true;
-                rotateCamTo(-25);
-                targetPos = 0;
+                rotateCamTo(-tiltRotation);
+                targetPos = 2;
             }
 
         } else
@@ -84,7 +85,7 @@ public class CameraRotation : MonoBehaviour
             if (tiltingDown)
             {
                 tiltingDown = false;
-                rotateCamTo(25);
+                rotateCamTo(tiltRotation);
                 targetPos = 15;
             }
 
