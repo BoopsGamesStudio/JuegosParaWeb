@@ -135,7 +135,9 @@ public class PlayerController : MonoBehaviour
                         {
                             Vector3 impactVector = this.transform.forward;
                             impactVector.y = 0.5f;
-                            o.GetComponent<Rigidbody>().AddForce(0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
+                            
+                            Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance;
+                            PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber);
                         }
                     }
                 }
@@ -157,7 +159,19 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    
+    [PunRPC]
+    private void RPC_Hit(Vector3 force, int player)
+    {
+        foreach(GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if(GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
+            {
+                GO.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+            }
+        }
+    }
+    
     private void OnTriggerEnter(Collider col)
     {
         string goodName;
