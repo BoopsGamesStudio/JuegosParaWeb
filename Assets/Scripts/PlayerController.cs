@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private GameObject weaponInTrigger;
     private GameObject[] stageElems;
     private Camera cam;
+    private bool alreadyTeleported;
 
     [SerializeField] private GameObject buttonPrefab;
 
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Start");
         localPlayerData = new PlayerStatistics();
         //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
+        if(PV.IsMine)
         initPlayerStats();
 
         joystick = FindObjectOfType<Joystick>();
@@ -60,8 +62,8 @@ public class PlayerController : MonoBehaviour
 
         if (!Application.isMobilePlatform)
         {
-            //if (joystick != null)
-                //GameObject.Destroy(joystick.gameObject);
+            if (joystick != null)
+                GameObject.Destroy(joystick.gameObject);
         }
     }
 
@@ -149,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
             {
-                raycastTest();
+                //raycastTest();
             }
         }
 
@@ -158,36 +160,59 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("buff"))
+        string goodName;
+        switch (col.gameObject.tag)
         {
-            string goodName = col.gameObject.name.Replace("(Clone)", "");
-            localPlayerData.inventory.Add(new BuffItem(goodName));
-            PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
+            case "buff":
+                goodName = col.gameObject.name.Replace("(Clone)", "");
+                localPlayerData.inventory.Add(new BuffItem(goodName));
+                //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
+                RPC_DestroyObject(col.gameObject);
+                break;
+            case "weapon":
+                weaponInTrigger = col.gameObject;
+                goodName = weaponInTrigger.name.Replace("(Clone)", "");
 
-        }
-        if (col.gameObject.CompareTag("weapon"))
-        {
-            weaponInTrigger = col.gameObject;
-            string goodName = weaponInTrigger.name.Replace("(Clone)", "");
-
-            if (!localPlayerData.inventory.Exists((x) => x is Weapon))
-            {
-                createText(goodName, new Vector2(300, 600));
-                localPlayerData.inventory.Add(new Weapon(goodName));
-                PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
-            }
-            else
-            {
-                createButton("¿Cambiar por " + goodName + "?");
-            }
-
-        }
-        if (col.gameObject.CompareTag("consumable"))
-        {
-            string goodName = col.gameObject.name.Replace("(Clone)", "");
-            localPlayerData.inventory.Add(new ConsumableItem(goodName));
-            PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
-
+                if (!localPlayerData.inventory.Exists((x) => x is Weapon))
+                {
+                    createText(goodName, new Vector2(300, 600));
+                    localPlayerData.inventory.Add(new Weapon(goodName));
+                    //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
+                    RPC_DestroyObject(col.gameObject);
+                }
+                else
+                {
+                    createButton("¿Cambiar por " + goodName + "?");
+                }
+                break;
+            case "consumable":
+                goodName = col.gameObject.name.Replace("(Clone)", "");
+                localPlayerData.inventory.Add(new ConsumableItem(goodName));
+                //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
+                RPC_DestroyObject(col.gameObject);
+                break;
+            case "Teleporter":
+                switch (col.gameObject.name)
+                {
+                    case "teleporter1a":
+                        if(!alreadyTeleported)
+                        transform.position = GameObject.Find("teleporter1b").transform.position;
+                        break;
+                    case "teleporter1b":
+                        if (!alreadyTeleported)
+                            transform.position = GameObject.Find("teleporter1a").transform.position;
+                        break;
+                    case "teleporter2a":
+                        if (!alreadyTeleported)
+                            transform.position = GameObject.Find("teleporter2b").transform.position;
+                        break;
+                    case "teleporter2b":
+                        if (!alreadyTeleported)
+                            transform.position = GameObject.Find("teleporter2a").transform.position;
+                        break;
+                }
+                
+                break;
         }
     }
 
@@ -198,21 +223,21 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(swapButton);
         }
+        if (other.gameObject.CompareTag("Teleporter"))
+            alreadyTeleported = !alreadyTeleported;
     }
 
     public void initPlayerStats()
     {
         if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
         {
-            localPlayerData.playerId = 0;
-            localPlayerData.impact = 2f;
-            localPlayerData.endurance = 2f;
-            localPlayerData.movementSpeed = 3f;
+            Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
+            localPlayerData = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == PhotonNetwork.LocalPlayer.ActorNumber);
             localPlayerData.inventory = new List<Item>();
         }
         if (SceneManager.GetActiveScene().name == "Scene2")
         {
-            localPlayerData = GlobalControl.Instance.savedPlayerData[0];
+            localPlayerData = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == PhotonNetwork.LocalPlayer.ActorNumber);
         }
     }
 
@@ -229,15 +254,17 @@ public class PlayerController : MonoBehaviour
     public void savePlayer()
     {
         //Save Player Data
-        GlobalControl.Instance.savedPlayerData.Insert(localPlayerData.playerId, localPlayerData);
+        var index = GlobalControl.Instance.savedPlayerData.IndexOf(localPlayerData);
 
+        /*
         foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
         {
             Debug.Log(ps.getStats());
         }
+        */
 
         //Update Player Data with caught objects
-        foreach (Item i in GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].inventory)
+        foreach (Item i in GlobalControl.Instance.savedPlayerData[index].inventory)
         {
             if (i is BuffItem)
             {
@@ -245,15 +272,30 @@ public class PlayerController : MonoBehaviour
                 switch (buff.getType())
                 {
                     case BuffItem.buffType.Impact:
-                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].impact += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData[index].impact += buff.getBuff();
                         break;
                     case BuffItem.buffType.Endurance:
-                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].endurance += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData[index].endurance += buff.getBuff();
                         break;
                     case BuffItem.buffType.Speed:
-                        GlobalControl.Instance.savedPlayerData[localPlayerData.playerId].movementSpeed += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData[index].movementSpeed += buff.getBuff();
                         break;
                 }
+
+            }
+
+            if (i is Weapon)
+            {
+                var weapon = (Weapon)i;
+                    
+               GlobalControl.Instance.savedPlayerData[index].impact += weapon.getImpact();
+                        
+                    
+               GlobalControl.Instance.savedPlayerData[index].endurance += weapon.getEndurance();
+                        
+       
+               GlobalControl.Instance.savedPlayerData[index].movementSpeed += weapon.getSpeed();
+                       
 
             }
         }

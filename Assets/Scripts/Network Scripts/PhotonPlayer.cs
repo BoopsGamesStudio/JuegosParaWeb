@@ -12,7 +12,7 @@ public class PhotonPlayer : MonoBehaviour
 
     void Start()
     {
-        robot = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == GetComponent<PhotonView>().ViewID).model;
+        robot = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == PhotonNetwork.LocalPlayer.ActorNumber).model;
         CreatePlayer();
         if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
         {

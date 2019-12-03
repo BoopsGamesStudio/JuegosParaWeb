@@ -9,25 +9,25 @@ public class Weapon : Item
 {
     [HideInInspector]
     public string[] weaponAttribs = {
-                                     "Dagger", "Melee", "5", "2", "6", "50",
-                                     "Sword", "Melee", "4", "4", "8", "70",
-                                     "Axe", "Melee", "2", "1", "1", "30",
-                                     "Spear", "Melee", "5", "2", "6", "50",
-                                     "Buckler", "Shield", "4", "4", "8", "70",
-                                     "Tear Shield", "Shield", "2", "1", "1", "30",
-                                     "Medium Shield", "Shield", "5", "2", "6", "50",
-                                     "Sharp Shield", "Shield", "4", "4", "8", "70",
-                                     "Plasma Handgun", "Distance", "2", "1", "1", "30",
-                                     "Plasma Submachine", "Distance", "5", "2", "6", "50",
-                                     "Plasma Shotgun", "Distance", "4", "4", "8", "70",
-                                     "Plasma Cannon", "Distance", "2", "1", "1", "30"
+                                     "Dagger", "Melee", "1", "1", "4", "4",
+                                     "Sword", "Melee", "4", "2", "3", "3",
+                                     "Axe", "Melee", "5", "4", "1", "2",
+                                     "Spear", "Melee", "3", "4", "4", "3",
+                                     "Buckler", "Shield", "2", "2", "3", "3",
+                                     "Tear Shield", "Shield", "4", "5", "2", "1",
+                                     "Medium Shield", "Shield", "3", "3", "3", "3",
+                                     "Sharp Shield", "Shield", "5", "5", "2", "2",
+                                     "Plasma Handgun", "Distance", "2", "1", "4", "3",
+                                     "Plasma Submachine", "Distance", "1", "2", "5", "4",
+                                     "Plasma Shotgun", "Distance", "5", "3", "1", "3",
+                                     "Plasma Cannon", "Distance", "5", "4", "3", "2"
                                     };
     public enum weaponType {Melee, Shield, Distance};
     private weaponType type;
     private float impact;
     private float endurance;
     private float cadence;
-    private float weight;
+    private float speed;
 
     public Weapon(string name) : base(name)
     {
@@ -36,7 +36,7 @@ public class Weapon : Item
         impact = float.Parse(weaponAttribs[index + 2], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
         endurance = float.Parse(weaponAttribs[index + 3], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
         cadence = float.Parse(weaponAttribs[index + 4], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
-        weight = float.Parse(weaponAttribs[index + 5], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+        speed = float.Parse(weaponAttribs[index + 5], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
     }
 
     #region Getters
@@ -60,14 +60,14 @@ public class Weapon : Item
         return cadence;
     }
 
-    public float getWeight()
+    public float getSpeed()
     {
-        return weight;
+        return speed;
     }
 
     public override string getAttribs()
     { 
-        return "[" + getName() + ", " + getType() + ", " + getImpact() + ", " + getEndurance() + ", " + getCadence() + ", " + getWeight() + "]";
+        return "[" + getName() + ", " + getType() + ", " + getImpact() + ", " + getEndurance() + ", " + getCadence() + ", " + getSpeed() + "]";
     }
     #endregion
 

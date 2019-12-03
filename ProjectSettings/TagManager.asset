@@ -19,6 +19,7 @@ TagManager:
   - SideTrigger
   - SelectButton
   - RotButton
+  - Teleporter
   layers:
   - Default
   - TransparentFX

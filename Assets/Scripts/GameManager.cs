@@ -80,7 +80,8 @@ public class GameManager : MonoBehaviour
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject p in players)
                 {
-                    p.GetComponent<PlayerController>().savePlayer();
+                    if(p.GetPhotonView().IsMine)
+                        p.GetComponent<PlayerController>().savePlayer();
                 }
                 if (PhotonNetwork.IsMasterClient)
                     PhotonNetwork.LoadLevel(battleSceneIndex);

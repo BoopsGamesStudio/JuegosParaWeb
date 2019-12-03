@@ -38,7 +38,7 @@ public class SelectCharacterController : MonoBehaviour
         robot = "Balance_Robot";
         DisplayCharacters();
         timerToStartGame = maxWaitTime;
-
+    
         PV = GetComponent<PhotonView>();
 
         if (PhotonNetwork.IsMasterClient)
@@ -182,7 +182,8 @@ public class SelectCharacterController : MonoBehaviour
                 localPlayerData.movementSpeed = 3.0f;
                 break;
         }
-        localPlayerData.playerId = PV.ViewID;
+        localPlayerData.playerId = PhotonNetwork.LocalPlayer.ActorNumber;
+        Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
         GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
     }
 }
