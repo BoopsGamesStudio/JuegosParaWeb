@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlobalControl : MonoBehaviour
 {
     public static GlobalControl Instance;
-    public List<PlayerStatistics> savedPlayerData = new List<PlayerStatistics>();
+    public PlayerStatistics savedPlayerData = new PlayerStatistics();
 
     void Awake()
     {

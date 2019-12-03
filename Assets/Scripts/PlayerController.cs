@@ -45,17 +45,18 @@ public class PlayerController : MonoBehaviour
     public PlayerStatistics localPlayerData;
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         PV = GetComponent<PhotonView>();
 
-        Debug.Log("Start");
         localPlayerData = new PlayerStatistics();
-        //GlobalControl.Instance.savedPlayerData = new List<PlayerStatistics>();
-        if(PV.IsMine)
-        initPlayerStats();
+        if (PV.IsMine)
+            initPlayerStats();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
@@ -135,8 +136,11 @@ public class PlayerController : MonoBehaviour
                         {
                             Vector3 impactVector = this.transform.forward;
                             impactVector.y = 0.5f;
-                            
-                            Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact / o.GetComponent<PlayerController>().localPlayerData.endurance;
+
+                            Debug.Log("Impact -> " + impactVector + ", Stats mias -> " + localPlayerData.getStats());
+
+                            Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
+                            Debug.Log("Vector force -> " + force);
                             PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber);
                         }
                     }
@@ -145,10 +149,11 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                foreach (Item i in localPlayerData.inventory)
+                Debug.Log("My stats: " + localPlayerData.getStats());
+                /*foreach (Item i in localPlayerData.inventory)
                 {
                     Debug.Log(i.getAttribs());
-                }
+                }*/
             }
 
             if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
@@ -163,11 +168,12 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     private void RPC_Hit(Vector3 force, int player)
     {
-        foreach(GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
             if(GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
             {
-                GO.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+                Debug.Log("Stats mias -> " + GO.GetComponent<PlayerController>().localPlayerData.getStats());
+                GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
             }
         }
     }
@@ -245,13 +251,12 @@ public class PlayerController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
         {
-            Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
-            localPlayerData = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == PhotonNetwork.LocalPlayer.ActorNumber);
+            localPlayerData = GlobalControl.Instance.savedPlayerData;
             localPlayerData.inventory = new List<Item>();
         }
         if (SceneManager.GetActiveScene().name == "Scene2")
         {
-            localPlayerData = GlobalControl.Instance.savedPlayerData.Find((x) => x.playerId == PhotonNetwork.LocalPlayer.ActorNumber);
+            localPlayerData = GlobalControl.Instance.savedPlayerData;
         }
     }
 
@@ -268,17 +273,9 @@ public class PlayerController : MonoBehaviour
     public void savePlayer()
     {
         //Save Player Data
-        var index = GlobalControl.Instance.savedPlayerData.IndexOf(localPlayerData);
-
-        /*
-        foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
-        {
-            Debug.Log(ps.getStats());
-        }
-        */
 
         //Update Player Data with caught objects
-        foreach (Item i in GlobalControl.Instance.savedPlayerData[index].inventory)
+        foreach (Item i in GlobalControl.Instance.savedPlayerData.inventory)
         {
             if (i is BuffItem)
             {
@@ -286,13 +283,13 @@ public class PlayerController : MonoBehaviour
                 switch (buff.getType())
                 {
                     case BuffItem.buffType.Impact:
-                        GlobalControl.Instance.savedPlayerData[index].impact += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData.impact += buff.getBuff();
                         break;
                     case BuffItem.buffType.Endurance:
-                        GlobalControl.Instance.savedPlayerData[index].endurance += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData.endurance += buff.getBuff();
                         break;
                     case BuffItem.buffType.Speed:
-                        GlobalControl.Instance.savedPlayerData[index].movementSpeed += buff.getBuff();
+                        GlobalControl.Instance.savedPlayerData.movementSpeed += buff.getBuff();
                         break;
                 }
 
@@ -300,24 +297,17 @@ public class PlayerController : MonoBehaviour
 
             if (i is Weapon)
             {
-                var weapon = (Weapon)i;
-                    
-               GlobalControl.Instance.savedPlayerData[index].impact += weapon.getImpact();
-                        
-                    
-               GlobalControl.Instance.savedPlayerData[index].endurance += weapon.getEndurance();
-                        
-       
-               GlobalControl.Instance.savedPlayerData[index].movementSpeed += weapon.getSpeed();
-                       
-
+                var weapon = (Weapon) i;
+                
+                GlobalControl.Instance.savedPlayerData.impact += weapon.getImpact();
+               
+                GlobalControl.Instance.savedPlayerData.endurance += weapon.getEndurance();
+                
+                GlobalControl.Instance.savedPlayerData.movementSpeed += weapon.getSpeed();
             }
         }
 
-        foreach (PlayerStatistics ps in GlobalControl.Instance.savedPlayerData)
-        {
-            Debug.Log(ps.getStats());
-        }
+        Debug.Log(GlobalControl.Instance.savedPlayerData.getStats());
 
     }
 

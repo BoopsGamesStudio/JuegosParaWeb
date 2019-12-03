@@ -184,6 +184,6 @@ public class SelectCharacterController : MonoBehaviour
         }
         localPlayerData.playerId = PhotonNetwork.LocalPlayer.ActorNumber;
         Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
-        GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
+        GlobalControl.Instance.savedPlayerData = localPlayerData;
     }
 }

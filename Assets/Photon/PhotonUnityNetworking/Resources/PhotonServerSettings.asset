@@ -37,5 +37,6 @@ MonoBehaviour:
   - RPC_SendTimer
   - RPC_DestroyObject
   - RPC_SpawnObject
+  - RPC_Hit
   DisableAutoOpenWizard: 1
   ShowSettings: 1

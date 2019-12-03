@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     int battleSceneIndex;
+    bool sceneLoaded;
 
     #region Generate properties
     enum objType { buff, weapon, consumable };
@@ -63,7 +64,14 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoxCollider>().enabled = false;
             }
         }
-
+        if(SceneManager.GetActiveScene().name == "Scene2")
+        {
+            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (p.GetPhotonView().IsMine)
+                    p.GetComponent<PlayerController>().savePlayer();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -77,14 +85,11 @@ public class GameManager : MonoBehaviour
 
             if (timeLeft < 0)
             {
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                foreach (GameObject p in players)
+                if (PhotonNetwork.IsMasterClient && !sceneLoaded)
                 {
-                    if(p.GetPhotonView().IsMine)
-                        p.GetComponent<PlayerController>().savePlayer();
-                }
-                if (PhotonNetwork.IsMasterClient)
+                    sceneLoaded = true;
                     PhotonNetwork.LoadLevel(battleSceneIndex);
+                }
             }
         }
     }
