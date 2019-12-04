@@ -19,13 +19,37 @@ public class CameraRotation : MonoBehaviour
 
     GameObject player;
     GameObject cam;
-    PlayerController.cornerNames cameraCorner = PlayerController.cornerNames.South;
-    PlayerController.sides cameraSide = PlayerController.sides.Center;
+    PlayerController.cornerNames cameraCorner;
+
+    private void Awake()
+    {
+        cameraCorner = (PlayerController.cornerNames)PhotonNetwork.LocalPlayer.ActorNumber - 1;
+
+        switch (cameraCorner)
+        {
+            case PlayerController.cornerNames.West:
+                targetRot = targetRot + new Vector3(0, 90, 0);
+                currentAngle = new Vector3(this.transform.eulerAngles.x, 90, this.transform.eulerAngles.z);
+                this.transform.eulerAngles = currentAngle;
+                break;
+            case PlayerController.cornerNames.North:
+                targetRot = targetRot + new Vector3(0, 180, 0);
+                currentAngle = new Vector3(this.transform.eulerAngles.x, 180, this.transform.eulerAngles.z);
+                this.transform.eulerAngles = currentAngle;
+                break;
+            case PlayerController.cornerNames.East:
+                targetRot = targetRot + new Vector3(0, -90, 0);
+                currentAngle = new Vector3(this.transform.eulerAngles.x, -90, this.transform.eulerAngles.z);
+                this.transform.eulerAngles = currentAngle;
+                break;
+            default:
+                break;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //player = FindObjectOfType<PlayerController>().gameObject;
         cam = FindObjectOfType<Camera>().gameObject;
 
         currentCamAngle = cam.transform.eulerAngles;

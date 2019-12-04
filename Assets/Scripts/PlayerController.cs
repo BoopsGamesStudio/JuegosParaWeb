@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float x;
     [HideInInspector] public float z;
     //[HideInInspector] public cornerNames previousCorner;
-    [HideInInspector] public cornerNames currentCorner = cornerNames.South;//Modificar para cada jugador
-    [HideInInspector] public sides currentSide = sides.Center;
+    [HideInInspector] public cornerNames currentCorner;
     private float cameraAnlgeOffset = -45;
     public bool cameraHorizontal = false;
 
@@ -58,6 +57,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentCorner = (cornerNames) PhotonNetwork.LocalPlayer.ActorNumber - 1;
+
         joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();

@@ -127,7 +127,6 @@ MonoBehaviour:
   x: 0
   z: 0
   currentCorner: 2
-  currentSide: 1
   cameraHorizontal: 0
   buttonPrefab: {fileID: 513659001603598805, guid: dd6633636c07d54498d001811e11114c,
     type: 3}
