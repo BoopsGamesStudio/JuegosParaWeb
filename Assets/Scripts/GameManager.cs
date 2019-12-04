@@ -147,7 +147,6 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneM--;
         spawnPoints.RemoveAt(posId);
-
     }
 
     void createObjL(int itemId, int posId)
@@ -157,7 +156,6 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneL--;
         spawnPoints.RemoveAt(posId);
-
     }
 }
 

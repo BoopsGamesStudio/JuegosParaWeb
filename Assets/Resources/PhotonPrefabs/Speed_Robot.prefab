@@ -175,6 +175,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2286342721385562047}
     m_Modifications:
+    - target: {fileID: 7422859998191934852, guid: f2fdd921f2b16cd4c9c77ec612455c9c,
+        type: 3}
+      propertyPath: m_Name
+      value: robot
+      objectReference: {fileID: 0}
     - target: {fileID: 7422859998191436260, guid: f2fdd921f2b16cd4c9c77ec612455c9c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,11 +234,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7422859998191934852, guid: f2fdd921f2b16cd4c9c77ec612455c9c,
-        type: 3}
-      propertyPath: m_Name
-      value: robot
       objectReference: {fileID: 0}
     - target: {fileID: 7422859998191934948, guid: f2fdd921f2b16cd4c9c77ec612455c9c,
         type: 3}
