@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.IO;
+using Lean.Localization;
 
 public class GameManager : MonoBehaviour
 {
@@ -156,6 +157,11 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneL--;
         spawnPoints.RemoveAt(posId);
+    }
+
+    public void settingsBtn()
+    {
+        SceneManager.LoadScene(10);
     }
 }
 
