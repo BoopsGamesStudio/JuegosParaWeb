@@ -198,7 +198,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
+    [PunRPC]
+    private void RPC_LoadWeapon(int player, int weapon)
+    {
+        foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
+            {
+                GO.transform.GetChild(1).GetChild(17).gameObject.SetActive(false);
+                GO.transform.GetChild(1).GetChild(weapon).gameObject.SetActive(true);
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider col)
     {
         if (PV.IsMine)

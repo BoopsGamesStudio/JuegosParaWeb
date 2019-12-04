@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 7422859998191436274}
   - component: {fileID: 7422859998188753128}
   m_Layer: 0
-  m_Name: disparando_Pistola.001
+  m_Name: Plasma Handgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 7422859998191436276}
   - component: {fileID: 7422859998188753130}
   m_Layer: 0
-  m_Name: disparando_Metralleta.001
+  m_Name: Plasma Submachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 7422859998191436278}
   - component: {fileID: 7422859998188753132}
   m_Layer: 0
-  m_Name: disparando_Escopeta.001
+  m_Name: Plasma Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,7 +768,7 @@ GameObject:
   - component: {fileID: 7422859998191436224}
   - component: {fileID: 7422859998188753126}
   m_Layer: 0
-  m_Name: cannon.001
+  m_Name: Plasma Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 7422859998191436232}
   - component: {fileID: 7422859998188753134}
   m_Layer: 0
-  m_Name: cogiendo_Tortuga
+  m_Name: Sharp Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1134,7 +1134,7 @@ GameObject:
   - component: {fileID: 7422859998191436234}
   - component: {fileID: 7422859998188753120}
   m_Layer: 0
-  m_Name: cogiendo_Rodela.001
+  m_Name: Buckler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1218,7 +1218,7 @@ GameObject:
   - component: {fileID: 7422859998191436236}
   - component: {fileID: 7422859998188753122}
   m_Layer: 0
-  m_Name: cogiendo_mediano.001
+  m_Name: Medium Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 7422859998191436238}
   - component: {fileID: 7422859998188753124}
   m_Layer: 0
-  m_Name: cogiendo_Lagrima.001
+  m_Name: Tear Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1386,7 +1386,7 @@ GameObject:
   - component: {fileID: 7422859998191436240}
   - component: {fileID: 7422859998188753136}
   m_Layer: 0
-  m_Name: agarrando_Lanza
+  m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 7422859998191436242}
   - component: {fileID: 7422859998188753138}
   m_Layer: 0
-  m_Name: agarrando_Hacha
+  m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1554,7 +1554,7 @@ GameObject:
   - component: {fileID: 7422859998191436244}
   - component: {fileID: 7422859998188753140}
   m_Layer: 0
-  m_Name: agarrando_Espada
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1638,7 +1638,7 @@ GameObject:
   - component: {fileID: 7422859998191436246}
   - component: {fileID: 7422859998188753142}
   m_Layer: 0
-  m_Name: agarrando_Daga
+  m_Name: Dagger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
