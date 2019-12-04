@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private bool alreadyTeleported;
     private float cooldown;
+    Animator anim;
 
     [SerializeField] private GameObject buttonPrefab;
 
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        PV = GetComponent<PhotonView>();
+        PV = GetComponentInChildren<PhotonView>();
 
         localPlayerData = new PlayerStatistics();
         if (PV.IsMine)
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
         joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
+        anim = GetComponentInChildren<Animator>();
 
         if (!Application.isMobilePlatform)
         {
@@ -113,15 +115,28 @@ public class PlayerController : MonoBehaviour
                     Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
                     if (velocity2D.magnitude > 0.1f)
                     {
+                        anim.SetBool("isWalking", true);
                         this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
                         //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
                         transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
+                    } else
+                    {
+                        anim.SetBool("isWalking", false);
                     }
                 }
                 else
                 {
                     x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
                     z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                    if (z > 0f)
+                    {
+                        anim.SetBool("isWalking", true);
+                    } else
+                    {
+                        anim.SetBool("isWalking", false);
+                        z *= 0.35f;
+                    }
 
                     transform.Rotate(0, x, 0);
                     transform.Translate(0, 0, z);
@@ -176,7 +191,7 @@ public class PlayerController : MonoBehaviour
                 impactVector.y = 0.5f;
 
                 Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
-                PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber);
+                PV.RPC("RPC_Hit", o.GetComponentInChildren<PhotonView>().Owner, force, o.GetComponentInChildren<PhotonView>().Owner.ActorNumber);
             }
         }
     }
@@ -192,7 +207,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if(GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
+            if(GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
             {
                 GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
             }
@@ -204,10 +219,10 @@ public class PlayerController : MonoBehaviour
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
+            if (GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
             {
-                GO.transform.GetChild(1).GetChild(17).gameObject.SetActive(false);
-                GO.transform.GetChild(1).GetChild(weapon).gameObject.SetActive(true);
+                GO.transform.GetChild(0).GetChild(17).gameObject.SetActive(false);
+                GO.transform.GetChild(0).GetChild(weapon).gameObject.SetActive(true);
             }
         }
     }

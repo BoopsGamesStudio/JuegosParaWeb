@@ -39,7 +39,7 @@ public class PhotonPlayer : MonoBehaviour
                 string weaponName = weapon.getName();
                 Debug.Log(weaponName + " ha pasado");
                 Transform weaponHand = FindObject(player, weaponName).transform;
-                player.GetComponent<PhotonView>().RPC("RPC_LoadWeapon", RpcTarget.All, player.GetComponent<PhotonView>().Owner.ActorNumber, weaponHand.GetSiblingIndex());
+                player.GetComponentInChildren<PhotonView>().RPC("RPC_LoadWeapon", RpcTarget.All, player.GetComponentInChildren<PhotonView>().Owner.ActorNumber, weaponHand.GetSiblingIndex());
             }
         }
     }

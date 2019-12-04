@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
             impactVector.y = 0.5f;
 
             Vector3 force = 0.04f * impactVector.normalized * impact;
-            PV.RPC("RPC_Hit", collision.transform.gameObject.GetComponent<PhotonView>().Owner, force, collision.transform.gameObject.GetComponent<PhotonView>().Owner.ActorNumber);
+            PV.RPC("RPC_Hit", collision.transform.gameObject.GetComponentInChildren<PhotonView>().Owner, force, collision.transform.gameObject.GetComponentInChildren<PhotonView>().Owner.ActorNumber);
 
             PhotonNetwork.Destroy(this.gameObject);
         }
@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
+            if (GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
             {
                 GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
             }
