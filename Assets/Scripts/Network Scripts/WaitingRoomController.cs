@@ -87,7 +87,6 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
             timerToStartGame -= Time.deltaTime;
             timerToStartDisplay.enabled = true;
             playerCountDisplay.enabled = false;
-            titleDisplay.text = "Empezando en...";
         }
             
 
@@ -109,7 +108,6 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
         timerToStartGame = maxWaitTime;
         timerToStartDisplay.enabled = false;
         playerCountDisplay.enabled = true;
-        titleDisplay.text = "Esperando\nJugadores...";
     }
 
     public void StartGame()
