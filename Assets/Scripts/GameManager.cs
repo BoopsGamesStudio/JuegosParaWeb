@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         var name = ItemsS[itemId];
         var type = ItemsS[itemId + 1];
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", "Plasma Handgun"), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneS--;
         spawnPoints.RemoveAt(posId);
     }

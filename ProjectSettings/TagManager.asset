@@ -21,6 +21,7 @@ TagManager:
   - RotButton
   - Teleporter
   - CamTrigger
+  - Bullet
   layers:
   - Default
   - TransparentFX

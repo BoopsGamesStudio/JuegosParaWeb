@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private GameObject[] stageElems;
     private Camera cam;
     private bool alreadyTeleported;
+    private float cooldown;
 
     [SerializeField] private GameObject buttonPrefab;
 
@@ -128,21 +129,19 @@ public class PlayerController : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "Scene2")
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                cooldown -= Time.deltaTime;
+                if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
                 {
-                    foreach (GameObject o in GameObject.FindGameObjectsWithTag("Player"))
+                    if (localPlayerData.inventory.Exists((x) => x is Weapon))
+                        cooldown = localPlayerData.getWeapon().getCadence();
+
+                    if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
                     {
-                        if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
-                        {
-                            Vector3 impactVector = this.transform.forward;
-                            impactVector.y = 0.5f;
-
-                            Debug.Log("Impact -> " + impactVector + ", Stats mias -> " + localPlayerData.getStats());
-
-                            Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
-                            Debug.Log("Vector force -> " + force);
-                            PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber);
-                        }
+                        gunShoot();
+                    }
+                    else
+                    {
+                        meleeHit();
                     }
                 }
             }
@@ -150,14 +149,43 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("My stats: " + localPlayerData.getStats());
-                /*foreach (Item i in localPlayerData.inventory)
+                Debug.Log("Inv local: ");
+                foreach (Item i in localPlayerData.inventory)
                 {
                     Debug.Log(i.getAttribs());
-                }*/
+                }
+
+                Debug.Log("Inv global: ");
+                foreach (Item i in GlobalControl.Instance.savedPlayerData.inventory)
+                {
+                    Debug.Log(i.getAttribs());
+                }
             }
         }
     }
     
+    private void meleeHit()
+    {
+        Debug.Log("HIT");
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
+            {
+                Vector3 impactVector = this.transform.forward;
+                impactVector.y = 0.5f;
+
+                Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
+                PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber);
+            }
+        }
+    }
+
+    private void gunShoot()
+    {
+        GameObject bullet = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Bullet"), this.transform.position, this.transform.rotation);
+        bullet.GetComponent<Bullet>().setImpact(localPlayerData.impact);
+    }
+
     [PunRPC]
     private void RPC_Hit(Vector3 force, int player)
     {
@@ -165,7 +193,6 @@ public class PlayerController : MonoBehaviour
         {
             if(GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
             {
-                Debug.Log("Stats mias -> " + GO.GetComponent<PlayerController>().localPlayerData.getStats());
                 GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
             }
         }
@@ -261,6 +288,7 @@ public class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Scene2")
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
+            //localPlayerData.inventory = GlobalControl.Instance.savedPlayerData.inventory;
         }
     }
 
@@ -304,9 +332,7 @@ public class PlayerController : MonoBehaviour
                 var weapon = (Weapon) i;
                 
                 GlobalControl.Instance.savedPlayerData.impact += weapon.getImpact();
-               
                 GlobalControl.Instance.savedPlayerData.endurance += weapon.getEndurance();
-                
                 GlobalControl.Instance.savedPlayerData.movementSpeed += weapon.getSpeed();
             }
         }

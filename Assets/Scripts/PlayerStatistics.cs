@@ -15,5 +15,17 @@ public class PlayerStatistics
     {
         return "[" + playerId + ", " + impact + ", " + endurance + ", " + movementSpeed + ", " + "]";
     }
+
+    public Weapon getWeapon()
+    {
+        Weapon weapon = (Weapon)inventory.Find((x) => x is Weapon);
+        return weapon;
+    }
+
+    public Weapon.weaponType getWeaponType()
+    {
+        Weapon weapon = (Weapon) inventory.Find((x) => x is Weapon);
+        return weapon.getType();
+    }
 }
 
