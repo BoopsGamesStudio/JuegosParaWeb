@@ -6,7 +6,7 @@ public class GameSetup : MonoBehaviour
 {
     public static GameSetup GS;
 
-    public Transform[] spawPoints;
+    public List<Transform> spawPoints;
 
     private void OnEnable()
     {

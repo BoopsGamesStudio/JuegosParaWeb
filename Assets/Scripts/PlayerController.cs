@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 vel;
 
-                    if (SceneManager.GetActiveScene().name == "Scene2")
+                    if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
                     {
                         vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
                     }
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (SceneManager.GetActiveScene().name == "Scene2")
+            if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
             {
                 cooldown -= Time.deltaTime;
                 if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
             localPlayerData = GlobalControl.Instance.savedPlayerData;
             localPlayerData.inventory = new List<Item>();
         }
-        if (SceneManager.GetActiveScene().name == "Scene2")
+        if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
             //localPlayerData.inventory = GlobalControl.Instance.savedPlayerData.inventory;

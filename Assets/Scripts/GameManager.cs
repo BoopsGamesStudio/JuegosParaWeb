@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     List<Item> sceneObjs;
 
-    [SerializeField]
     int battleSceneIndex;
     bool sceneLoaded;
 
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoxCollider>().enabled = false;
             }
         }
-        if(SceneManager.GetActiveScene().name == "Scene2")
+        if(SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
         {
             foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -88,6 +87,7 @@ public class GameManager : MonoBehaviour
                 if (PhotonNetwork.IsMasterClient && !sceneLoaded)
                 {
                     sceneLoaded = true;
+                    battleSceneIndex = Random.Range(7, 10);
                     PhotonNetwork.LoadLevel(battleSceneIndex);
                 }
             }
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         var name = ItemsS[itemId];
         var type = ItemsS[itemId + 1];
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", "Plasma Handgun"), spawnPoints[posId].position, spawnPoints[posId].rotation);
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
         objsInSceneS--;
         spawnPoints.RemoveAt(posId);
     }
