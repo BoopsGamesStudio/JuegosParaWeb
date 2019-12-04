@@ -391,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041743060}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
 --- !u!1 &1227466585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,8 +1234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -140}
-  m_SizeDelta: {x: 46.7, y: 30}
+  m_AnchoredPosition: {x: 0, y: 121.9}
+  m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2022771011
 MonoBehaviour:
@@ -1262,7 +1262,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1390,6 +1390,11 @@ PrefabInstance:
       propertyPath: timerToStartDisplay
       value: 
       objectReference: {fileID: 2022771011}
+    - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
+        type: 3}
+      propertyPath: SelectButton
+      value: 
+      objectReference: {fileID: 1498716436}
     - target: {fileID: 8761967256503183944, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
         type: 3}
       propertyPath: m_LocalPosition.x

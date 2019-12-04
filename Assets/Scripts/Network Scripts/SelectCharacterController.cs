@@ -12,8 +12,6 @@ public class SelectCharacterController : MonoBehaviour
     private GameObject rotLButton;
     [SerializeField]
     private GameObject rotRButton;
-    [SerializeField]
-    private GameObject StartButton;
     float turningTime;
     [SerializeField] float speed;
     Vector3 currentAngle;
@@ -29,6 +27,7 @@ public class SelectCharacterController : MonoBehaviour
     private Text timerToStartDisplay;
     public PlayerStatistics localPlayerData;
     private bool startingGame;
+    private bool launchingLevel;
 
     // Start is called before the first frame update
     void Start()
@@ -63,14 +62,20 @@ public class SelectCharacterController : MonoBehaviour
     {
         timerToStartGame -= Time.deltaTime;
 
-        string tempTimer = string.Format("{0:00}", timerToStartGame);
-        timerToStartDisplay.text = tempTimer;
-
         if (timerToStartGame <= 0f)
         {
-            if (startingGame)
-                return;
-            StartGame();
+            timerToStartDisplay.text = "Entrando a partida en " + string.Format("{0:00}", timerToStartGame + 3);
+
+            if (!startingGame)
+                StartGame();
+            else
+            {
+                if(timerToStartGame <= -3f && !launchingLevel)
+                    LaunchLevel();
+            }
+        } else
+        {
+            timerToStartDisplay.text = string.Format("{0:00}", timerToStartGame);
         }
     }
 
@@ -131,22 +136,44 @@ public class SelectCharacterController : MonoBehaviour
     {
         Button selectBtn = GameObject.FindGameObjectWithTag("SelectButton").GetComponent<Button>();
 
-        if(selectBtn.GetComponentInChildren<Text>().text == "Select")
+        if (selectBtn.GetComponentInChildren<Text>().text == "Select")
             selectBtn.GetComponentInChildren<Text>().text = "Cancel";
         else
             selectBtn.GetComponentInChildren<Text>().text = "Select";
 
         foreach (GameObject button in GameObject.FindGameObjectsWithTag("RotButton"))
         {
-            button.GetComponent<Button>().interactable = !button.GetComponent<Button>().interactable;
+            buttonEnabled(button, !button.GetComponent<Button>().interactable);
         }
+    }
+
+    private void buttonEnabled(GameObject button, bool enabled)
+    {
+        button.GetComponent<Button>().interactable = enabled;
     }
 
     public void StartGame()
     {
         startingGame = true;
         FillPlayerData();
-        //GlobalControl.Instance.savedPlayerData.Add(localPlayerData);
+        foreach (GameObject button in GameObject.FindGameObjectsWithTag("RotButton"))
+        {
+            buttonEnabled(button, false);
+        }
+
+        Destroy(GameObject.FindGameObjectWithTag("SelectButton"));
+
+        /*
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+        */
+    }
+
+    private void LaunchLevel()
+    {
+        launchingLevel = true;
         if (!PhotonNetwork.IsMasterClient)
             return;
         PhotonNetwork.CurrentRoom.IsOpen = false;

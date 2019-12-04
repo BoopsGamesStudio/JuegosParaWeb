@@ -173,77 +173,82 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter(Collider col)
     {
-        string goodName;
-        switch (col.gameObject.tag)
+        if (PV.IsMine)
         {
-            case "buff":
-                goodName = col.gameObject.name.Replace("(Clone)", "");
-                localPlayerData.inventory.Add(new BuffItem(goodName));
-                //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
-                RPC_DestroyObject(col.gameObject);
-                break;
-            case "weapon":
-                weaponInTrigger = col.gameObject;
-                goodName = weaponInTrigger.name.Replace("(Clone)", "");
+            string goodName;
+            switch (col.gameObject.tag)
+            {
+                case "buff":
+                    goodName = col.gameObject.name.Replace("(Clone)", "");
+                    localPlayerData.inventory.Add(new BuffItem(goodName));
+                    PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
+                    //RPC_DestroyObject(col.gameObject);
+                    break;
+                case "weapon":
+                    weaponInTrigger = col.gameObject;
+                    goodName = weaponInTrigger.name.Replace("(Clone)", "");
 
-                if (!localPlayerData.inventory.Exists((x) => x is Weapon))
-                {
-                    createText(goodName, new Vector2(300, 600));
-                    localPlayerData.inventory.Add(new Weapon(goodName));
-                    //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
-                    RPC_DestroyObject(col.gameObject);
-                }
-                else
-                {
-                    createButton("¿Cambiar por " + goodName + "?");
-                }
-                break;
-            case "consumable":
-                goodName = col.gameObject.name.Replace("(Clone)", "");
-                localPlayerData.inventory.Add(new ConsumableItem(goodName));
-                //PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject);
-                RPC_DestroyObject(col.gameObject);
-                break;
-            case "Teleporter":
-                switch (col.gameObject.name)
-                {
-                    case "teleporter1a":
-                        if(!alreadyTeleported)
-                        transform.position = GameObject.Find("teleporter1b").transform.position;
-                        break;
-                    case "teleporter1b":
-                        if (!alreadyTeleported)
-                            transform.position = GameObject.Find("teleporter1a").transform.position;
-                        break;
-                    case "teleporter2a":
-                        if (!alreadyTeleported)
-                            transform.position = GameObject.Find("teleporter2b").transform.position;
-                        break;
-                    case "teleporter2b":
-                        if (!alreadyTeleported)
-                            transform.position = GameObject.Find("teleporter2a").transform.position;
-                        break;
-                }
-                
-                break;
-            case "CamTrigger":
-                cameraHorizontal = true;
-                break;
+                    if (!localPlayerData.inventory.Exists((x) => x is Weapon))
+                    {
+                        createText(goodName, new Vector2(300, 600));
+                        localPlayerData.inventory.Add(new Weapon(goodName));
+                        PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
+                        //RPC_DestroyObject(col.gameObject);
+                    }
+                    else
+                    {
+                        createButton("¿Cambiar por " + goodName + "?");
+                    }
+                    break;
+                case "consumable":
+                    goodName = col.gameObject.name.Replace("(Clone)", "");
+                    localPlayerData.inventory.Add(new ConsumableItem(goodName));
+                    PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
+                    //RPC_DestroyObject(col.gameObject);
+                    break;
+                case "Teleporter":
+                    switch (col.gameObject.name)
+                    {
+                        case "teleporter1a":
+                            if (!alreadyTeleported)
+                                transform.position = GameObject.Find("teleporter1b").transform.position;
+                            break;
+                        case "teleporter1b":
+                            if (!alreadyTeleported)
+                                transform.position = GameObject.Find("teleporter1a").transform.position;
+                            break;
+                        case "teleporter2a":
+                            if (!alreadyTeleported)
+                                transform.position = GameObject.Find("teleporter2b").transform.position;
+                            break;
+                        case "teleporter2b":
+                            if (!alreadyTeleported)
+                                transform.position = GameObject.Find("teleporter2a").transform.position;
+                            break;
+                    }
+
+                    break;
+                case "CamTrigger":
+                    cameraHorizontal = true;
+                    break;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-
-        foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
+        if (PV.IsMine)
         {
-            Destroy(swapButton);
-        }
-        if (other.gameObject.CompareTag("Teleporter"))
-            alreadyTeleported = !alreadyTeleported;
+            foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
+            {
+                Destroy(swapButton);
+            }
+            if (other.gameObject.CompareTag("Teleporter"))
+                alreadyTeleported = !alreadyTeleported;
 
-        if (other.gameObject.CompareTag("CamTrigger"))
-            cameraHorizontal = false;
+            if (other.gameObject.CompareTag("CamTrigger"))
+                cameraHorizontal = false;
+        }
     }
 
     public void initPlayerStats()
@@ -353,7 +358,7 @@ public class PlayerController : MonoBehaviour
         createText(goodName, new Vector2(300, 600));
         localPlayerData.inventory.RemoveAll((x) => x is Weapon);
         localPlayerData.inventory.Add(new Weapon(goodName));
-        PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, weaponInTrigger);
+        PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, weaponInTrigger.GetPhotonView().ViewID);
 
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
@@ -380,8 +385,8 @@ public class PlayerController : MonoBehaviour
     }*/
 
     [PunRPC]
-    private void RPC_DestroyObject(GameObject g)
+    private void RPC_DestroyObject(int viewID)
     {
-        PhotonNetwork.Destroy(g.GetPhotonView());
+        PhotonNetwork.Destroy(PhotonNetwork.GetPhotonView(viewID));
     }
 }
