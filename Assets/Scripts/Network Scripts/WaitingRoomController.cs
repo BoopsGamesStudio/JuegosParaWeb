@@ -22,6 +22,8 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
     private Text playerCountDisplay;
     [SerializeField]
     private Text timerToStartDisplay;
+    [SerializeField]
+    private Text titleDisplay;
 
     private bool readyToStart;
     private bool startingGame;
@@ -81,7 +83,12 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
             ResetTimer();
 
         if (readyToStart)
+        {
             timerToStartGame -= Time.deltaTime;
+            timerToStartDisplay.enabled = true;
+            playerCountDisplay.enabled = false;
+        }
+            
 
         string tempTimer = string.Format("{0:00}", timerToStartGame);
         timerToStartDisplay.text = tempTimer;
@@ -99,6 +106,8 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
     private void ResetTimer()
     {
         timerToStartGame = maxWaitTime;
+        timerToStartDisplay.enabled = false;
+        playerCountDisplay.enabled = true;
     }
 
     public void StartGame()
