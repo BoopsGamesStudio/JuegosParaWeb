@@ -23,7 +23,19 @@ public class CameraRotation : MonoBehaviour
 
     private void Awake()
     {
-        cameraCorner = (PlayerController.cornerNames)PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (p.GetPhotonView().IsMine)
+            {
+                cameraCorner = p.GetComponent<PlayerController>().currentCorner;
+            }
+        }
 
         switch (cameraCorner)
         {
@@ -45,11 +57,7 @@ public class CameraRotation : MonoBehaviour
             default:
                 break;
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         cam = FindObjectOfType<Camera>().gameObject;
 
         currentCamAngle = cam.transform.eulerAngles;
@@ -125,6 +133,15 @@ public class CameraRotation : MonoBehaviour
         this.transform.eulerAngles = currentAngle;
 
         this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (p.GetPhotonView().IsMine)
+            {
+                p.GetComponent<PlayerController>().currentCorner = cameraCorner;
+            }
+
+        }
     }
 
     void rotateTo(float angle)

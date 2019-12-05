@@ -30,6 +30,12 @@ public class SelectCharacterController : MonoBehaviour
     private bool startingGame;
     private bool launchingLevel;
 
+    private void Awake()
+    {
+        if (Application.isMobilePlatform)
+            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

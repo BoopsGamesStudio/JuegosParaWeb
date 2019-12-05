@@ -10,6 +10,12 @@ public class SettingsController : MonoBehaviour
     [SerializeField]
     private int menuSceneIndex;
 
+    private void Awake()
+    {
+        if (Application.isMobilePlatform)
+            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+    }
+
     private void Update()
     {
         switch (LeanLocalization.CurrentLanguage)

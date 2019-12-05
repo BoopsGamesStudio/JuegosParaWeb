@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        if (Application.isMobilePlatform)
+            GetComponentInChildren<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
     }
 
     // Start is called before the first frame update
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviour
 
     public void settingsBtn()
     {
-        SceneManager.LoadScene(10);
+        SceneManager.LoadScene(8);
     }
 }
 

@@ -33,6 +33,12 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private float maxWaitTime;
 
+    private void Awake()
+    {
+        if (Application.isMobilePlatform)
+            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+    }
+
     private void Start()
     {
         PV = GetComponent<PhotonView>();

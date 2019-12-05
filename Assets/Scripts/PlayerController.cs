@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
+            currentCorner = (cornerNames)PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        else
+            currentCorner = cornerNames.South;
+
         PV = GetComponent<PhotonView>();
 
         anim = GetComponent<Animator>();
@@ -64,8 +69,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentCorner = (cornerNames) PhotonNetwork.LocalPlayer.ActorNumber - 1;
-
         joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
@@ -105,26 +108,19 @@ public class PlayerController : MonoBehaviour
                     if (joystick != null)
                     {
                         Vector3 vel;
-
-                        if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
-                        {
-                            vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
-                        }
-                        else
-                        {
+                        
+                        if (SceneManager.GetActiveScene().name == "SearchLevel")
                             vel = new Vector3(-joystick.Horizontal, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical);
-                        }
+                        else
+                            vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
 
                         vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
-
-                        //gameObject.GetComponent<Rigidbody>().velocity = vel;
 
                         Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
                         if (velocity2D.magnitude > 0.1f)
                         {
                             anim.SetBool("isWalking", true);
                             this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
-                            //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
                             transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
                         }
                         else
