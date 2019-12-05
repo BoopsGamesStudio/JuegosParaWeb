@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     private bool alreadyTeleported;
     private float cooldown;
     Animator anim;
+    float timerForAnim;
+    float timerForStun;
+    bool stunned = false;
 
     [SerializeField] private GameObject buttonPrefab;
 
@@ -48,7 +51,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        PV = GetComponentInChildren<PhotonView>();
+        PV = GetComponent<PhotonView>();
+
+        anim = GetComponent<Animator>();
 
         localPlayerData = new PlayerStatistics();
         if (PV.IsMine)
@@ -63,7 +68,6 @@ public class PlayerController : MonoBehaviour
         joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
-        anim = GetComponentInChildren<Animator>();
 
         if (!Application.isMobilePlatform)
         {
@@ -95,70 +99,93 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
 
-                if (joystick != null)
+                if (!stunned)
                 {
-                    Vector3 vel;
-
-                    if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+                    if (joystick != null)
                     {
-                        vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
+                        Vector3 vel;
+
+                        if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+                        {
+                            vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
+                        }
+                        else
+                        {
+                            vel = new Vector3(-joystick.Horizontal, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical);
+                        }
+
+                        vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
+
+                        //gameObject.GetComponent<Rigidbody>().velocity = vel;
+
+                        Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
+                        if (velocity2D.magnitude > 0.1f)
+                        {
+                            anim.SetBool("isWalking", true);
+                            this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
+                            //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
+                            transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
+                        }
+                        else
+                        {
+                            anim.SetBool("isWalking", false);
+                        }
                     }
                     else
                     {
-                        vel = new Vector3(-joystick.Horizontal , gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical);
+                        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
+                        z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                        if (z > 0f)
+                        {
+                            anim.SetBool("isWalking", true);
+                        }
+                        else
+                        {
+                            anim.SetBool("isWalking", false);
+                            z *= 0.35f;
+                        }
+
+                        transform.Rotate(0, x, 0);
+                        transform.Translate(0, 0, z);
                     }
-
-                    vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
-
-                    //gameObject.GetComponent<Rigidbody>().velocity = vel;
-
-                    Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
-                    if (velocity2D.magnitude > 0.1f)
-                    {
-                        anim.SetBool("isWalking", true);
-                        this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
-                        //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
-                        transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
-                    } else
-                    {
-                        anim.SetBool("isWalking", false);
-                    }
-                }
-                else
-                {
-                    x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
-                    z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
-
-                    if (z > 0f)
-                    {
-                        anim.SetBool("isWalking", true);
-                    } else
-                    {
-                        anim.SetBool("isWalking", false);
-                        z *= 0.35f;
-                    }
-
-                    transform.Rotate(0, x, 0);
-                    transform.Translate(0, 0, z);
                 }
             }
 
             if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
             {
                 cooldown -= Time.deltaTime;
-                if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
+                if (!stunned)
                 {
-                    if (localPlayerData.inventory.Exists((x) => x is Weapon))
-                        cooldown = localPlayerData.getWeapon().getCadence();
+                    if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
+                    {
+                        cooldown = 0;
+                        if (localPlayerData.inventory.Exists((x) => x is Weapon))
+                            cooldown = localPlayerData.getWeapon().getCadence();
 
-                    if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
-                    {
-                        gunShoot();
+                        if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
+                        {
+                            gunShoot();
+                        }
+                        else
+                        {
+                            meleeHit();
+                        }
+
+                        anim.SetBool("attack", true);
                     }
-                    else
+                }
+
+                if (localPlayerData.inventory.Exists((x) => x is Weapon))
+                {
+                    if (cooldown < localPlayerData.getWeapon().getCadence() - 0.2f)
                     {
-                        meleeHit();
+                        anim.SetBool("attack", false);
                     }
+                } else
+                {
+                    if(cooldown < -0.2f)
+                        anim.SetBool("attack", false);
                 }
             }
 
@@ -177,21 +204,44 @@ public class PlayerController : MonoBehaviour
                     Debug.Log(i.getAttribs());
                 }
             }
+
+            if (anim.GetBool("isHitted"))
+            {
+                timerForAnim += Time.deltaTime;
+
+                if(timerForAnim > 0.2f)
+                {
+                    anim.SetBool("isHitted", false);
+                    timerForAnim = 0;
+                }
+            }
+
+            if(stunned)
+            {
+                timerForStun += Time.deltaTime;
+
+                if (timerForStun > 2) //Duración del stun
+                {
+                    stunned = false;
+                    timerForStun = 0;
+                }
+            }
         }
     }
     
     private void meleeHit()
     {
-        Debug.Log("HIT");
         foreach (GameObject o in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (gameObject.GetComponentInChildren<BoxCollider>().bounds.Contains(o.transform.position) && !o.Equals(gameObject))
             {
+                Debug.Log("MELEE HIT with impact: " + localPlayerData.impact);
+
                 Vector3 impactVector = this.transform.forward;
                 impactVector.y = 0.5f;
 
-                Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
-                PV.RPC("RPC_Hit", o.GetComponentInChildren<PhotonView>().Owner, force, o.GetComponentInChildren<PhotonView>().Owner.ActorNumber);
+                Vector3 force = 0.06f * impactVector.normalized * localPlayerData.impact;
+                PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber, localPlayerData.getWeaponType() == Weapon.weaponType.Melee);
             }
         }
     }
@@ -203,13 +253,17 @@ public class PlayerController : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_Hit(Vector3 force, int player)
+    private void RPC_Hit(Vector3 force, int player, bool usingMelee)
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if(GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
+            if(GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
             {
                 GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
+
+                GO.GetComponent<PlayerController>().stunned = true;
+                GO.GetComponent<Animator>().SetBool("enemyUsesMelee", usingMelee);
+                GO.GetComponent<Animator>().SetBool("isHitted", true);
             }
         }
     }
@@ -219,10 +273,10 @@ public class PlayerController : MonoBehaviour
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
+            if (GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
             {
-                GO.transform.GetChild(0).GetChild(17).gameObject.SetActive(false);
-                GO.transform.GetChild(0).GetChild(weapon).gameObject.SetActive(true);
+                GO.transform.GetChild(17).gameObject.SetActive(false);
+                GO.transform.GetChild(weapon).gameObject.SetActive(true);
             }
         }
     }
@@ -318,6 +372,22 @@ public class PlayerController : MonoBehaviour
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
             //localPlayerData.inventory = GlobalControl.Instance.savedPlayerData.inventory;
+
+            if (localPlayerData.inventory.Exists((x) => x is Weapon))
+            {
+                switch (localPlayerData.getWeaponType())
+                {
+                    case Weapon.weaponType.Distance:
+                        anim.SetInteger("weaponType", 2);
+                        break;
+                    case Weapon.weaponType.Melee:
+                        anim.SetInteger("weaponType", 1);
+                        break;
+                    case Weapon.weaponType.Shield:
+                        anim.SetInteger("weaponType", 3);
+                        break;
+                }
+            }
         }
     }
 

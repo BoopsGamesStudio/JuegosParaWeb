@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
         PV = GetComponent<PhotonView>();
         this.transform.Translate(new Vector3(0.5f, 0, 0.3f));
         GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3(0, 0, speed));
+
     }
 
     // Update is called once per frame
@@ -32,11 +33,13 @@ public class Bullet : MonoBehaviour
     {
         if (PV != null && PV.IsMine)
         {
+            Debug.Log("BULLET HIT with impact: " + impact);
+
             Vector3 impactVector = this.transform.forward;
             impactVector.y = 0.5f;
 
-            Vector3 force = 0.04f * impactVector.normalized * impact;
-            PV.RPC("RPC_Hit", collision.transform.gameObject.GetComponentInChildren<PhotonView>().Owner, force, collision.transform.gameObject.GetComponentInChildren<PhotonView>().Owner.ActorNumber);
+            Vector3 force = 0.06f * impactVector.normalized * impact;
+            PV.RPC("RPC_Hit", collision.transform.gameObject.GetComponent<PhotonView>().Owner, force, collision.transform.gameObject.GetComponent<PhotonView>().Owner.ActorNumber);
 
             PhotonNetwork.Destroy(this.gameObject);
         }
@@ -52,9 +55,11 @@ public class Bullet : MonoBehaviour
     {
         foreach (GameObject GO in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (GO.GetComponentInChildren<PhotonView>().Owner.ActorNumber == player)
+            if (GO.GetComponent<PhotonView>().Owner.ActorNumber == player)
             {
                 GO.GetComponent<Rigidbody>().AddForce(force / GO.GetComponent<PlayerController>().localPlayerData.endurance, ForceMode.Impulse);
+
+                GO.GetComponent<Animator>().SetBool("isHitted", true);
             }
         }
     }

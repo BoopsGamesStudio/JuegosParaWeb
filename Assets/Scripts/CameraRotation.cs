@@ -57,7 +57,7 @@ public class CameraRotation : MonoBehaviour
         foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
         {
             Debug.Log(FindObjectsOfType<PlayerController>().Length);
-            if (pc.GetComponentInChildren<PhotonView>().IsMine)
+            if (pc.GetComponent<PhotonView>().IsMine)
             {
                 player = pc.gameObject;
                 break;

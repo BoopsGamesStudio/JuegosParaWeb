@@ -33,13 +33,14 @@ public class PhotonPlayer : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
         {
-            Weapon weapon = GlobalControl.Instance.savedPlayerData.getWeapon();
+            if (GlobalControl.Instance.savedPlayerData.inventory.Exists((x) => x is Weapon))
+            {
+                Weapon weapon = GlobalControl.Instance.savedPlayerData.getWeapon();
 
-            if (weapon.getName() != null) {
                 string weaponName = weapon.getName();
                 Debug.Log(weaponName + " ha pasado");
                 Transform weaponHand = FindObject(player, weaponName).transform;
-                player.GetComponentInChildren<PhotonView>().RPC("RPC_LoadWeapon", RpcTarget.All, player.GetComponentInChildren<PhotonView>().Owner.ActorNumber, weaponHand.GetSiblingIndex());
+                player.GetComponent<PhotonView>().RPC("RPC_LoadWeapon", RpcTarget.All, player.GetComponent<PhotonView>().Owner.ActorNumber, weaponHand.GetSiblingIndex());
             }
         }
     }
