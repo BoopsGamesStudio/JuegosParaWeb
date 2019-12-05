@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Lean.Localization;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -136,10 +137,21 @@ public class SelectCharacterController : MonoBehaviour
     {
         Button selectBtn = GameObject.FindGameObjectWithTag("SelectButton").GetComponent<Button>();
 
-        if (selectBtn.GetComponentInChildren<Text>().text == "Select")
-            selectBtn.GetComponentInChildren<Text>().text = "Cancel";
-        else
-            selectBtn.GetComponentInChildren<Text>().text = "Select";
+        switch(LeanLocalization.CurrentLanguage)
+        {
+            case "Spanish":
+            if (selectBtn.GetComponentInChildren<Text>().text == "Elegir")
+                selectBtn.GetComponentInChildren<Text>().text = "Cancelar";
+            else
+                selectBtn.GetComponentInChildren<Text>().text = "Elegir";
+                break;
+            case "English":
+                if (selectBtn.GetComponentInChildren<Text>().text == "Select")
+                    selectBtn.GetComponentInChildren<Text>().text = "Cancel";
+                else
+                    selectBtn.GetComponentInChildren<Text>().text = "Select";
+                break;
+        }
 
         foreach (GameObject button in GameObject.FindGameObjectsWithTag("RotButton"))
         {
