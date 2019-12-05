@@ -222,6 +222,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: timer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174654, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -326,16 +336,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: timer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096158874496174655, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1096158874903832007, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
