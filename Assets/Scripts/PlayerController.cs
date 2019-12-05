@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
-        if (!Application.isMobilePlatform)
+        if (Application.isMobilePlatform)
         {
             if (PhoneInputs != null)
                 GameObject.Destroy(PhoneInputs.gameObject);
@@ -85,6 +85,29 @@ public class PlayerController : MonoBehaviour
         {
             joystick = PhoneInputs.GetComponentInChildren<Joystick>();
 
+            if (SceneManager.GetActiveScene().name == "SearchLevel") {
+                foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
+                {
+                    if (button.gameObject.name == "LButton")
+                        LButton = button;
+                    if (button.gameObject.name == "RButton")
+                        RButton = button;
+                }
+
+                LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
+                RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
+            } else
+            {
+                foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
+                {
+                    if (button.gameObject.name == "LButton")
+                        Destroy(button.gameObject);
+                    if (button.gameObject.name == "RButton")
+                        RButton = button;
+                }
+
+                RButton.onClick.AddListener(attackButton);
+            }
         }
     }
 
@@ -162,22 +185,9 @@ public class PlayerController : MonoBehaviour
                 cooldown -= Time.deltaTime;
                 if (!stunned)
                 {
-                    if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
+                    if (Input.GetKeyDown(KeyCode.O))
                     {
-                        cooldown = 0;
-                        if (localPlayerData.inventory.Exists((x) => x is Weapon))
-                            cooldown = localPlayerData.getWeapon().getCadence();
-
-                        if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
-                        {
-                            gunShoot();
-                        }
-                        else
-                        {
-                            meleeHit();
-                        }
-
-                        anim.SetBool("attack", true);
+                        attackButton();
                     }
                 }
 
@@ -231,6 +241,27 @@ public class PlayerController : MonoBehaviour
                     timerForStun = 0;
                 }
             }
+        }
+    }
+
+    public void attackButton()
+    {
+        if (cooldown <= 0)
+        {
+            cooldown = 0;
+            if (localPlayerData.inventory.Exists((x) => x is Weapon))
+                cooldown = localPlayerData.getWeapon().getCadence();
+
+            if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
+            {
+                gunShoot();
+            }
+            else
+            {
+                meleeHit();
+            }
+
+            anim.SetBool("attack", true);
         }
     }
     
