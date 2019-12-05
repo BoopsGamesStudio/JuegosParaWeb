@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool cameraHorizontal = false;
 
+    private GameObject PhoneInputs;
     private Joystick joystick;
+    private Button LButton;
+    private Button RButton;
+
     private Vector3 rot;
 
     private GameObject weaponInTrigger;
@@ -69,14 +73,18 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        joystick = FindObjectOfType<Joystick>();
+        PhoneInputs = GameObject.FindGameObjectWithTag("PhoneInputs");
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
         if (!Application.isMobilePlatform)
         {
-            if (joystick != null)
-                GameObject.Destroy(joystick.gameObject);
+            if (PhoneInputs != null)
+                GameObject.Destroy(PhoneInputs.gameObject);
+        } else
+        {
+            joystick = PhoneInputs.GetComponentInChildren<Joystick>();
+
         }
     }
 
@@ -105,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
                 if (!stunned)
                 {
-                    if (joystick != null)
+                    if (PhoneInputs != null)
                     {
                         Vector3 vel;
                         
