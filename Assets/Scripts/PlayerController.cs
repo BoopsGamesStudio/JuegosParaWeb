@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
-        if (Application.isMobilePlatform)
+        if (!Application.isMobilePlatform)
         {
             if (PhoneInputs != null)
                 GameObject.Destroy(PhoneInputs.gameObject);
