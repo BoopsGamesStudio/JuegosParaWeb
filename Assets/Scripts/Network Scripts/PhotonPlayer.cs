@@ -14,7 +14,7 @@ public class PhotonPlayer : MonoBehaviour
     {
         robot = GlobalControl.Instance.savedPlayerData.model;
         CreatePlayer();
-        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
         {
             Instantiate(prefabCenter);
         }
@@ -31,7 +31,7 @@ public class PhotonPlayer : MonoBehaviour
         GameObject player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", robot), GameSetup.GS.spawPoints[spawnPick].position,
           GameSetup.GS.spawPoints[spawnPick].rotation, 0);
 
-        if(SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+        if(SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
         {
             if (GlobalControl.Instance.savedPlayerData.inventory.Exists((x) => x is Weapon))
             {

@@ -1251,7 +1251,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Elegir
+  m_Text: Select
 --- !u!222 &1819536621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1505,7 +1505,7 @@ PrefabInstance:
     - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
         type: 3}
       propertyPath: multiplayerSceneIndex
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8761967256503183945, guid: 20f23173a9f7f9c40bd6f25382c3e81f,
         type: 3}

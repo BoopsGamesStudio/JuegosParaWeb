@@ -181,7 +181,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Contacto
+  m_Text: Contact
 --- !u!222 &96991517
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ajustes
+  m_Text: Settings
 --- !u!222 &313489947
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tienda
+  m_Text: Shop
 --- !u!222 &1356656964
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1805,7 +1805,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Empezar
+  m_Text: Start
 --- !u!222 &2074813491
 CanvasRenderer:
   m_ObjectHideFlags: 0

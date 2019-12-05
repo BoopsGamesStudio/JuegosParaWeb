@@ -10,11 +10,7 @@ using Lean.Localization;
 
 public class GameManager : MonoBehaviour
 {
-
-    [Tooltip("Only applies at Scene1")]
     [SerializeField] float timeLeft;
-
-    [Tooltip("Only applies at MenuScene")]
     [SerializeField] Button jugar;
 
     List<Item> sceneObjs;
@@ -50,7 +46,7 @@ public class GameManager : MonoBehaviour
             Button b = jugar.GetComponent<Button>();
             b.onClick.AddListener(() => SceneManager.LoadScene("LobbyScene"));
         }
-        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
         {
             sceneObjs = new List<Item>();
             initGenerateProperties();
@@ -64,7 +60,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoxCollider>().enabled = false;
             }
         }
-        if(SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+        if(SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
         {
             foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -77,7 +73,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
         {
             timeLeft -= Time.deltaTime;
 
@@ -88,7 +84,7 @@ public class GameManager : MonoBehaviour
                 if (PhotonNetwork.IsMasterClient && !sceneLoaded)
                 {
                     sceneLoaded = true;
-                    battleSceneIndex = Random.Range(7, 10);
+                    battleSceneIndex = Random.Range(5, 8);
                     PhotonNetwork.LoadLevel(battleSceneIndex);
                 }
             }

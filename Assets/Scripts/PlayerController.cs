@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
                     {
                         Vector3 vel;
 
-                        if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+                        if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
                         {
                             vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
                         }
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+            if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
             {
                 cooldown -= Time.deltaTime;
                 if (!stunned)
@@ -373,12 +373,12 @@ public class PlayerController : MonoBehaviour
 
     public void initPlayerStats()
     {
-        if (SceneManager.GetActiveScene().name == "Scene1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3")
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
             localPlayerData.inventory = new List<Item>();
         }
-        if (SceneManager.GetActiveScene().name == "Scene2" || SceneManager.GetActiveScene().name == "Scene3" || SceneManager.GetActiveScene().name == "Scene4")
+        if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
             //localPlayerData.inventory = GlobalControl.Instance.savedPlayerData.inventory;
