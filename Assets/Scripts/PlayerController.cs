@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner;
     private float cameraAnlgeOffset = -45;
+    [HideInInspector]
     public bool cameraHorizontal = false;
 
     private Joystick joystick;
@@ -241,7 +242,16 @@ public class PlayerController : MonoBehaviour
                 impactVector.y = 0.5f;
 
                 Vector3 force = 0.06f * impactVector.normalized * localPlayerData.impact;
-                PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber, localPlayerData.getWeaponType() == Weapon.weaponType.Melee);
+                bool usingMelee;
+                if(localPlayerData.inventory.Exists((x) => x is Weapon))
+                {
+                    usingMelee = localPlayerData.getWeaponType() == Weapon.weaponType.Melee;
+                } else
+                {
+                    usingMelee = false;
+                }
+
+                PV.RPC("RPC_Hit", o.GetComponent<PhotonView>().Owner, force, o.GetComponent<PhotonView>().Owner.ActorNumber, usingMelee);
             }
         }
     }
