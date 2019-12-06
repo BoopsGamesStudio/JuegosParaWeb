@@ -225,9 +225,9 @@ public class SelectCharacterController : MonoBehaviour
                 break;
             case "Defense_Robot":
                 localPlayerData.model = robots[2];
-                localPlayerData.impact = 2.0f;
+                localPlayerData.impact = 1.0f;
                 localPlayerData.endurance = 3.0f;
-                localPlayerData.movementSpeed = 1.0f;
+                localPlayerData.movementSpeed = 2.0f;
                 break;
             case "Speed_Robot":
                 localPlayerData.model = robots[3];
