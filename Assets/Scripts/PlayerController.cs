@@ -201,14 +201,14 @@ public class PlayerController : MonoBehaviour
                 cooldown -= Time.deltaTime;
                 if (!stunned)
                 {
-                    RButton.interactable = true;
+                    if(RButton != null) RButton.interactable = true;
                     if (Input.GetKeyDown(KeyCode.O))
                     {
                         attackButton();
                     }
                 } else
                 {
-                    RButton.interactable = false;
+                    if (RButton != null) RButton.interactable = false;
                 }
 
                 if (localPlayerData.inventory.Exists((x) => x is Weapon))
