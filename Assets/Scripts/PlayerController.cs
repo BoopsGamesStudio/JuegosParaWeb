@@ -108,49 +108,57 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Canvas canv in FindObjectsOfType<Canvas>())
+        if (PV.IsMine)
         {
-            if (canv.name == "AltCanvas")
-                continue;
-
-            mainCanvas = canv;
-        }
-
-        stageElems = GameObject.FindGameObjectsWithTag("stage");
-        cam = FindObjectOfType<Camera>().GetComponent<Camera>();
-
-        if (SceneManager.GetActiveScene().name != "SearchLevel")
-        {
-            if (GlobalControl.Instance.savedPlayerData.getWeapon() != null)
-                createWeaponIcon(GlobalControl.Instance.savedPlayerData.getWeapon().getName(), new Vector2(125, 115), false, false);
-        }
-
-        if (Application.isMobilePlatform)
-        {
-            if (SceneManager.GetActiveScene().name == "SearchLevel")
+            foreach (Canvas canv in FindObjectsOfType<Canvas>())
             {
-                LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
-                RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
+                if (canv.name == "AltCanvas")
+                    continue;
+
+                mainCanvas = canv;
             }
-            else
+
+            stageElems = GameObject.FindGameObjectsWithTag("stage");
+            cam = FindObjectOfType<Camera>().GetComponent<Camera>();
+
+            if (SceneManager.GetActiveScene().name != "SearchLevel")
             {
-                RButton.onClick.AddListener(attackButton);
-
-                mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -180);
-                mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
-
-                mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140);
-                mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
-
-                mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140); //Pos y rot mal
-                mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
-
-                mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -140);
-                mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+                if (GlobalControl.Instance.savedPlayerData.inventory.Exists((x) => x is Weapon))
+                {
+                    createWeaponIcon(GlobalControl.Instance.savedPlayerData.getWeapon().getName(), new Vector2(125, 115), false, false);
+                }
             }
-        }
 
-        mainCanvas.transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
+            if (Application.isMobilePlatform)
+            {
+                if (SceneManager.GetActiveScene().name == "SearchLevel")
+                {
+                    LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
+                    RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
+                }
+                else
+                {
+                    RButton.onClick.AddListener(attackButton);
+
+                    mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -180);
+                    mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                    mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140);
+                    mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                    if (GlobalControl.Instance.savedPlayerData.inventory.Exists((x) => x is Weapon))
+                    {
+                        mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140); //Pos y rot mal
+                        mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+                    }
+
+                    mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -140);
+                    mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+                }
+            }
+
+            mainCanvas.transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
+        }
     }
 
     // Update is called once per frame
