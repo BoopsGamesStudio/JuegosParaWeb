@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
                 if (!stunned)
                 {
-                    if (PhoneInputs != null)
+                    if (joystick != null)
                     {
                         Vector3 vel;
                         
@@ -359,14 +359,14 @@ public class PlayerController : MonoBehaviour
 
                     if (!localPlayerData.inventory.Exists((x) => x is Weapon))
                     {
-                        createText(goodName, new Vector2(300, 600));
+                        createWeaponIcon(goodName, new Vector2(90, 50), true, false);
                         localPlayerData.inventory.Add(new Weapon(goodName));
                         PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
                         //RPC_DestroyObject(col.gameObject);
                     }
                     else
                     {
-                        createButton("¿Cambiar por " + goodName + "?");
+                        createButton(goodName);
                     }
                     break;
                 case "consumable":
@@ -423,7 +423,9 @@ public class PlayerController : MonoBehaviour
             foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
             {
                 Destroy(swapButton);
+                createWeaponIcon(localPlayerData.getWeapon().getName(), new Vector2(90, 50), false, true);
             }
+
             if (other.gameObject.CompareTag("Teleporter"))
                 alreadyTeleported = !alreadyTeleported;
 
@@ -511,39 +513,60 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void createButton(string txt)
+    void createButton(string goodName)
     {
         GameObject button = Instantiate(buttonPrefab, FindObjectOfType<Canvas>().transform);
         button.GetComponent<Button>().onClick.AddListener(replaceWeapon);
-        button.GetComponentInChildren<Text>().text = txt;
+
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 120);
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 90);
+
+        button.GetComponentInChildren<Text>().text = "<b>-></b>";
+        button.GetComponentInChildren<Text>().fontSize = 60;
+
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 100);
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 70);
+
+        createWeaponIcon(goodName, new Vector2(-90, 50), false, false);
     }
 
-    void createText(string txt, Vector2 pos)
+    void createWeaponIcon(string name, Vector2 pos, bool overrideImg, bool deleteAllPrevious)
     {
-        clearText();
+        if(deleteAllPrevious)
+            clearWeaponIcon();
 
-        GameObject text = new GameObject();
-        text.tag = "item";
-        Text textComp = text.AddComponent<Text>();
-        textComp.text = txt;
-        textComp.font = Resources.Load<Font>("ARIAL");
-        textComp.fontSize = 50;
-        textComp.alignment = TextAnchor.MiddleCenter;
-
-        text.transform.SetParent(FindObjectOfType<Canvas>().transform);
-        text.GetComponent<RectTransform>().localScale = Vector3.one;
-        text.GetComponent<RectTransform>().anchoredPosition = pos;
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 300);
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 200);
-    }
-
-    void clearText()
-    {
-        foreach (Text t in FindObjectOfType<Canvas>().GetComponentsInChildren<Text>())
+        if (overrideImg)
         {
-            if (t.gameObject.CompareTag("item"))
+            foreach (Image ico in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
             {
-                Destroy(t.gameObject);
+                if (ico.gameObject.CompareTag("item"))
+                {
+                    ico.overrideSprite = Resources.Load<Sprite>("Icons/" + name);
+                    return;
+                }
+            }
+        }
+
+        GameObject icon = new GameObject();
+        icon.tag = "item";
+        Image imgComp = icon.AddComponent<Image>();
+        imgComp.sprite = Resources.Load<Sprite>("Icons/" + name);
+
+        icon.transform.SetParent(FindObjectOfType<Canvas>().transform);
+        //icon.GetComponent<RectTransform>().localScale = new Vector3(2, 2, 2);
+        icon.GetComponent<RectTransform>().anchoredPosition = pos;
+    }
+
+    void clearWeaponIcon()
+    {
+        foreach (Image icon in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
+        {
+            if (icon.gameObject.CompareTag("item"))
+            {
+                Destroy(icon.gameObject);
             }
         }
     }
@@ -551,7 +574,7 @@ public class PlayerController : MonoBehaviour
     public void replaceWeapon()
     {
         string goodName = weaponInTrigger.name.Replace("(Clone)", "");
-        createText(goodName, new Vector2(300, 600));
+        createWeaponIcon(goodName, new Vector2(90, 50), false, true);
         localPlayerData.inventory.RemoveAll((x) => x is Weapon);
         localPlayerData.inventory.Add(new Weapon(goodName));
         PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, weaponInTrigger.GetPhotonView().ViewID);
