@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -50,9 +51,15 @@ public class PlayerController : MonoBehaviour
     float timerForStun;
     bool stunned = false;
 
+    bool gameOver;
+    bool dead;
+    bool scoreDisplayed;
+
     GameObject cone;
 
     [SerializeField] private GameObject buttonPrefab;
+
+    List<int> leaderboard = new List<int>();
 
     #region Stats
     /*
@@ -312,6 +319,69 @@ public class PlayerController : MonoBehaviour
                     stunned = false;
                     timerForStun = 0;
                 }
+            }
+
+            if (!gameOver)
+            {
+                if (this.transform.position.y < -20 && !dead)
+                {
+                    PV.RPC("RPC_Die", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+                    mainCanvas.GetComponentInChildren<Text>().text = "<color=#a10b00><b>YOU LOSE</b></color>";
+                    dead = true;
+                }
+            } else
+            {
+                if (!scoreDisplayed) {
+                    if (!dead)
+                    {
+                        mainCanvas.GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
+                        leaderboard.Add(PhotonNetwork.LocalPlayer.ActorNumber);
+                        scoreDisplayed = true;
+                    }
+                    else
+                    {
+                        foreach (Player p in PhotonNetwork.PlayerList)
+                        {
+                            if (!leaderboard.Contains(p.ActorNumber))
+                            {
+                                leaderboard.Add(p.ActorNumber);
+                                break;
+                            }
+                        }
+                    }
+
+                    string[] score = new string[leaderboard.Count];
+
+                    for (int i = 0; i < score.Length; i++)
+                    {
+                        score[i] = PhotonNetwork.PlayerList[leaderboard[score.Length - i - 1] - 1].ActorNumber.ToString();
+                    }
+
+                    string scoreTxt = "FINAL LEADERBOARD";
+
+                    foreach (string elem in score)
+                    {
+                        scoreTxt += "\n- Player " + elem;
+                    }
+
+                    mainCanvas.transform.Find("ScorePanel").gameObject.SetActive(true);
+                    mainCanvas.transform.Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    void RPC_Die(int player)
+    {
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Debug.Log("player " + player + " died haha");
+            playerObject.GetComponent<PlayerController>().leaderboard.Add(player);
+
+            if (playerObject.GetComponent<PlayerController>().leaderboard.Count >= PhotonNetwork.PlayerList.Length - 1)
+            {
+                playerObject.GetComponent<PlayerController>().gameOver = true;
             }
         }
     }

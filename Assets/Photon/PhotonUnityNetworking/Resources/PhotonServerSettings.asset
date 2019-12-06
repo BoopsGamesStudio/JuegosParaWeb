@@ -41,5 +41,9 @@ MonoBehaviour:
   - RPC_RemoveSpawnPoint
   - RPC_CreatePlayer
   - RPC_LoadWeapon
+  - RPC_Die
+  - RPC_GameOver
+  - RPC_DisplayLeaderboard
+  - RPC_Winner
   DisableAutoOpenWizard: 1
   ShowSettings: 1
