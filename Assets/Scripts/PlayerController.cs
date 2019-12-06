@@ -122,7 +122,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.Log(GlobalControl.Instance.savedPlayerData.model);
         FindObjectOfType<Canvas>().transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
     }
 
@@ -202,10 +201,14 @@ public class PlayerController : MonoBehaviour
                 cooldown -= Time.deltaTime;
                 if (!stunned)
                 {
+                    RButton.interactable = true;
                     if (Input.GetKeyDown(KeyCode.O))
                     {
                         attackButton();
                     }
+                } else
+                {
+                    RButton.interactable = false;
                 }
 
                 if (localPlayerData.inventory.Exists((x) => x is Weapon))
