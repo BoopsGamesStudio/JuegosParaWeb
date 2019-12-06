@@ -121,7 +121,8 @@ public class PlayerController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name != "SearchLevel")
         {
-            createWeaponIcon(GlobalControl.Instance.savedPlayerData.getWeapon().getName(), new Vector2(90, 50), false, true);
+            if (GlobalControl.Instance.savedPlayerData.getWeapon() != null)
+                createWeaponIcon(GlobalControl.Instance.savedPlayerData.getWeapon().getName(), new Vector2(125, 115), false, false);
         }
 
         if (Application.isMobilePlatform)
