@@ -10,28 +10,10 @@ public class SettingsController : MonoBehaviour
     [SerializeField]
     private int menuSceneIndex;
 
-    [SerializeField]
-    private Text soundText;
-
     private void Awake()
     {
         if (Application.isMobilePlatform)
             FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
-    }
-
-    private void Start()
-    {
-        switch (AudioListener.volume)
-        {
-            case 0:
-                soundText.text = "OFF";
-                soundText.color = Color.red;
-                break;
-            case 1:
-                soundText.text = "ON";
-                soundText.color = Color.green;
-                break;
-        }
     }
 
     private void Update()
@@ -73,22 +55,5 @@ public class SettingsController : MonoBehaviour
     public void BackBtn()
     {
         SceneManager.LoadScene(menuSceneIndex);
-    }
-
-    public void SoundBtn()
-    {
-        switch (AudioListener.volume)
-        {
-            case 1:
-                AudioListener.volume = 0;
-                soundText.text = "OFF";
-                soundText.color = Color.red;
-                break;
-            case 0:
-                AudioListener.volume = 1;
-                soundText.text = "ON";
-                soundText.color = Color.green;
-                break;
-        }
     }
 }
