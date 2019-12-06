@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool cameraHorizontal = false;
 
+    Canvas mainCanvas;
+
     private GameObject PhoneInputs;
     private Joystick joystick;
     private Button LButton;
@@ -106,8 +108,21 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Canvas canv in FindObjectsOfType<Canvas>())
+        {
+            if (canv.name == "AltCanvas")
+                continue;
+
+            mainCanvas = canv;
+        }
+
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
+
+        if (SceneManager.GetActiveScene().name != "SearchLevel")
+        {
+            createWeaponIcon(GlobalControl.Instance.savedPlayerData.getWeapon().getName(), new Vector2(90, 50), false, true);
+        }
 
         if (Application.isMobilePlatform)
         {
@@ -119,10 +134,22 @@ public class PlayerController : MonoBehaviour
             else
             {
                 RButton.onClick.AddListener(attackButton);
+
+                mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -180);
+                mainCanvas.transform.Find("CharacterFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140);
+                mainCanvas.transform.Find("WeaponFrame").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(130, -140); //Pos y rot mal
+                mainCanvas.transform.Find("WeaponIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -140);
+                mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
             }
         }
 
-        FindObjectOfType<Canvas>().transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
+        mainCanvas.transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
     }
 
     // Update is called once per frame
@@ -521,7 +548,7 @@ public class PlayerController : MonoBehaviour
 
     void createButton(string goodName)
     {
-        GameObject button = Instantiate(buttonPrefab, FindObjectOfType<Canvas>().transform);
+        GameObject button = Instantiate(buttonPrefab, mainCanvas.transform);
         button.GetComponent<Button>().onClick.AddListener(replaceWeapon);
 
         button.GetComponentInChildren<Text>().GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
@@ -546,7 +573,7 @@ public class PlayerController : MonoBehaviour
 
         if (overrideImg)
         {
-            foreach (Image ico in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
+            foreach (Image ico in mainCanvas.GetComponentsInChildren<Image>())
             {
                 if (ico.gameObject.CompareTag("item"))
                 {
@@ -556,19 +583,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        GameObject icon = new GameObject();
+        GameObject icon = new GameObject("WeaponIcon");
         icon.tag = "item";
         Image imgComp = icon.AddComponent<Image>();
         imgComp.sprite = Resources.Load<Sprite>("Icons/" + name);
 
-        icon.transform.SetParent(FindObjectOfType<Canvas>().transform);
+        icon.transform.SetParent(mainCanvas.transform);
         //icon.GetComponent<RectTransform>().localScale = new Vector3(2, 2, 2);
         icon.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
     void clearWeaponIcon()
     {
-        foreach (Image icon in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
+        foreach (Image icon in mainCanvas.GetComponentsInChildren<Image>())
         {
             if (icon.gameObject.CompareTag("item"))
             {

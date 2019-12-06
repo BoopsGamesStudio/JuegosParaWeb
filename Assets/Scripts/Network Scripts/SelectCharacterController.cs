@@ -29,11 +29,20 @@ public class SelectCharacterController : MonoBehaviour
     public PlayerStatistics localPlayerData;
     private bool startingGame;
     private bool launchingLevel;
+    Canvas mainCanvas;
 
     private void Awake()
     {
+        foreach (Canvas canv in FindObjectsOfType<Canvas>())
+        {
+            if (canv.name == "AltCanvas")
+                continue;
+
+            mainCanvas = canv;
+        }
+
         if (Application.isMobilePlatform)
-            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            mainCanvas.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
     }
 
     // Start is called before the first frame update

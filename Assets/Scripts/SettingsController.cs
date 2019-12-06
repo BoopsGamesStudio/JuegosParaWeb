@@ -9,11 +9,20 @@ public class SettingsController : MonoBehaviour
 {
     [SerializeField]
     private int menuSceneIndex;
+    Canvas mainCanvas;
 
     private void Awake()
     {
+        foreach (Canvas canv in FindObjectsOfType<Canvas>())
+        {
+            if (canv.name == "AltCanvas")
+                continue;
+
+            mainCanvas = canv;
+        }
+
         if (Application.isMobilePlatform)
-            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            mainCanvas.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
     }
 
     private void Update()

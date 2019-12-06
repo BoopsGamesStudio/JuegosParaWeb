@@ -128,7 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeft: 40
   jugar: {fileID: 0}
-  spawnPoints: []
+  spawnPointsS: []
+  spawnPointsM: []
+  spawnPointsL: []
 --- !u!1 &1096158874903831864
 GameObject:
   m_ObjectHideFlags: 0
