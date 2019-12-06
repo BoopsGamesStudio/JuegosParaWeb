@@ -68,24 +68,20 @@ public class PlayerController : MonoBehaviour
         localPlayerData = new PlayerStatistics();
         if (PV.IsMine)
             initPlayerStats();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         PhoneInputs = GameObject.FindGameObjectWithTag("PhoneInputs");
-        stageElems = GameObject.FindGameObjectsWithTag("stage");
-        cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
         if (!Application.isMobilePlatform)
         {
             if (PhoneInputs != null)
                 GameObject.Destroy(PhoneInputs.gameObject);
-        } else
+        }
+        else
         {
             joystick = PhoneInputs.GetComponentInChildren<Joystick>();
 
-            if (SceneManager.GetActiveScene().name == "SearchLevel") {
+            if (SceneManager.GetActiveScene().name == "SearchLevel")
+            {
                 foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
                 {
                     if (button.gameObject.name == "LButton")
@@ -96,7 +92,8 @@ public class PlayerController : MonoBehaviour
 
                 LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
                 RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
-            } else
+            }
+            else
             {
                 foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
                 {
@@ -109,6 +106,13 @@ public class PlayerController : MonoBehaviour
                 RButton.onClick.AddListener(attackButton);
             }
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        stageElems = GameObject.FindGameObjectsWithTag("stage");
+        cam = FindObjectOfType<Camera>().GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -161,8 +165,10 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
                         z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                        float speedReduceFactor = z <= 0 ? 1 : 0.5f;
+                        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed * speedReduceFactor;
 
                         if (z > 0f)
                         {
