@@ -165,5 +165,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("ContactScene");
     }
+
+    public void How2playBtn()
+    {
+        SceneManager.LoadScene("How2PlayScene");
+    }
 }
 
