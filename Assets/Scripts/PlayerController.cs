@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
                         else
                         {
                             anim.SetBool("isWalking", false);
-                            z *= 0.35f;
+                            //z *= 0.35f;
                         }
 
                         transform.Rotate(0, x, 0);
@@ -366,19 +366,31 @@ public class PlayerController : MonoBehaviour
                     {
                         case "teleporter1a":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter1b").transform.position;
+                                transform.rotation = GameObject.Find("teleporter1b").transform.rotation;
+                            }
                             break;
                         case "teleporter1b":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter1a").transform.position;
+                                transform.rotation = GameObject.Find("teleporter1a").transform.rotation;
+                            }
                             break;
                         case "teleporter2a":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter2b").transform.position;
+                                transform.rotation = GameObject.Find("teleporter2b").transform.rotation;
+                            }
                             break;
                         case "teleporter2b":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter2a").transform.position;
+                                transform.rotation = GameObject.Find("teleporter2a").transform.rotation;
+                            }
                             break;
                     }
 
