@@ -9,6 +9,11 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject myConePrefab;
+    [SerializeField]
+    private GameObject someoneElsesConePrefab;
+
     private PhotonView PV;
 
     public enum cornerNames { North, East, South, West }
@@ -45,6 +50,8 @@ public class PlayerController : MonoBehaviour
     float timerForStun;
     bool stunned = false;
 
+    GameObject cone;
+
     [SerializeField] private GameObject buttonPrefab;
 
     #region Stats
@@ -69,7 +76,16 @@ public class PlayerController : MonoBehaviour
 
         localPlayerData = new PlayerStatistics();
         if (PV.IsMine)
+        {
             initPlayerStats();
+            cone = Instantiate(myConePrefab, this.transform);
+        } else
+        {
+            cone = Instantiate(someoneElsesConePrefab, this.transform);
+        }
+
+        cone.transform.localScale = new Vector3(5, 5, 5);
+        cone.transform.localPosition = new Vector3(0, 2, 0);
 
         PhoneInputs = GameObject.FindGameObjectWithTag("PhoneInputs");
 

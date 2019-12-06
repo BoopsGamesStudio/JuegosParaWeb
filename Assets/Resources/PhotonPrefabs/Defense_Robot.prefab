@@ -349,6 +349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef8463b062e7eb4692f9fcb6249ec1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myConePrefab: {fileID: 1824759723845594195, guid: 9fcf0cfe68d029a43ae568696e9778f2,
+    type: 3}
+  someoneElsesConePrefab: {fileID: 6837858115192258139, guid: d503149d140abad42a437f0c6ebd9360,
+    type: 3}
   rotSpeed: 240
   x: 0
   z: 0
