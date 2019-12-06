@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour
     {
         camera = this.GetComponent<Camera>();
 
-        if (SceneManager.GetActiveScene().name == "Scene2")
+        if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
         {
             if (Application.isMobilePlatform)
             {

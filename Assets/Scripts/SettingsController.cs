@@ -10,6 +10,12 @@ public class SettingsController : MonoBehaviour
     [SerializeField]
     private int menuSceneIndex;
 
+    private void Awake()
+    {
+        if (Application.isMobilePlatform)
+            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+    }
+
     private void Update()
     {
         switch (LeanLocalization.CurrentLanguage)
@@ -17,9 +23,9 @@ public class SettingsController : MonoBehaviour
             case "Spanish":
                 foreach (Image other in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
                 {
-                    if (other.gameObject.name == "SpainBtn")
+                    if (other.gameObject.name == "SpainBtn" )
                         other.color = new Color(other.color.r, other.color.g, other.color.b, 1);
-                    else
+                    else if(other.gameObject.name != "BackBtn")
                         other.color = new Color(other.color.r, other.color.g, other.color.b, 0.3f);
                 }
                 break;
@@ -28,7 +34,7 @@ public class SettingsController : MonoBehaviour
                 {
                     if (other.gameObject.name == "EnglishBtn")
                         other.color = new Color(other.color.r, other.color.g, other.color.b, 1);
-                    else
+                    else if(other.gameObject.name != "BackBtn")
                         other.color = new Color(other.color.r, other.color.g, other.color.b, 0.3f);
                 }
                 break;
@@ -38,6 +44,7 @@ public class SettingsController : MonoBehaviour
     public void SpanishBtn(Image button)
     {
         LeanLocalization.CurrentLanguage = "Spanish";
+        
     }
 
     public void EnglishBtn(Image button)

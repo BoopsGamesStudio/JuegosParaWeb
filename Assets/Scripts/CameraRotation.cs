@@ -11,6 +11,7 @@ public class CameraRotation : MonoBehaviour
     Vector3 currentCamAngle;
     Vector3 targetRot;
     bool tiltingDown = false;
+    bool alreadyPressed;
 
     float camTurningTime;
     Vector3 targetCamRot = new Vector3(25, 135, 0);
@@ -23,7 +24,23 @@ public class CameraRotation : MonoBehaviour
 
     private void Awake()
     {
-        cameraCorner = (PlayerController.cornerNames)PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
+        {
+            Debug.Log(FindObjectsOfType<PlayerController>().Length);
+            if (pc.GetComponent<PhotonView>().IsMine)
+            {
+                player = pc.gameObject;
+                break;
+            }
+        }
+
+        cameraCorner = player.GetComponent<PlayerController>().currentCorner;
 
         switch (cameraCorner)
         {
@@ -45,54 +62,25 @@ public class CameraRotation : MonoBehaviour
             default:
                 break;
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         cam = FindObjectOfType<Camera>().gameObject;
 
         currentCamAngle = cam.transform.eulerAngles;
-
-        foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
-        {
-            Debug.Log(FindObjectsOfType<PlayerController>().Length);
-            if (pc.GetComponent<PhotonView>().IsMine)
-            {
-                player = pc.gameObject;
-                break;
-            }
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(FindObjectsOfType<PlayerController>().Length);
+        if (alreadyPressed) alreadyPressed = false;
+
         if (Input.GetKeyDown(KeyCode.O))
         {
-            rotateTo(90);
-            if (cameraCorner == PlayerController.cornerNames.West)
-            {
-                cameraCorner = PlayerController.cornerNames.North;
-            }
-            else
-            {
-                cameraCorner++;
-            }
+            pressL();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            rotateTo(-90);
-            if (cameraCorner == PlayerController.cornerNames.North)
-            {
-                cameraCorner = PlayerController.cornerNames.West;
-            }
-            else
-            {
-                cameraCorner--;
-            }
+            pressR();
         }
 
         if (player.GetComponent<PlayerController>().cameraHorizontal)
@@ -125,6 +113,15 @@ public class CameraRotation : MonoBehaviour
         this.transform.eulerAngles = currentAngle;
 
         this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (p.GetPhotonView().IsMine)
+            {
+                p.GetComponent<PlayerController>().currentCorner = cameraCorner;
+            }
+
+        }
     }
 
     void rotateTo(float angle)
@@ -139,5 +136,39 @@ public class CameraRotation : MonoBehaviour
         Debug.Log(angle);
         targetCamRot = targetCamRot + new Vector3(angle, 0, 0);
         camTurningTime = Time.deltaTime * speed;
+    }
+
+    public void pressL()
+    {
+        if (!alreadyPressed)
+        {
+            alreadyPressed = true;
+            rotateTo(90);
+            if (cameraCorner == PlayerController.cornerNames.West)
+            {
+                cameraCorner = PlayerController.cornerNames.North;
+            }
+            else
+            {
+                cameraCorner++;
+            }
+        }
+    }
+
+    public void pressR()
+    {
+        if (!alreadyPressed)
+        {
+            alreadyPressed = true;
+            rotateTo(-90);
+            if (cameraCorner == PlayerController.cornerNames.North)
+            {
+                cameraCorner = PlayerController.cornerNames.West;
+            }
+            else
+            {
+                cameraCorner--;
+            }
+        }
     }
 }

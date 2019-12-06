@@ -3,6 +3,8 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
@@ -12,13 +14,21 @@ public class LobbyController : MonoBehaviourPunCallbacks
     private GameObject CancelButton;
     [SerializeField]
     private int roomSize;
+    [SerializeField]
+    private GameObject LoadingButton;
 
+    private void Awake()
+    {
+        if (Application.isMobilePlatform)
+            FindObjectOfType<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+    }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("Lobby");
         PhotonNetwork.AutomaticallySyncScene = true;
         StartButton.SetActive(true);
+        LoadingButton.SetActive(false);
     }
 
     public void StartBtn()
@@ -27,6 +37,17 @@ public class LobbyController : MonoBehaviourPunCallbacks
         CancelButton.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
 
+    }
+
+    public void BackBtn()
+    {
+        if(PhotonNetwork.IsConnected)
+            PhotonNetwork.Disconnect();
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        SceneManager.LoadScene(0);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

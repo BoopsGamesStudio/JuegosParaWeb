@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool cameraHorizontal = false;
 
+    private GameObject PhoneInputs;
     private Joystick joystick;
+    private Button LButton;
+    private Button RButton;
+
     private Vector3 rot;
 
     private GameObject weaponInTrigger;
@@ -52,6 +56,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "SearchLevel")
+            currentCorner = (cornerNames)PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        else
+            currentCorner = cornerNames.South;
+
         PV = GetComponent<PhotonView>();
 
         anim = GetComponent<Animator>();
@@ -59,22 +68,62 @@ public class PlayerController : MonoBehaviour
         localPlayerData = new PlayerStatistics();
         if (PV.IsMine)
             initPlayerStats();
+
+        PhoneInputs = GameObject.FindGameObjectWithTag("PhoneInputs");
+
+        if (!Application.isMobilePlatform)
+        {
+            if (PhoneInputs != null)
+                GameObject.Destroy(PhoneInputs.gameObject);
+        }
+        else
+        {
+            joystick = PhoneInputs.GetComponentInChildren<Joystick>();
+
+            if (SceneManager.GetActiveScene().name == "SearchLevel")
+            {
+                foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
+                {
+                    if (button.gameObject.name == "LButton")
+                        LButton = button;
+                    if (button.gameObject.name == "RButton")
+                        RButton = button;
+                }
+            }
+            else
+            {
+                foreach (Button button in PhoneInputs.GetComponentsInChildren<Button>())
+                {
+                    if (button.gameObject.name == "LButton")
+                        Destroy(button.gameObject);
+                    if (button.gameObject.name == "RButton")
+                        RButton = button;
+                }
+            }
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentCorner = (cornerNames) PhotonNetwork.LocalPlayer.ActorNumber - 1;
-
-        joystick = FindObjectOfType<Joystick>();
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
 
-        if (!Application.isMobilePlatform)
+        if (Application.isMobilePlatform)
         {
-            if (joystick != null)
-                GameObject.Destroy(joystick.gameObject);
+            if (SceneManager.GetActiveScene().name == "SearchLevel")
+            {
+                LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
+                RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
+            }
+            else
+            {
+                RButton.onClick.AddListener(attackButton);
+            }
         }
+
+        Debug.Log(GlobalControl.Instance.savedPlayerData.model);
+        FindObjectOfType<Canvas>().transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
     }
 
     // Update is called once per frame
@@ -105,26 +154,19 @@ public class PlayerController : MonoBehaviour
                     if (joystick != null)
                     {
                         Vector3 vel;
-
-                        if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
-                        {
-                            vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
-                        }
-                        else
-                        {
+                        
+                        if (SceneManager.GetActiveScene().name == "SearchLevel")
                             vel = new Vector3(-joystick.Horizontal, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Vertical);
-                        }
+                        else
+                            vel = new Vector3(joystick.Vertical, gameObject.GetComponent<Rigidbody>().velocity.y, -joystick.Horizontal);
 
                         vel = Quaternion.AngleAxis(cameraAnlgeOffset, Vector3.up) * vel;
-
-                        //gameObject.GetComponent<Rigidbody>().velocity = vel;
 
                         Vector2 velocity2D = new Vector2(vel.x, vel.z).normalized;
                         if (velocity2D.magnitude > 0.1f)
                         {
                             anim.SetBool("isWalking", true);
                             this.transform.rotation = Quaternion.LookRotation(new Vector3(velocity2D.x, 0, velocity2D.y));
-                            //this.transform.Translate(velocity2D.x * Time.deltaTime * localPlayerData.movementSpeed,0 ,velocity2D.y * Time.deltaTime * localPlayerData.movementSpeed);
                             transform.Translate(0, 0, velocity2D.magnitude * Time.deltaTime * localPlayerData.movementSpeed);
                         }
                         else
@@ -134,8 +176,10 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed;
                         z = Input.GetAxis("Vertical") * Time.deltaTime * localPlayerData.movementSpeed;
+
+                        float speedReduceFactor = z <= 0 ? 1 : 0.5f;
+                        x = Input.GetAxis("Horizontal") * Time.deltaTime * rotSpeed * speedReduceFactor;
 
                         if (z > 0f)
                         {
@@ -144,7 +188,7 @@ public class PlayerController : MonoBehaviour
                         else
                         {
                             anim.SetBool("isWalking", false);
-                            z *= 0.35f;
+                            //z *= 0.35f;
                         }
 
                         transform.Rotate(0, x, 0);
@@ -158,22 +202,9 @@ public class PlayerController : MonoBehaviour
                 cooldown -= Time.deltaTime;
                 if (!stunned)
                 {
-                    if (Input.GetKeyDown(KeyCode.O) && cooldown <= 0)
+                    if (Input.GetKeyDown(KeyCode.O))
                     {
-                        cooldown = 0;
-                        if (localPlayerData.inventory.Exists((x) => x is Weapon))
-                            cooldown = localPlayerData.getWeapon().getCadence();
-
-                        if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
-                        {
-                            gunShoot();
-                        }
-                        else
-                        {
-                            meleeHit();
-                        }
-
-                        anim.SetBool("attack", true);
+                        attackButton();
                     }
                 }
 
@@ -227,6 +258,27 @@ public class PlayerController : MonoBehaviour
                     timerForStun = 0;
                 }
             }
+        }
+    }
+
+    public void attackButton()
+    {
+        if (cooldown <= 0)
+        {
+            cooldown = 0;
+            if (localPlayerData.inventory.Exists((x) => x is Weapon))
+                cooldown = localPlayerData.getWeapon().getCadence();
+
+            if (localPlayerData.inventory.Exists((x) => x is Weapon) && localPlayerData.getWeaponType() == Weapon.weaponType.Distance)
+            {
+                gunShoot();
+            }
+            else
+            {
+                meleeHit();
+            }
+
+            anim.SetBool("attack", true);
         }
     }
     
@@ -310,14 +362,14 @@ public class PlayerController : MonoBehaviour
 
                     if (!localPlayerData.inventory.Exists((x) => x is Weapon))
                     {
-                        createText(goodName, new Vector2(300, 600));
+                        createWeaponIcon(goodName, new Vector2(90, 50), true, false);
                         localPlayerData.inventory.Add(new Weapon(goodName));
                         PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
                         //RPC_DestroyObject(col.gameObject);
                     }
                     else
                     {
-                        createButton("¿Cambiar por " + goodName + "?");
+                        createButton(goodName);
                     }
                     break;
                 case "consumable":
@@ -331,19 +383,31 @@ public class PlayerController : MonoBehaviour
                     {
                         case "teleporter1a":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter1b").transform.position;
+                                transform.rotation = GameObject.Find("teleporter1b").transform.rotation;
+                            }
                             break;
                         case "teleporter1b":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter1a").transform.position;
+                                transform.rotation = GameObject.Find("teleporter1a").transform.rotation;
+                            }
                             break;
                         case "teleporter2a":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter2b").transform.position;
+                                transform.rotation = GameObject.Find("teleporter2b").transform.rotation;
+                            }
                             break;
                         case "teleporter2b":
                             if (!alreadyTeleported)
+                            {
                                 transform.position = GameObject.Find("teleporter2a").transform.position;
+                                transform.rotation = GameObject.Find("teleporter2a").transform.rotation;
+                            }
                             break;
                     }
 
@@ -362,7 +426,9 @@ public class PlayerController : MonoBehaviour
             foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
             {
                 Destroy(swapButton);
+                createWeaponIcon(localPlayerData.getWeapon().getName(), new Vector2(90, 50), false, true);
             }
+
             if (other.gameObject.CompareTag("Teleporter"))
                 alreadyTeleported = !alreadyTeleported;
 
@@ -450,39 +516,60 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void createButton(string txt)
+    void createButton(string goodName)
     {
         GameObject button = Instantiate(buttonPrefab, FindObjectOfType<Canvas>().transform);
         button.GetComponent<Button>().onClick.AddListener(replaceWeapon);
-        button.GetComponentInChildren<Text>().text = txt;
+
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 120);
+        button.GetComponentInChildren<Text>().GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 90);
+
+        button.GetComponentInChildren<Text>().text = "<b>-></b>";
+        button.GetComponentInChildren<Text>().fontSize = 60;
+
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 80);
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
+
+        createWeaponIcon(goodName, new Vector2(-90, 50), false, false);
     }
 
-    void createText(string txt, Vector2 pos)
+    void createWeaponIcon(string name, Vector2 pos, bool overrideImg, bool deleteAllPrevious)
     {
-        clearText();
+        if(deleteAllPrevious)
+            clearWeaponIcon();
 
-        GameObject text = new GameObject();
-        text.tag = "item";
-        Text textComp = text.AddComponent<Text>();
-        textComp.text = txt;
-        textComp.font = Resources.Load<Font>("ARIAL");
-        textComp.fontSize = 50;
-        textComp.alignment = TextAnchor.MiddleCenter;
-
-        text.transform.SetParent(FindObjectOfType<Canvas>().transform);
-        text.GetComponent<RectTransform>().localScale = Vector3.one;
-        text.GetComponent<RectTransform>().anchoredPosition = pos;
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 300);
-        text.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 200);
-    }
-
-    void clearText()
-    {
-        foreach (Text t in FindObjectOfType<Canvas>().GetComponentsInChildren<Text>())
+        if (overrideImg)
         {
-            if (t.gameObject.CompareTag("item"))
+            foreach (Image ico in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
             {
-                Destroy(t.gameObject);
+                if (ico.gameObject.CompareTag("item"))
+                {
+                    ico.overrideSprite = Resources.Load<Sprite>("Icons/" + name);
+                    return;
+                }
+            }
+        }
+
+        GameObject icon = new GameObject();
+        icon.tag = "item";
+        Image imgComp = icon.AddComponent<Image>();
+        imgComp.sprite = Resources.Load<Sprite>("Icons/" + name);
+
+        icon.transform.SetParent(FindObjectOfType<Canvas>().transform);
+        //icon.GetComponent<RectTransform>().localScale = new Vector3(2, 2, 2);
+        icon.GetComponent<RectTransform>().anchoredPosition = pos;
+    }
+
+    void clearWeaponIcon()
+    {
+        foreach (Image icon in FindObjectOfType<Canvas>().GetComponentsInChildren<Image>())
+        {
+            if (icon.gameObject.CompareTag("item"))
+            {
+                Destroy(icon.gameObject);
             }
         }
     }
@@ -490,7 +577,7 @@ public class PlayerController : MonoBehaviour
     public void replaceWeapon()
     {
         string goodName = weaponInTrigger.name.Replace("(Clone)", "");
-        createText(goodName, new Vector2(300, 600));
+        createWeaponIcon(goodName, new Vector2(90, 50), false, true);
         localPlayerData.inventory.RemoveAll((x) => x is Weapon);
         localPlayerData.inventory.Add(new Weapon(goodName));
         PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, weaponInTrigger.GetPhotonView().ViewID);
