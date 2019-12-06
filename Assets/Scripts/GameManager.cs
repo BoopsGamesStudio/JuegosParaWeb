@@ -158,7 +158,12 @@ public class GameManager : MonoBehaviour
 
     public void settingsBtn()
     {
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("SettingsScene");
+    }
+
+    public void ContactBtn()
+    {
+        SceneManager.LoadScene("ContactScene");
     }
 }
 
