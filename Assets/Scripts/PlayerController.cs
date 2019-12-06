@@ -89,9 +89,6 @@ public class PlayerController : MonoBehaviour
                     if (button.gameObject.name == "RButton")
                         RButton = button;
                 }
-
-                LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
-                RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
             }
             else
             {
@@ -102,8 +99,6 @@ public class PlayerController : MonoBehaviour
                     if (button.gameObject.name == "RButton")
                         RButton = button;
                 }
-
-                RButton.onClick.AddListener(attackButton);
             }
         }
     }
@@ -113,6 +108,19 @@ public class PlayerController : MonoBehaviour
     {
         stageElems = GameObject.FindGameObjectsWithTag("stage");
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
+
+        if (Application.isMobilePlatform)
+        {
+            if (SceneManager.GetActiveScene().name == "SearchLevel")
+            {
+                LButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressL);
+                RButton.onClick.AddListener(cam.transform.parent.GetComponent<CameraRotation>().pressR);
+            }
+            else
+            {
+                RButton.onClick.AddListener(attackButton);
+            }
+        }
     }
 
     // Update is called once per frame
