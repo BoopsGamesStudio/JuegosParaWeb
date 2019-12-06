@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,14 +140,14 @@ RectTransform:
   m_GameObject: {fileID: 134435733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.43321, y: 0.43321, z: 0.43321}
   m_Children: []
   m_Father: {fileID: 796416960}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 166.47, y: 135}
+  m_AnchoredPosition: {x: 70, y: 110}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134435735
@@ -284,12 +284,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -369,8 +369,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.6, y: -104.6}
-  m_SizeDelta: {x: 616.3, y: 390.1}
+  m_AnchoredPosition: {x: 0, y: -30}
+  m_SizeDelta: {x: 370, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &423999041
 MonoBehaviour:
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796416959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -588,8 +588,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.475, y: -306}
-  m_SizeDelta: {x: 94.1, y: 89.18}
+  m_AnchoredPosition: {x: 0, y: -170}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832871976
 MonoBehaviour:
@@ -911,14 +911,14 @@ RectTransform:
   m_GameObject: {fileID: 1178387182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.43321, y: 0.43321, z: 0.43321}
   m_Children: []
   m_Father: {fileID: 796416960}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.475, y: 285}
+  m_AnchoredPosition: {x: 0, y: 175}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178387184
@@ -1035,14 +1035,14 @@ RectTransform:
   m_GameObject: {fileID: 1831143549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.43321, y: 0.43321, z: 0.43321}
   m_Children: []
   m_Father: {fileID: 796416960}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 213, y: 285}
+  m_AnchoredPosition: {x: 130, y: 175}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1831143551
@@ -1245,14 +1245,14 @@ RectTransform:
   m_GameObject: {fileID: 1893173701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.43321, y: 0.43321, z: 0.43321}
   m_Children: []
   m_Father: {fileID: 796416960}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -115, y: 135}
+  m_AnchoredPosition: {x: -70, y: 110}
   m_SizeDelta: {x: 279.8, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2001166321
@@ -1283,14 +1283,14 @@ RectTransform:
   m_GameObject: {fileID: 2001166321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.43321, y: 0.43321, z: 0.43321}
   m_Children: []
   m_Father: {fileID: 796416960}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -215.9, y: 285}
+  m_AnchoredPosition: {x: -130, y: 175}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001166323
@@ -1501,10 +1501,10 @@ RectTransform:
   m_Father: {fileID: 796416960}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.8984375, y: -127}
-  m_SizeDelta: {x: -504.7, y: -458.79996}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -30}
+  m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118563881
 MonoBehaviour:
@@ -1526,20 +1526,20 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0c13ef0ca64020f48b5c451ab5d7c79f, type: 3}
-    m_FontSize: 24
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Programaci\xF3n\n- Mario m\xE1rquez balduque\n- Alejandro Hern\xE1ndez
-    P\xE9rez\n- Diego Sagredo de Miguel\n\nDise\xF1o y arte\n- Gabriel Mu\xF1oz Borchers\n-
-    Carlos Ventura Padina Gonz\xE1lez"
+  m_Text: "<b><size=15>Programaci\xF3n</size></b>\nMario m\xE1rquez balduque\nAlejandro
+    Hern\xE1ndez P\xE9rez\nDiego Sagredo de Miguel\n\n<b><size=15>Dise\xF1o y arte</size></b>\nGabriel
+    Mu\xF1oz Borchers\nCarlos Ventura Padina Gonz\xE1lez"
 --- !u!222 &2118563882
 CanvasRenderer:
   m_ObjectHideFlags: 0
