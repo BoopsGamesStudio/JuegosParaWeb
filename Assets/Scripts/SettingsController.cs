@@ -11,6 +11,24 @@ public class SettingsController : MonoBehaviour
     private int menuSceneIndex;
     Canvas mainCanvas;
 
+    [SerializeField]
+    private Text soundText;
+
+    private void Start()
+    {
+        switch (AudioListener.volume)
+        {
+            case 0:
+                soundText.color = Color.red;
+                soundText.text = "OFF";
+                break;
+            case 1:
+                soundText.color = Color.green;
+                soundText.text = "ON";
+                break;
+        }
+    }
+
     private void Awake()
     {
         foreach (Canvas canv in FindObjectsOfType<Canvas>())
@@ -64,5 +82,22 @@ public class SettingsController : MonoBehaviour
     public void BackBtn()
     {
         SceneManager.LoadScene(menuSceneIndex);
+    }
+
+    public void soundBtn()
+    {
+        switch (AudioListener.volume)
+        {
+            case 1:
+                AudioListener.volume = 0;
+                soundText.color = Color.red;
+                soundText.text = "OFF";
+                break;
+            case 0:
+                AudioListener.volume = 1;
+                soundText.color = Color.green;
+                soundText.text = "ON";
+                break;
+        }
     }
 }
