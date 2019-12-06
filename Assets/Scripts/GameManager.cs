@@ -26,12 +26,14 @@ public class GameManager : MonoBehaviour
     List<string> ItemsM;
     List<string> ItemsL;
 
-    int objsInSceneS = 7;
-    int objsInSceneM = 4;
-    int objsInSceneL = 2;
+    int objsInSceneS;
+    int objsInSceneM;
+    int objsInSceneL;
     #endregion
 
-    public List<Transform> spawnPoints;
+    public List<Transform> spawnPointsS;
+    public List<Transform> spawnPointsM;
+    public List<Transform> spawnPointsL;
 
     private void Awake()
     {
@@ -48,6 +50,9 @@ public class GameManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "SearchLevel")
         {
+            objsInSceneS = Random.Range(10, 16);
+            objsInSceneM = Random.Range(6, 11);
+            objsInSceneL = Random.Range(2, 6);
             sceneObjs = new List<Item>();
             initGenerateProperties();
             if (PhotonNetwork.IsMasterClient)
@@ -109,21 +114,21 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < objsInSceneS; i++)
         {
             var itemId = Random.Range(0, ItemsS.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, spawnPoints.Count - 1);
+            var posId = Random.Range(0, spawnPointsS.Count - 1);
             createObjS(itemId, posId);
         }
 
         for (int i = 0; i < objsInSceneM; i++)
         {
             var itemId = Random.Range(0, ItemsM.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, spawnPoints.Count - 1);
+            var posId = Random.Range(0, spawnPointsM.Count - 1);
             createObjM(itemId, posId);
         }
 
         for (int i = 0; i < objsInSceneL; i++)
         {
             var itemId = Random.Range(0, ItemsL.Count / 2 - 1) * 2;
-            var posId = Random.Range(0, spawnPoints.Count - 1);
+            var posId = Random.Range(0, spawnPointsL.Count - 1);
             createObjL(itemId, posId);
         }
     }
@@ -132,27 +137,27 @@ public class GameManager : MonoBehaviour
     {
         var name = ItemsS[itemId];
         var type = ItemsS[itemId + 1];
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPointsS[posId].position, spawnPointsS[posId].rotation);
         objsInSceneS--;
-        spawnPoints.RemoveAt(posId);
+        spawnPointsS.RemoveAt(posId);
     }
 
     void createObjM(int itemId, int posId)
     {
         var name = ItemsM[itemId];
         var type = ItemsM[itemId + 1];
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPointsM[posId].position, spawnPointsM[posId].rotation);
         objsInSceneM--;
-        spawnPoints.RemoveAt(posId);
+        spawnPointsM.RemoveAt(posId);
     }
 
     void createObjL(int itemId, int posId)
     {
         var name = ItemsL[itemId];
         var type = ItemsL[itemId + 1];
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPoints[posId].position, spawnPoints[posId].rotation);
+        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs", name), spawnPointsL[posId].position, spawnPointsL[posId].rotation);
         objsInSceneL--;
-        spawnPoints.RemoveAt(posId);
+        spawnPointsL.RemoveAt(posId);
     }
 
     public void settingsBtn()
