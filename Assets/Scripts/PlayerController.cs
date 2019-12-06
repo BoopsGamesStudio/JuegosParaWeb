@@ -121,6 +121,9 @@ public class PlayerController : MonoBehaviour
                 RButton.onClick.AddListener(attackButton);
             }
         }
+
+        Debug.Log(GlobalControl.Instance.savedPlayerData.model);
+        FindObjectOfType<Canvas>().transform.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("Icons/" + GlobalControl.Instance.savedPlayerData.model);
     }
 
     // Update is called once per frame
@@ -527,8 +530,8 @@ public class PlayerController : MonoBehaviour
         button.GetComponentInChildren<Text>().text = "<b>-></b>";
         button.GetComponentInChildren<Text>().fontSize = 60;
 
-        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 100);
-        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 70);
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 80);
+        button.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
 
         createWeaponIcon(goodName, new Vector2(-90, 50), false, false);
     }
