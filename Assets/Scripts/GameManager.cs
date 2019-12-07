@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             objsInSceneS = Random.Range(10, 16);
             objsInSceneM = Random.Range(6, 11);
-            objsInSceneL = Random.Range(2, 6);
+            objsInSceneL = 5;
             sceneObjs = new List<Item>();
             initGenerateProperties();
             if (PhotonNetwork.IsMasterClient)

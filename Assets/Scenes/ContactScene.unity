@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -508,7 +508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 370, y: 220}
+  m_SizeDelta: {x: 370, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &423999041
 MonoBehaviour:
@@ -1024,14 +1024,16 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: Spanish
-    Text: "Programaci\xF3n\n- Mario m\xE1rquez balduque\n- Alejandro Hern\xE1ndez
-      P\xE9rez\n- Diego Sagredo de Miguel\n\nDise\xF1o y arte\n- Gabriel Mu\xF1oz
-      Borchers\n- Carlos Ventura Padina Gonz\xE1lez"
+    Text: "<b><size=15>Programaci\xF3n</size></b>\nMario m\xE1rquez balduque\nAlejandro
+      Hern\xE1ndez P\xE9rez\nDiego Sagredo de Miguel\n\n<b><size=15>Dise\xF1o y arte</size></b>\nGabriel
+      Mu\xF1oz Borchers\nCarlos Ventura Padina Gonz\xE1lez\n\n<b><size=15>M\xFAsica</size></b>\nMikel
+      Dale"
     Object: {fileID: 0}
   - Language: English
-    Text: "Programming\n- Mario m\xE1rquez balduque\n- Alejandro Hern\xE1ndez P\xE9rez\n-
-      Diego Sagredo de Miguel\n\nDesing & Art\n- Gabriel Mu\xF1oz Borchers\n- Carlos
-      Ventura Padina Gonz\xE1lez"
+    Text: "<b><size=15>Programming</size></b>\n- Mario m\xE1rquez balduque\n- Alejandro
+      Hern\xE1ndez P\xE9rez\n- Diego Sagredo de Miguel\n\n<b><size=15>Desing & Art</size></b>\n-
+      Gabriel Mu\xF1oz Borchers\n- Carlos Ventura Padina Gonz\xE1lez\n\n<b><size=15>Music</size></b>\nMikel
+      Dale"
     Object: {fileID: 0}
 --- !u!1 &1178387182
 GameObject:
@@ -1698,7 +1700,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118563881
 MonoBehaviour:
@@ -1731,9 +1733,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Programming\n- Mario m\xE1rquez balduque\n- Alejandro Hern\xE1ndez P\xE9rez\n-
-    Diego Sagredo de Miguel\n\nDesing & Art\n- Gabriel Mu\xF1oz Borchers\n- Carlos
-    Ventura Padina Gonz\xE1lez"
+  m_Text: "<b><size=15>Programaci\xF3n</size></b>\nMario m\xE1rquez balduque\nAlejandro
+    Hern\xE1ndez P\xE9rez\nDiego Sagredo de Miguel\n\n<b><size=15>Dise\xF1o y arte</size></b>\nGabriel
+    Mu\xF1oz Borchers\nCarlos Ventura Padina Gonz\xE1lez\n\n<b><size=15>M\xFAsica</size></b>\nMikel
+    Dale"
 --- !u!222 &2118563882
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1770,6 +1773,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundController
       objectReference: {fileID: 0}
+    - target: {fileID: 3090718416718972338, guid: 8da2d2ed1c317b340be32978fc2bfb63,
+        type: 3}
+      propertyPath: menuSound
+      value: 
+      objectReference: {fileID: 362777852}
     - target: {fileID: 6971109164623152088, guid: 8da2d2ed1c317b340be32978fc2bfb63,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1825,11 +1833,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3090718416718972338, guid: 8da2d2ed1c317b340be32978fc2bfb63,
-        type: 3}
-      propertyPath: menuSound
-      value: 
-      objectReference: {fileID: 362777852}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8da2d2ed1c317b340be32978fc2bfb63, type: 3}
 --- !u!1001 &9007542587185295535

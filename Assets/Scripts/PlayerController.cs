@@ -21,12 +21,9 @@ public class PlayerController : MonoBehaviour
 
     public enum sides { Left, Center, Right }
 
-    //[SerializeField] List<Item> inventory;
-    //[SerializeField] float movementSpeed;
     [SerializeField] float rotSpeed;
     [HideInInspector] public float x;
     [HideInInspector] public float z;
-    //[HideInInspector] public cornerNames previousCorner;
     [HideInInspector] public cornerNames currentCorner;
     private float cameraAnlgeOffset = -45;
     [HideInInspector]
@@ -177,6 +174,9 @@ public class PlayerController : MonoBehaviour
 
                     mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().anchoredPosition = new Vector2(140, -140);
                     mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
+
+                    mainCanvas.transform.Find("TextOnUI").Rotate(new Vector3(0, 0, -90));
+                    mainCanvas.transform.Find("TextOnUI").localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 }
             }
 
@@ -482,7 +482,6 @@ public class PlayerController : MonoBehaviour
                     goodName = col.gameObject.name.Replace("(Clone)", "");
                     localPlayerData.inventory.Add(new BuffItem(goodName));
                     PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
-                    //RPC_DestroyObject(col.gameObject);
                     break;
                 case "weapon":
                     weaponInTrigger = col.gameObject;
@@ -493,7 +492,6 @@ public class PlayerController : MonoBehaviour
                         createWeaponIcon(goodName, new Vector2(90, 50), true, false);
                         localPlayerData.inventory.Add(new Weapon(goodName));
                         PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
-                        //RPC_DestroyObject(col.gameObject);
                     }
                     else
                     {
@@ -504,7 +502,6 @@ public class PlayerController : MonoBehaviour
                     goodName = col.gameObject.name.Replace("(Clone)", "");
                     localPlayerData.inventory.Add(new ConsumableItem(goodName));
                     PV.RPC("RPC_DestroyObject", RpcTarget.MasterClient, col.gameObject.GetPhotonView().ViewID);
-                    //RPC_DestroyObject(col.gameObject);
                     break;
                 case "Teleporter":
                     switch (col.gameObject.name)
@@ -575,7 +572,6 @@ public class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
         {
             localPlayerData = GlobalControl.Instance.savedPlayerData;
-            //localPlayerData.inventory = GlobalControl.Instance.savedPlayerData.inventory;
 
             if (localPlayerData.inventory.Exists((x) => x is Weapon))
             {
@@ -687,7 +683,6 @@ public class PlayerController : MonoBehaviour
         imgComp.sprite = Resources.Load<Sprite>("Icons/" + name);
 
         icon.transform.SetParent(mainCanvas.transform);
-        //icon.GetComponent<RectTransform>().localScale = new Vector3(2, 2, 2);
         icon.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
@@ -715,24 +710,6 @@ public class PlayerController : MonoBehaviour
             Destroy(swapButton);
         }
     }
-
-    /*
-    private void raycastTest()
-    {
-        RaycastHit hitInfo = new RaycastHit();
-        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(cam.WorldToScreenPoint(this.gameObject.transform.position)), out hitInfo);
-        if (hit)
-        {
-            if (!hitInfo.transform.gameObject.Equals(this.gameObject) && hitInfo.transform.gameObject.CompareTag("stage"))
-            {
-                cameraHorizontal = true;
-            }
-            else
-            {
-                cameraHorizontal = false;
-            }
-        }
-    }*/
 
     [PunRPC]
     private void RPC_DestroyObject(int viewID)
