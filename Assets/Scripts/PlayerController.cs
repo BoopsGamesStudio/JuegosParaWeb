@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     bool dead;
     bool scoreDisplayed;
 
+    bool canPressL;
+
     GameObject cone;
 
     [SerializeField] private GameObject buttonPrefab;
@@ -176,7 +178,7 @@ public class PlayerController : MonoBehaviour
                     mainCanvas.transform.Find("PlayerIcon").GetComponent<RectTransform>().Rotate(new Vector3(0, 0, -90));
 
                     mainCanvas.transform.Find("TextOnUI").Rotate(new Vector3(0, 0, -90));
-                    mainCanvas.transform.Find("TextOnUI").localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    mainCanvas.transform.Find("TextOnUI").localScale = new Vector3(0.7f, 0.7f, 0.7f);
                 }
             }
 
@@ -326,7 +328,7 @@ public class PlayerController : MonoBehaviour
                 if (this.transform.position.y < -20 && !dead)
                 {
                     PV.RPC("RPC_Die", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
-                    mainCanvas.GetComponentInChildren<Text>().text = "<color=#a10b00><b>YOU LOSE</b></color>";
+                    mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#a10b00><b>YOU LOSE</b></color>";
                     dead = true;
                 }
             } else
@@ -334,7 +336,7 @@ public class PlayerController : MonoBehaviour
                 if (!scoreDisplayed) {
                     if (!dead)
                     {
-                        mainCanvas.GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
+                        mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
                         leaderboard.Add(PhotonNetwork.LocalPlayer.ActorNumber);
                         scoreDisplayed = true;
                     }
@@ -367,9 +369,14 @@ public class PlayerController : MonoBehaviour
                             scoreTxt += "\n- Player " + elem;
                     }
 
-                    mainCanvas.transform.Find("ScorePanel").gameObject.SetActive(true);
-                    mainCanvas.transform.Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
+                    mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").gameObject.SetActive(true);
+                    mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
                 }
+            }
+
+            if(Input.GetKeyDown(KeyCode.L) && canPressL)
+            {
+                replaceWeapon();
             }
         }
     }
@@ -495,6 +502,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
+                        canPressL = true;
                         createButton(goodName);
                     }
                     break;
@@ -551,6 +559,7 @@ public class PlayerController : MonoBehaviour
             foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
             {
                 Destroy(swapButton);
+                canPressL = false;
                 createWeaponIcon(localPlayerData.getWeapon().getName(), new Vector2(90, 50), false, true);
             }
 
@@ -708,6 +717,7 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject swapButton in GameObject.FindGameObjectsWithTag("swapButton"))
         {
             Destroy(swapButton);
+            canPressL = false;
         }
     }
 

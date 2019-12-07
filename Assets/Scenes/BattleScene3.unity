@@ -543,6 +543,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2146317690227608298, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921380268178113084, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_Name
+      value: Winner
+      objectReference: {fileID: 0}
     - target: {fileID: 1096158874496174640, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: m_Name
@@ -693,11 +703,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4861232711470675053, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
     - target: {fileID: 7733470124077147577, guid: 71dd702e12ace744c936eafebc9e5f5f,
         type: 3}
       propertyPath: m_RootOrder
@@ -707,6 +712,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482687964898618917, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014486993840108470, guid: 71dd702e12ace744c936eafebc9e5f5f,
+        type: 3}
+      propertyPath: m_Name
+      value: TextOnUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd702e12ace744c936eafebc9e5f5f, type: 3}
