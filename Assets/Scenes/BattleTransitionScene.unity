@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   translationName: EMPEZANDO EN
-  FallbackText: 
+  FallbackText: EMPEZANDO EN
 --- !u!114 &1103851556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EMPEZANDO EN
+  m_Text: "\xBFPREPARADOS?"
 --- !u!222 &1103851557
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -989,10 +989,10 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: 'STARTING IN '
+    Text: READY?
     Object: {fileID: 0}
   - Language: Spanish
-    Text: EMPEZANDO EN
+    Text: "\xBFPREPARADOS?"
     Object: {fileID: 0}
 --- !u!1 &1989874634
 GameObject:

@@ -393,7 +393,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cooldown <= 0)
         {
-            cooldown = 0;
+            cooldown = 1;
             if (localPlayerData.inventory.Exists((x) => x is Weapon))
                 cooldown = localPlayerData.getWeapon().getCadence();
 
@@ -421,7 +421,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 impactVector = this.transform.forward;
                 impactVector.y = 0.5f;
 
-                Vector3 force = 0.06f * impactVector.normalized * localPlayerData.impact;
+                Vector3 force = 0.03f * impactVector.normalized * localPlayerData.impact;
                 bool usingMelee;
                 if(localPlayerData.inventory.Exists((x) => x is Weapon))
                 {
