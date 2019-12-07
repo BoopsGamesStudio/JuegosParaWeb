@@ -361,7 +361,10 @@ public class PlayerController : MonoBehaviour
 
                     foreach (string elem in score)
                     {
-                        scoreTxt += "\n- Player " + elem;
+                        if (PhotonNetwork.LocalPlayer.ActorNumber.ToString() == elem)
+                            scoreTxt += "\n<color=#00991f><b>- Player " + elem + "</b></color>";
+                        else
+                            scoreTxt += "\n- Player " + elem;
                     }
 
                     mainCanvas.transform.Find("ScorePanel").gameObject.SetActive(true);

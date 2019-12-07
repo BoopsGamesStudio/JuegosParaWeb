@@ -703,21 +703,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 300
       objectReference: {fileID: 0}
-    - target: {fileID: 1348166389551259814, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073205946335798621, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: m_Text
-      value: SOCRE
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073205946335798621, guid: 71dd702e12ace744c936eafebc9e5f5f,
-        type: 3}
-      propertyPath: m_FontData.m_LineSpacing
-      value: 1.7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd702e12ace744c936eafebc9e5f5f, type: 3}
 --- !u!224 &1033337146 stripped
@@ -1014,7 +999,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

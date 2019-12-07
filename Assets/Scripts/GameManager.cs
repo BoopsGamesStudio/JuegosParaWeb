@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.IO;
 using Lean.Localization;
+using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] float timeLeft;
     [SerializeField] Button jugar;
@@ -174,6 +175,17 @@ public class GameManager : MonoBehaviour
     public void How2playBtn()
     {
         SceneManager.LoadScene("How2PlayScene");
+    }
+
+    public void BackBtn()
+    {
+        if (PhotonNetwork.IsConnected)
+            PhotonNetwork.Disconnect();
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        SceneManager.LoadScene(0);
     }
 }
 
