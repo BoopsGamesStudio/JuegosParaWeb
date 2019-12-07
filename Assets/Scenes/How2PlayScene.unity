@@ -2031,7 +2031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Next
+  m_Text: Siguiente
 --- !u!222 &397879744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2763,7 +2763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack
+  m_Text: Ataque
 --- !u!222 &586203718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3631,9 +3631,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cadence: exclusive to weapons.
+  m_Text: 'Cadencia: Exclusiva en armas.
 
-    determines their speed of use.'
+    determina su rapidez de uso.'
 --- !u!222 &743669632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4104,7 +4104,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buffs
+  m_Text: Mejoras
 --- !u!222 &840754316
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4196,7 +4196,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: How to play
+  m_Text: "C\xF3mo jugar"
 --- !u!222 &874987703
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5377,7 +5377,7 @@ MonoBehaviour:
     Text: Buffs
     Object: {fileID: 0}
   - Language: Spanish
-    Text: "Estad\xEDsticas"
+    Text: Mejoras
     Object: {fileID: 0}
 --- !u!1 &1108618081
 GameObject:
@@ -6744,7 +6744,9 @@ MonoBehaviour:
       get weapons and buffs'
     Object: {fileID: 0}
   - Language: Spanish
-    Text: "Explora un amplio escenario y\nconsigue armas y estad\xEDsticas"
+    Text: 'Explora un amplio escenario y
+
+      consigue armas y mejoras'
     Object: {fileID: 0}
 --- !u!1 &1401039013
 GameObject:
@@ -7957,7 +7959,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Speed
+  m_Text: Velocidad
 --- !u!222 &1706672186
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8224,7 +8226,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Explora un amplio escenario y\nconsigue armas y estad\xEDsticas"
+  m_Text: 'Explora un amplio escenario y
+
+    consigue armas y mejoras'
 --- !u!222 &1812039830
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8443,7 +8447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Estad\xEDsticas"
+  m_Text: Mejoras
 --- !u!222 &1816749557
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9104,7 +9108,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Deffense
+  m_Text: Defensa
 --- !u!222 &1943207009
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9431,7 +9435,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: Anterior
 --- !u!222 &1962683206
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -91,8 +91,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (PhotonNetwork.IsMasterClient && !sceneLoaded)
                 {
                     sceneLoaded = true;
-                    battleSceneIndex = Random.Range(5, 8);
-                    PhotonNetwork.LoadLevel(battleSceneIndex);
+                    PhotonNetwork.LoadLevel("BattleTransitionScene");
                 }
             }
         }
