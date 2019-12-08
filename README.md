@@ -321,11 +321,24 @@ Los personajes DLC podrán ser usados en cualquier mapa, sin embargo, las armas 
 
 A continuación se presentan más en detalle los packs planeados:
 
-**Pack 1: Fiesta**
+**Pack 1: Volcán**
 
-**Pack 2: Volcán**
+<p align="center">
+  <img src="Concept/dlc1.png" width="750">
+</p>
 
-**Pack 3: Piratas**
+**Pack 2: Piratas**
+
+<p align="center">
+  <img src="Concept/dlc2.png" width="750">
+</p>
+
+**Pack 3: Fiesta**
+
+<p align="center">
+  <img src="Concept/dlc3.png" width="750">
+</p>
+
 
 # <a name="changelog"></a>8.- Historial de versiones
 
@@ -334,6 +347,7 @@ A continuación se presentan más en detalle los packs planeados:
 + (13/11/2019) Detallada información sobre la jugabilidad y la monetización
 + (06/12/2019) Añadido concept y corregido detalles
 + (07/12/2019) Ampliada la sección del futuro del juego
++ (08/12/2019) Añadidas imágenes con el contenido de los DLCs.
 
 # <a name="credits"></a>9.- Boops Games Studio
 
