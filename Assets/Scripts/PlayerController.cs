@@ -436,7 +436,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 impactVector = this.transform.forward;
                 impactVector.y = 0.5f;
 
-                Vector3 force = 0.04f * impactVector.normalized * localPlayerData.impact;
+                Vector3 force = 0.05f * impactVector.normalized * localPlayerData.impact;
                 bool usingMelee;
                 if(localPlayerData.inventory.Exists((x) => x is Weapon))
                 {

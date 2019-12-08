@@ -90,6 +90,7 @@ public class SelectCharacterController : MonoBehaviour
 
         if (timerToStartGame <= 0f)
         {
+            timerToStartDisplay.gameObject.transform.localPosition = new Vector3(0, -150, 0);
             timerToStartDisplay.text = "Entrando a partida en " + string.Format("{0:00}", timerToStartGame + 3);
 
             if (!startingGame)
