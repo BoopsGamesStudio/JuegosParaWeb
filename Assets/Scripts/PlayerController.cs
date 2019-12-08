@@ -301,6 +301,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.L) && canPressL)
+            {
+                replaceWeapon();
+            }
+
             if (anim.GetBool("isHitted"))
             {
                 timerForAnim += Time.deltaTime;
@@ -338,7 +343,6 @@ public class PlayerController : MonoBehaviour
                     {
                         mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
                         leaderboard.Add(PhotonNetwork.LocalPlayer.ActorNumber);
-                        scoreDisplayed = true;
                     }
                     else
                     {
@@ -351,6 +355,8 @@ public class PlayerController : MonoBehaviour
                             }
                         }
                     }
+
+                    scoreDisplayed = true;
 
                     string[] score = new string[leaderboard.Count];
 
@@ -373,11 +379,6 @@ public class PlayerController : MonoBehaviour
                     mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
                 }
             }
-
-            if(Input.GetKeyDown(KeyCode.L) && canPressL)
-            {
-                replaceWeapon();
-            }
         }
     }
 
@@ -389,7 +390,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("player " + player + " died haha");
             playerObject.GetComponent<PlayerController>().leaderboard.Add(player);
 
-            if (playerObject.GetComponent<PlayerController>().leaderboard.Count >= PhotonNetwork.PlayerList.Length - 1)
+            if (playerObject.GetComponent<PlayerController>().leaderboard.Count >= PhotonNetwork.CurrentRoom.PlayerCount - 1)
             {
                 playerObject.GetComponent<PlayerController>().gameOver = true;
             }
