@@ -151,6 +151,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            mainCanvas.transform.Find("TextOnUI").SetAsLastSibling();
+
             if (Application.isMobilePlatform)
             {
                 if (SceneManager.GetActiveScene().name == "SearchLevel")
@@ -328,55 +330,60 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (!gameOver)
+            if (SceneManager.GetActiveScene().name == "BattleScene1" || SceneManager.GetActiveScene().name == "BattleScene2" || SceneManager.GetActiveScene().name == "BattleScene3")
             {
-                if (this.transform.position.y < -20 && !dead)
+                if (!gameOver)
                 {
-                    PV.RPC("RPC_Die", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
-                    mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#a10b00><b>YOU LOSE</b></color>";
-                    dead = true;
-                }
-            } else
-            {
-                if (!scoreDisplayed) {
-                    if (!dead)
+                    if (this.transform.position.y < -20 && !dead)
                     {
-                        mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
-                        leaderboard.Add(PhotonNetwork.LocalPlayer.ActorNumber);
+                        PV.RPC("RPC_Die", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+                        mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#a10b00><b>YOU LOSE</b></color>";
+                        dead = true;
                     }
-                    else
+                }
+                else
+                {
+                    if (!scoreDisplayed)
                     {
-                        foreach (Player p in PhotonNetwork.PlayerList)
+                        if (!dead)
                         {
-                            if (!leaderboard.Contains(p.ActorNumber))
+                            mainCanvas.transform.Find("TextOnUI").GetComponentInChildren<Text>().text = "<color=#00991f><b>YOU WIN</b></color>";
+                            leaderboard.Add(PhotonNetwork.LocalPlayer.ActorNumber);
+                        }
+                        else
+                        {
+                            foreach (Player p in PhotonNetwork.PlayerList)
                             {
-                                leaderboard.Add(p.ActorNumber);
-                                break;
+                                if (!leaderboard.Contains(p.ActorNumber))
+                                {
+                                    leaderboard.Add(p.ActorNumber);
+                                    break;
+                                }
                             }
                         }
+
+                        scoreDisplayed = true;
+
+                        string[] score = new string[leaderboard.Count];
+
+                        for (int i = 0; i < score.Length; i++)
+                        {
+                            score[i] = PhotonNetwork.PlayerList[leaderboard[score.Length - i - 1] - 1].ActorNumber.ToString();
+                        }
+
+                        string scoreTxt = "FINAL LEADERBOARD";
+
+                        foreach (string elem in score)
+                        {
+                            if (PhotonNetwork.LocalPlayer.ActorNumber.ToString() == elem)
+                                scoreTxt += "\n<color=#00991f><b>- Player " + elem + "</b></color>";
+                            else
+                                scoreTxt += "\n- Player " + elem;
+                        }
+
+                        mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").gameObject.SetActive(true);
+                        mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
                     }
-
-                    scoreDisplayed = true;
-
-                    string[] score = new string[leaderboard.Count];
-
-                    for (int i = 0; i < score.Length; i++)
-                    {
-                        score[i] = PhotonNetwork.PlayerList[leaderboard[score.Length - i - 1] - 1].ActorNumber.ToString();
-                    }
-
-                    string scoreTxt = "FINAL LEADERBOARD";
-
-                    foreach (string elem in score)
-                    {
-                        if (PhotonNetwork.LocalPlayer.ActorNumber.ToString() == elem)
-                            scoreTxt += "\n<color=#00991f><b>- Player " + elem + "</b></color>";
-                        else
-                            scoreTxt += "\n- Player " + elem;
-                    }
-
-                    mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").gameObject.SetActive(true);
-                    mainCanvas.transform.Find("TextOnUI").Find("ScorePanel").GetComponentInChildren<Text>().text = scoreTxt;
                 }
             }
         }
