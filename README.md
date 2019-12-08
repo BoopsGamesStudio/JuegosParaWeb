@@ -234,46 +234,46 @@ Hay dos modos de jugar, uno más pensado para dispositivos móviles y otro más 
 
 + ## 4.a Diagrama de flujo (Idea inicial)	
 
-  <img src="Concept/flujo.png" >
+<img src="Concept/flujo.png" width="500">
 
 + ## 4.b Menú principal
 
-  <img src="Concept/prueba_principal.png">
+<img src="Concept/prueba_principal.png" width="500">
 
 La idea de *Tus reglas* se descartó posteriormente. Se añadió una sección de *Contacto*.
 
 + ## 4.c Cómo jugar
 
-  <img src="Concept/tut1.png" width="500">
+<img src="Concept/tut1.png" width="500">
 
-  <img src="Concept/tut2.png" width="500">
+<img src="Concept/tut2.png" width="500">
 
-  <img src="Concept/tut3.png" width="500">
+<img src="Concept/tut3.png" width="500">
 
-  <img src="Concept/tut4.png" width="500">
+<img src="Concept/tut4.png" width="500">
   
-  <img src="Concept/tut5.png" width="500">
+<img src="Concept/tut5.png" width="500">
 
 + ## 4.d Opciones	
 
- <img src="Concept/prueba_otros.png">
+<img src="Concept/prueba_otros.png" width="500">
 
 + ## 4.e Selección de personaje	
 
-<img src="Concept/prueba_personajes.png">
+<img src="Concept/prueba_personajes.png" width="500">
 
 + ## 4.f Juego	
 
-<img src="Concept/prueba.png">
+<img src="Concept/prueba.png" width="500">
 
 
 + ## 4.g Pantalla de transición
 
-<img src="Concept/prueba_resultados.png">
+<img src="Concept/prueba_resultados.png" width="500">
 
 + ## 4.h Resultados
 
-<img src="Concept/prueba_ganador.png">
+<img src="Concept/prueba_ganador.png" width="500">
 
 # <a name="art"></a>5.- Arte 
 
@@ -289,6 +289,19 @@ La idea de *Tus reglas* se descartó posteriormente. Se añadió una sección de
   <img src="Concept/roboto.png" width="750">
 </p>
 
+<p align="center">
+  <img src="Concept/156F507A-43A0-4F77-B4CD-FC6EC15CF1FC.jpeg" width="750">
+</p>
+
+<p align="center">
+  <img src="Concept/69874DEC-3E22-40C3-A76C-31C36645EC52.jpeg" width="750">
+</p>
+
+<p align="center">
+  <img src="Concept/AFFA2366-2163-4D0B-B28C-CABF2610E0D5.jpeg" width="750">
+</p>
+
+
 
 # <a name="money"></a>6.- Sistema de monetización
 
@@ -300,7 +313,19 @@ La idea del season pass es poder financiar el proyecto mientras se desarrolla, e
 
 # <a name="future"></a>7.- El futuro del proyecto
 
+A lo largo de dos años, se sacarán tres packs de DLC en la tienda del juego. Estos packs tendrán un precio inicial de 5€ cada uno y incluirán un nuevo personaje, 4 nuevas armas y un nuevo escenario con mecánicas exclusivas. El season pass incluirá acceso a estos 3 DLC por solo 12€.
 
+Los jugadores que no adquieran los DLCs podrán seguir jugando al juego, pero solo podrán jugar en partidas en el mapa por defecto, elegir entre los personajes principales y tener acceso a las 12 armas base del juego. 
+
+Los personajes DLC podrán ser usados en cualquier mapa, sin embargo, las armas DLC serán exclusivas de sus respectivos mapas y contarán con sus propios stats y mecánicas exclusivas.
+
+A continuación se presentan más en detalle los packs planeados:
+
+**Pack 1: Fiesta**
+
+**Pack 2: Volcán**
+
+**Pack 3: Piratas**
 
 # <a name="changelog"></a>8.- Historial de versiones
 
@@ -308,11 +333,12 @@ La idea del season pass es poder financiar el proyecto mientras se desarrolla, e
 + (12/11/2019) Añadida información inical del juego
 + (13/11/2019) Detallada información sobre la jugabilidad y la monetización
 + (06/12/2019) Añadido concept y corregido detalles
++ (07/12/2019) Ampliada la sección del futuro del juego
 
 # <a name="credits"></a>9.- Boops Games Studio
 
 <p align="center">
-  <img src="Arte/31B9A9B0-C7EA-449F-A336-57E720E593D2.png" width="200">
+  <img src="Concept/logo.png" width="200">
 </p>
 
 + Alejandro Hernández Pérez -
