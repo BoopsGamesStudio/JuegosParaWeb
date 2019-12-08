@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -62.315002, y: -70.00001}
+  m_AnchoredPosition: {x: -62.315002, y: -57.500008}
   m_SizeDelta: {x: 98.57, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37905353
@@ -475,7 +475,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Girar\nc\xE1mara\nizquierda"
+  m_Text: 'Turn
+
+    camera
+
+    left'
 --- !u!222 &37905355
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -618,7 +622,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Girar\nc\xE1mara\nderecha"
+  m_Text: 'Turn
+
+    camera
+
+    right'
 --- !u!222 &62952373
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -682,7 +690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c564b7cd90f23d146a93475298f46355, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 805cc4ae142ad214c85f299b9f1681f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -771,6 +779,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71480952}
   m_CullTransparentMesh: 0
+--- !u!1 &93653517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 93653518}
+  - component: {fileID: 93653519}
+  m_Layer: 0
+  m_Name: Change Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &93653518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93653517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 993639330}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &93653519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93653517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: 'Change
+
+      Weapon'
+    Object: {fileID: 0}
+  - Language: Spanish
+    Text: 'Cambiar
+
+      Arma'
+    Object: {fileID: 0}
 --- !u!1 &124888926
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +966,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Atacar
+  m_Text: Attack
 --- !u!222 &131041887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1027,6 +1090,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundController
       objectReference: {fileID: 0}
+    - target: {fileID: 3090718416718972338, guid: 8da2d2ed1c317b340be32978fc2bfb63,
+        type: 3}
+      propertyPath: menuSound
+      value: 
+      objectReference: {fileID: 1519411631}
     - target: {fileID: 6971109164623152088, guid: 8da2d2ed1c317b340be32978fc2bfb63,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1082,11 +1150,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3090718416718972338, guid: 8da2d2ed1c317b340be32978fc2bfb63,
-        type: 3}
-      propertyPath: menuSound
-      value: 
-      objectReference: {fileID: 1519411631}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8da2d2ed1c317b340be32978fc2bfb63, type: 3}
 --- !u!114 &155669059 stripped
@@ -1147,9 +1210,9 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: 'Cadence: exclusive to weapons.
+    Text: 'Fire rate: exclusive to weapons.
 
-      determines their speed of use.'
+      determines how fast you can use them'
     Object: {fileID: 0}
   - Language: Spanish
     Text: 'Cadencia: Exclusiva en armas.
@@ -1939,7 +2002,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Atacar
+  m_Text: Attack
 --- !u!222 &377380773
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2031,7 +2094,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Siguiente
+  m_Text: Next
 --- !u!222 &397879744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2195,7 +2258,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Controles
+  m_Text: Controls
 --- !u!222 &456247793
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2763,7 +2826,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ataque
+  m_Text: Attack
 --- !u!222 &586203718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2855,7 +2918,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retroceder
+  m_Text: Backwards
 --- !u!222 &589508856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2898,7 +2961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.31, y: -71}
+  m_AnchoredPosition: {x: -122.31, y: -56.8}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &599278051
@@ -3294,7 +3357,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Exploraci\xF3n"
+  m_Text: Exploration
 --- !u!222 &652806392
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3631,9 +3694,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cadencia: Exclusiva en armas.
+  m_Text: 'Fire rate: exclusive to weapons.
 
-    determina su rapidez de uso.'
+    determines how fast you can use them'
 --- !u!222 &743669632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3889,7 +3952,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retroceder
+  m_Text: Backwards
 --- !u!222 &803239436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4104,7 +4167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mejoras
+  m_Text: Buffs
 --- !u!222 &840754316
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4112,6 +4175,78 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840754312}
+  m_CullTransparentMesh: 0
+--- !u!1 &842338531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842338532}
+  - component: {fileID: 842338534}
+  - component: {fileID: 842338533}
+  m_Layer: 5
+  m_Name: Image (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &842338532
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842338531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2006591123}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -122.31, y: -129.3}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &842338533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842338531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 818c8a83bc25b434889f63f932d9430b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &842338534
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842338531}
   m_CullTransparentMesh: 0
 --- !u!1 &874987699
 GameObject:
@@ -4196,7 +4331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "C\xF3mo jugar"
+  m_Text: How to play
 --- !u!222 &874987703
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4413,9 +4548,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Girar
+  m_Text: 'Turn
 
-    Dcha'
+    Right'
 --- !u!222 &929718310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4736,6 +4871,7 @@ Transform:
   - {fileID: 549495639}
   - {fileID: 1616897003}
   - {fileID: 162950763}
+  - {fileID: 93653518}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4822,7 +4958,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Batalla
+  m_Text: Battle
 --- !u!222 &1028274695
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5008,9 +5144,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Girar
+  m_Text: 'Turn
 
-    Dcha'
+    Right'
 --- !u!222 &1049229038
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5317,9 +5453,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Girar
+  m_Text: 'Turn
 
-    Izq'
+    Left'
 --- !u!222 &1087599281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6067,7 +6203,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Avanzar
+  m_Text: Forward
 --- !u!222 &1247758892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6323,9 +6459,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Girar
+  m_Text: 'Turn
 
-    Izq'
+    Left'
 --- !u!222 &1322295792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6368,7 +6504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.31, y: -119.49999}
+  m_AnchoredPosition: {x: -122.31, y: -92.9}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1334258617
@@ -6684,7 +6820,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Batalla
+  m_Text: Battle
 --- !u!222 &1390887999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6975,7 +7111,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Girar\nc\xE1mara\nizquierda"
+  m_Text: 'Turn
+
+    camera
+
+    left'
 --- !u!222 &1444699713
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7600,7 +7740,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Exploraci\xF3n"
+  m_Text: Exploration
 --- !u!222 &1561605613
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7959,7 +8099,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Velocidad
+  m_Text: Speed
 --- !u!222 &1706672186
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8656,7 +8796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -62.31501, y: -119.49999}
+  m_AnchoredPosition: {x: -62.31501, y: -95.8}
   m_SizeDelta: {x: 74.6, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1840346307
@@ -8704,7 +8844,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Girar\nc\xE1mara\nderecha"
+  m_Text: 'Turn
+
+    camera
+
+    right'
 --- !u!222 &1840346309
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9108,7 +9252,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Defensa
+  m_Text: Deffense
 --- !u!222 &1943207009
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9116,6 +9260,100 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943207005}
+  m_CullTransparentMesh: 0
+--- !u!1 &1950526466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1950526467}
+  - component: {fileID: 1950526470}
+  - component: {fileID: 1950526469}
+  - component: {fileID: 1950526468}
+  m_Layer: 5
+  m_Name: ChangeWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1950526467
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950526466}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2006591123}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -62.31501, y: -135.5}
+  m_SizeDelta: {x: 74.6, y: 39}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1950526468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950526466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee4021ce59f313499a5cab041f02aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Change Weapon
+  FallbackText: New Text
+--- !u!114 &1950526469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950526466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8509804, g: 0.4513394, b: 0.06666666, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 0c13ef0ca64020f48b5c451ab5d7c79f, type: 3}
+    m_FontSize: 10
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Change
+
+    Weapon'
+--- !u!222 &1950526470
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950526466}
   m_CullTransparentMesh: 0
 --- !u!1 &1955033583
 GameObject:
@@ -9343,7 +9581,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Controles
+  m_Text: Controls
 --- !u!222 &1962463843
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9435,7 +9673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Anterior
+  m_Text: Back
 --- !u!222 &1962683206
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9527,7 +9765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Avanzar
+  m_Text: Forward
 --- !u!222 &1962991558
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9724,6 +9962,8 @@ RectTransform:
   - {fileID: 1840346306}
   - {fileID: 489649432}
   - {fileID: 131041884}
+  - {fileID: 842338532}
+  - {fileID: 1950526467}
   m_Father: {fileID: 2072043766}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

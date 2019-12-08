@@ -8,6 +8,14 @@ using UnityEngine.UI;
 
 public class SelectCharacterController : MonoBehaviour
 {
+    [SerializeField]
+    private Text attackText;
+    [SerializeField]
+    private Text deffenseText;
+    [SerializeField]
+    private Text speedText;
+
+
     [SerializeField] Transform displayPoint;
     [SerializeField]
     private GameObject rotLButton;
@@ -53,8 +61,10 @@ public class SelectCharacterController : MonoBehaviour
         robot = "Balance_Robot";
         DisplayCharacters();
         timerToStartGame = maxWaitTime;
-    
+        updateText();
         PV = GetComponent<PhotonView>();
+
+
 
         if (PhotonNetwork.IsMasterClient)
             PV.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
@@ -132,6 +142,7 @@ public class SelectCharacterController : MonoBehaviour
         {
             robot = robots[(robots.Count - 1) - index];
         }
+        updateText();
     }
 
     public void rotRBtn()
@@ -146,6 +157,7 @@ public class SelectCharacterController : MonoBehaviour
         {
             robot = robots[(robots.Count - 1) - index];
         }
+        updateText();
     }
 
     public void SelectBtn()
@@ -239,5 +251,44 @@ public class SelectCharacterController : MonoBehaviour
         localPlayerData.playerId = PhotonNetwork.LocalPlayer.ActorNumber;
         Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
         GlobalControl.Instance.savedPlayerData = localPlayerData;
+    }
+
+    private void updateText()
+    {
+        switch (robot)
+        {
+            case "Balance_Robot":
+                attackText.text = "+2";
+                deffenseText.text = "+2";
+                speedText.text = "+2";
+                attackText.color = Color.yellow;
+                deffenseText.color = Color.yellow;
+                speedText.color = Color.yellow;
+                break;
+            case "Attack_Robot":
+                attackText.text = "+3";
+                deffenseText.text = "+1";
+                speedText.text = "+2";
+                attackText.color = Color.green;
+                deffenseText.color = Color.red;
+                speedText.color = Color.yellow;
+                break;
+            case "Defense_Robot":
+                attackText.text = "+1";
+                deffenseText.text = "+3";
+                speedText.text = "+2";
+                attackText.color = Color.red;
+                deffenseText.color = Color.green;
+                speedText.color = Color.yellow;
+                break;
+            case "Speed_Robot":
+                attackText.text = "+1";
+                deffenseText.text = "+2";
+                speedText.text = "+3";
+                attackText.color = Color.red;
+                deffenseText.color = Color.yellow;
+                speedText.color = Color.green;
+                break;
+        }
     }
 }
